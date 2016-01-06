@@ -1,0 +1,128 @@
+module.exports = [
+    {
+        "id": "18",
+        "ID_GENERATOR": "_4",
+        "nombre": "Community",
+        "year": "2013",
+        "imagen": "https://image.tmdb.org/t/p/w185/dTbUGkziFhybq3DrQVBASM8sii3.jpg",
+        "temporada": "4",
+        "alta": "3/28/2015"
+    },
+    {
+        "id": "19",
+        "ID_GENERATOR": "_5",
+        "nombre": "Community",
+        "year": "2014",
+        "imagen": "https://image.tmdb.org/t/p/w185/fU45lxpd4TrloQOfeAyF5JhYf5K.jpg",
+        "temporada": "5",
+        "alta": "3/30/2015"
+    },
+    {
+        "id": "21",
+        "ID_GENERATOR": "_6",
+        "nombre": "Community",
+        "year": "2015",
+        "imagen": "https://image.tmdb.org/t/p/w185/rP6FNvCMEuzhZAgsUTIWcVv5n9d.jpg",
+        "temporada": "6",
+        "alta": "4/8/2015"
+    },
+    {
+        "id": "25",
+        "ID_GENERATOR": "60726_1",
+        "nombre": "Forever",
+        "year": "2014",
+        "imagen": "https://image.tmdb.org/t/p/w185/xUPkQ2MJtv5ZoBiAHVU79yVI1NZ.jpg",
+        "temporada": "1",
+        "alta": "7/16/2015"
+    },
+    {
+        "id": "22",
+        "ID_GENERATOR": "_5",
+        "nombre": "Games of Thrones",
+        "year": "2015",
+        "imagen": "http://im.ziffdavisinternational.com/ign_latam/tv/g/game-of-th/game-of-thrones-season-5_cw4j.jpg",
+        "temporada": "5",
+        "alta": "4/12/2015"
+    },
+    {
+        "id": "32",
+        "ID_GENERATOR": "1100_1",
+        "nombre": "How I Met Your Mother",
+        "year": "2005",
+        "imagen": "https://image.tmdb.org/t/p/w185//ucL7hFkAlOIHDBbCHDVm3Bj6PrQ.jpg",
+        "temporada": "1",
+        "alta": "10/24/2015"
+    },
+    {
+        "id": "33",
+        "ID_GENERATOR": "1100_2",
+        "nombre": "How I Met Your Mother",
+        "year": "2006",
+        "imagen": "https://image.tmdb.org/t/p/w185//u3uSI3KucN1zy4jV6V0GbLqbAEU.jpg",
+        "temporada": "2",
+        "alta": "11/11/2015"
+    },
+    {
+        "id": "7",
+        "ID_GENERATOR": "_6",
+        "nombre": "How I Met Your Mother",
+        "year": "2010",
+        "imagen": "https://image.tmdb.org/t/p/w185/n1kRegqvMCkT6jlc35SZZeusEtJ.jpg",
+        "temporada": "6",
+        "alta": "3/26/2015"
+    },
+    {
+        "id": "8",
+        "ID_GENERATOR": "_7",
+        "nombre": "How I Met Your Mother",
+        "year": "2011",
+        "imagen": "https://image.tmdb.org/t/p/w185/z6z5t33Dn93mloXa8lIkwqgZ0Qh.jpg",
+        "temporada": "7",
+        "alta": "3/26/2015"
+    },
+    {
+        "id": "9",
+        "ID_GENERATOR": "_8",
+        "nombre": "How I Met Your Mother",
+        "year": "2012",
+        "imagen": "https://image.tmdb.org/t/p/w185/q4g25dFhEwXiHSvOa4qQbgByNTv.jpg",
+        "temporada": "8",
+        "alta": "3/26/2015"
+    },
+    {
+        "id": "28",
+        "ID_GENERATOR": "1100_9",
+        "nombre": "How I Met Your Mother",
+        "year": "2013",
+        "imagen": "https://image.tmdb.org/t/p/w185//ez6pjmvnZpdfowSlGfEJFsNZLBQ.jpg",
+        "temporada": "9",
+        "alta": "9/9/2015"
+    },
+    {
+        "id": "20",
+        "ID_GENERATOR": "_6",
+        "nombre": "Modern Family",
+        "year": "2014",
+        "imagen": "https://image.tmdb.org/t/p/w185/vR9fqjg83hJl6GxXmyZuS1E1gDe.jpg",
+        "temporada": "6",
+        "alta": "4/3/2015"
+    },
+    {
+        "id": "31",
+        "ID_GENERATOR": "1421_7",
+        "nombre": "Modern Family",
+        "year": "2015",
+        "imagen": "https://image.tmdb.org/t/p/w185//ukIH4t9HqLEvpugpamcY84TaIcf.jpg",
+        "temporada": "7",
+        "alta": "9/24/2015"
+    },
+    {
+        "id": "30",
+        "ID_GENERATOR": "1418_9",
+        "nombre": "The Big Bang Theory",
+        "year": "2015",
+        "imagen": "https://image.tmdb.org/t/p/w185//eKDvR1vYLCE08K1h0KUfHNlid8T.jpg",
+        "temporada": "9",
+        "alta": "9/22/2015"
+    }
+]
