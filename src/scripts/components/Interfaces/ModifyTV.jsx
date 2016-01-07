@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {modifyFilm, getOneFilm} from '../../actions'
+import {modifyTV, getOneTV} from '../../actions'
 
 
 
-class ModifyFilm extends React.Component {
+class ModifyTV extends React.Component {
 
   constructor(props) {
     super(props);
@@ -16,8 +16,8 @@ class ModifyFilm extends React.Component {
 
     const { dispatch } = this.props;
 
-    dispatch(getOneFilm(this.props.params.id, res => {
-      console.log('res ModifyFilm',res)
+    dispatch(getOneTV(this.props.params.id, res => {
+      console.log('res ModifyTV',res)
       this.setState({data: res});
     }))
 
@@ -30,16 +30,17 @@ class ModifyFilm extends React.Component {
       id: this.props.params.id,
       nombre: this.refs.name.value,
       overview: this.refs.overview.value,
-      imagen: this.refs.imagen.value
+      imagen: this.refs.imagen.value,
+      temporada: this.refs.temporada.value
     }
 
-    console.log('obj ModifyFilm',obj)
+    console.log('obj ModifyTV',obj)
 
     const { dispatch } = this.props;
 
-    dispatch(modifyFilm(obj, res => {
-      console.log('res modify FILM',res);
-      this.props.history.push('/')
+    dispatch(modifyTV(obj, res => {
+      console.log('res modify TV',res);
+      this.props.history.push('/tv')
     }));
 
 
@@ -54,6 +55,7 @@ class ModifyFilm extends React.Component {
           <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                   <label className="is-required">Nombre</label>
                   <input ref="name" className={this.state.inputName} defaultValue={this.state.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
+                  <input ref="temporada" className={this.state.inputName} defaultValue={this.state.data.temporada} type="text" name="temporada" required placeholder="Temporada" autoComplete="off"></input>
                   <textarea ref="overview" className={this.state.inputName} defaultValue={this.state.data.overview}  name="overview" required placeholder="Descripcion" autoComplete="off"></textarea>
                   <input ref="imagen" className={this.state.inputName} defaultValue={this.state.data.imagen} type="text" name="ref" required placeholder="Imagen" autoComplete="off"></input>
 
@@ -68,4 +70,4 @@ class ModifyFilm extends React.Component {
 }
 
 
-export default connect()(ModifyFilm)
+export default connect()(ModifyTV)

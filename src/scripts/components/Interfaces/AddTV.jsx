@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-//import {addOneFilm} from '../../actions'
+import {addOneTV} from '../../actions'
 
 
 
@@ -19,14 +19,14 @@ class AddTV extends React.Component {
       temporada: this.refs.temporada.value
     }
 
-    console.log('obj addTV',obj)
-
     const { dispatch } = this.props;
 
-    /*dispatch(addOneTV(obj, ( (res) => {
-      console.log('res ADD FILM',res);
-      this.props.history.push('/')
-    })));*/
+    dispatch(addOneTV(obj, res => {
+      console.log('res ADD TV',res);
+      this.props.history.push('/tv')
+    }));
+
+
 
 
 

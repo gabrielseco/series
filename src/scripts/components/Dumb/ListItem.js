@@ -9,13 +9,15 @@ export default class ListItem extends React.Component {
     }
 
     render() {
-
+      let alt = this.props.data.temporada === undefined
+                ? this.props.data.nombre
+                : this.props.data.nombre + " Season " + this.props.data.temporada
       return (
         <div className="show-image">
             <img onClick={this.props.modify.bind(this, this.props.data)}
                  src={this.props.data.imagen}
-                 title={this.props.data.Nombre}
-                 alt={this.props.data.Nombre}
+                 title={alt}
+                 alt={alt}
                  width="230"
                  height="345"/>
             <input type="button"

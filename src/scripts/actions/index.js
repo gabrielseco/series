@@ -61,8 +61,39 @@ export function deleteFilm(id, cb){
 
 export function getAllTV() {
   return dispatch => {
-    TV.getTV(TV => {
+    TV.getTVS(TV => {
       dispatch(receiveTV(TV))
     })
+  }
+}
+
+export function addOneTV(obj, cb) {
+  return dispatch => {
+    TV.addTV(obj, TV => {
+      cb (TV)
+    });
+  }
+}
+export function getOneTV(obj, cb) {
+  return dispatch => {
+    TV.getTV(obj, TV => {
+      cb (TV)
+    });
+  }
+}
+
+export function modifyTV(obj, cb) {
+  return dispatch => {
+    TV.modifyTV(obj, TV => {
+      cb (TV)
+    });
+  }
+}
+
+export function deleteTV(id, cb){
+  return dispatch => {
+    TV.deleteTV(id, TV => {
+      cb (TV)
+    });
   }
 }

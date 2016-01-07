@@ -10,51 +10,82 @@ import axios from 'axios'
 const TIMEOUT = 100
 
 export default {
-  getDataTV(obj , cb){
+  async getDataTV(obj){
 
-      var name       = obj.nombre.trim(),
-          temporada  = obj.temporada.trim();
+      var nombre       = obj.nombre.trim(),
+          temporada  = obj.temporada.trim(),
           imagen     = _image_path,
           year       = null,
           idSerie  = null,
           overview   = null;
 
-    axios.get(_apiendpoint + 'search/tv?api_key='+ _api_key +'&query='+ name).then(response => {
-        console.log('res moviedb tv add', response);
-        response = response.data;
+      var response = await axios.get(_apiendpoint + 'search/tv?api_key='+ _api_key +'&query='+ nombre);
+          response = response.data;
 
-        if(response.results.length > 0){
-          nombre = response.results[0].original_title;
-          idSerie = response.results[0].id;
-          overview = response.results[0].overview;
+
+       if(response.results.length > 0) {
+         nombre   = response.results[0].original_name;
+         idSerie  = response.results[0].id;
+         overview = response.results[0].overview
+
+
+         var responseImg = await axios.get(_apiendpoint + 'tv/'+idSerie+'?api_key='+ _api_key +'&query='+ nombre);
+         responseImg = responseImg.data;
+
+
+         for(var i = 0; i < responseImg.seasons.length; i++){
+
+           if(responseImg.seasons[i].season_number.toString() === temporada){
+             var idSeason = responseImg.seasons[i].id;
+             var imagen = _image_path + responseImg.seasons[i].poster_path;
+             var year = responseImg.seasons[i].air_date.slice(0, 4);
+           }
+
+         }
+
+         var data = {
+           nombre: nombre,
+           temporada: temporada,
+           imagen: imagen,
+           year: year,
+           idSerie: idSerie,
+           idSeason: idSeason,
+           overview: overview
+         };
+
+         return data;
       }
 
-      var data = {
-       'nombre': nombre,
-       'temporada': temporada,
-       'imagen': imagen,
-       'year': year,
-       'idSerie': idSerie,
-       'overview': overview
-     };
-
-     cb(data)
-
-    });
-
   },
-  getTV(cb, timeout) {
-    var results = get('series',res => {
+  getTVS(cb, timeout) {
+    var results =  get('series/getSeries').then(res => {
       setTimeout(() => cb(res), timeout || TIMEOUT)
-
     });
+  },
+  getTV(id, cb, timeout){
+    var results =  getOne('series', id).then(res => {
+      setTimeout(() => cb(res), timeout || TIMEOUT)
+    });
+
   },
   addTV(obj, cb, timeout){
-    this.getDataTV(obj, data => {
-      add('films', data, res => {
+    this.getDataTV(obj).then(data => {
+      add('series', data).then(res => {
         setTimeout(() => cb(res), timeout || TIMEOUT)
       });
     })
+
+
+  },
+  modifyTV(obj, cb, timeout){
+    update('series',obj.id, obj).then(res => {
+      setTimeout(() => cb(res), timeout || TIMEOUT)
+    })
+  },
+  deleteTV(id, cb, timeout){
+    deleteData('series',id).then(res => {
+        setTimeout(() => cb(res), timeout || TIMEOUT)
+    });
 
   },
 }

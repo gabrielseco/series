@@ -13,6 +13,8 @@ import ModifyFilm from './Interfaces/ModifyFilm.jsx';
 
 import TV from './Interfaces/TV.jsx';
 import AddTV from './Interfaces/AddTV.jsx';
+import ModifyTV from './Interfaces/ModifyTV.jsx';
+
 
 
 var history = createHistory({
@@ -49,7 +51,17 @@ try {
           name="modifyFilm"
           component={ModifyFilm}
           />
-        
+          <Route
+          path="/addTV"
+          name="addTV"
+          component={AddTV}
+          />
+          <Route
+          path="/modifyTV/:id"
+          name="ModifyTV"
+          component={ModifyTV}
+          />
+
         </Route>
       </Router>
     </Provider>

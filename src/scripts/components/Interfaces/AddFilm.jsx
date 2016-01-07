@@ -22,10 +22,10 @@ class AddFilm extends React.Component {
 
     const { dispatch } = this.props;
 
-    dispatch(addOneFilm(obj, ( (res) => {
+    dispatch(addOneFilm(obj, res => {
       console.log('res ADD FILM',res);
       this.props.history.push('/')
-    })));
+    }));
 
 
 

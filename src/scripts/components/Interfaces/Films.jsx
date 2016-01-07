@@ -68,7 +68,7 @@ class Films extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(deleteFilm(this.state.film.id , res => {
-      console.log('res ADD FILM',res);
+      console.log('res DELETE FILM',res);
       location.reload()
     }));
 
@@ -115,8 +115,7 @@ class Films extends React.Component {
   //to avoid this I pass it to the component state
   //and then I can use the search component
   render() {
-    const   { films } = this.props
-    this.state.films  = films
+    const  { films } = this.props
 
 
     const palabras = (
@@ -127,6 +126,7 @@ class Films extends React.Component {
 
 
     if(films.length > 0) {
+      this.state.films = films;
       if (this.state.searchTerm.length > 0) {
         var filters = ['nombre'];
         this.state.films = this.state.films.filter(this.refs.search.filter(filters));
