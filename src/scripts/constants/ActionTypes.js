@@ -4,3 +4,5 @@ export const MODIFY_FILMS = 'MODIFY_FILMS'
 export const DELETE_FILMS = 'DELETE_FILMS'
 
 export const RECEIVE_TV = 'RECEIVE_TV'
+
+export const RECEIVE_BOOKS = 'RECEIVE_BOOKS'

@@ -2,6 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {modifyFilm, getOneFilm} from '../../actions'
 
+var fieldValues = {
+  nombre: null,
+  youtube: null,
+  description: null,
+  airdate: null,
+  imagen: null,
+  id: null
+};
 
 
 class ModifyFilm extends React.Component {

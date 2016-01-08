@@ -15,6 +15,10 @@ import TV from './Interfaces/TV.jsx';
 import AddTV from './Interfaces/AddTV.jsx';
 import ModifyTV from './Interfaces/ModifyTV.jsx';
 
+import Books from './Interfaces/Books.jsx';
+import AddBook from './Interfaces/AddBook.jsx';
+import ModifyBook from './Interfaces/ModifyBook.jsx';
+
 
 
 var history = createHistory({
@@ -42,6 +46,11 @@ try {
           component={TV}
           />
           <Route
+          path="/books"
+          name="Books"
+          component={Books}
+          />
+          <Route
           path="/addFilm"
           name="addFilm"
           component={AddFilm}
@@ -60,6 +69,16 @@ try {
           path="/modifyTV/:id"
           name="ModifyTV"
           component={ModifyTV}
+          />
+          <Route
+          path="/addBook"
+          name="addBook"
+          component={AddBook}
+          />
+          <Route
+          path="/modifyBook/:id"
+          name="modifyBook"
+          component={ModifyBook}
           />
 
         </Route>

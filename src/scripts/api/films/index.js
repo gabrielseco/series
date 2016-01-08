@@ -42,36 +42,12 @@ export default {
 
 
   },
-  getFilms(cb, timeout) {
-     var results =  get('films').then(res => {
-       setTimeout(() => cb(res), timeout || TIMEOUT)
-     });
-
-  },
-  getFilm(id, cb, timeout){
-    var results =  getOne('films', id).then(res => {
-      setTimeout(() => cb(res), timeout || TIMEOUT)
-    });
-
-  },
   addFilm(obj, cb, timeout){
     this.getDataFilm(obj,function(data){
       var results = add('films', data).then(res => {
         setTimeout(() => cb(res), timeout || TIMEOUT)
       });
     })
-
-  },
-  modifyFilm(obj, cb, timeout){
-    update('films',obj.id, obj).then(res => {
-      setTimeout(() => cb(res), timeout || TIMEOUT)
-    })
-
-  },
-  deleteFilm(id, cb, timeout){
-    deleteData('films',id).then(res => {
-        setTimeout(() => cb(res), timeout || TIMEOUT)
-    });
 
   },
 }

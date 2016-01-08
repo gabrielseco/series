@@ -57,35 +57,11 @@ export default {
       }
 
   },
-  getTVS(cb, timeout) {
-    var results =  get('series/getSeries').then(res => {
-      setTimeout(() => cb(res), timeout || TIMEOUT)
-    });
-  },
-  getTV(id, cb, timeout){
-    var results =  getOne('series', id).then(res => {
-      setTimeout(() => cb(res), timeout || TIMEOUT)
-    });
-
-  },
   addTV(obj, cb, timeout){
     this.getDataTV(obj).then(data => {
       add('series', data).then(res => {
         setTimeout(() => cb(res), timeout || TIMEOUT)
       });
     })
-
-
-  },
-  modifyTV(obj, cb, timeout){
-    update('series',obj.id, obj).then(res => {
-      setTimeout(() => cb(res), timeout || TIMEOUT)
-    })
-  },
-  deleteTV(id, cb, timeout){
-    deleteData('series',id).then(res => {
-        setTimeout(() => cb(res), timeout || TIMEOUT)
-    });
-
   },
 }
