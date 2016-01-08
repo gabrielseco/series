@@ -19,6 +19,8 @@ import Books from './Interfaces/Books.jsx';
 import AddBook from './Interfaces/AddBook.jsx';
 import ModifyBook from './Interfaces/ModifyBook.jsx';
 
+import Episodes from './Interfaces/Episodes.jsx';
+
 
 
 var history = createHistory({
@@ -79,6 +81,11 @@ try {
           path="/modifyBook/:id"
           name="modifyBook"
           component={ModifyBook}
+          />
+          <Route
+          path="/episodes/:id"
+          name="episodes"
+          component={Episodes}
           />
 
         </Route>

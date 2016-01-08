@@ -25,6 +25,13 @@ function receiveBooks(books) {
   }
 }
 
+function receiveEpisodes(episodes){
+  return {
+    type: types.RECEIVE_EPISODES,
+    episodes: episodes
+  }
+}
+
 export function getAllFilms() {
   return dispatch => {
     shared.get('films',films => {
@@ -145,4 +152,24 @@ export function deleteBook(id, cb){
       cb (book)
     });
   }
+}
+//create the query as object stringify after putting as string shows %27% on url
+
+export function getAllEpisodes(id) {
+
+  var $query = {
+    serie:{
+      contains: id
+    }
+  }
+
+  let $where = "?where="+JSON.stringify($query);
+
+  return dispatch => {
+    shared.findWhere('episodes', $where,  episodes => {
+      dispatch(receiveEpisodes(episodes))
+    })
+
+  }
+
 }

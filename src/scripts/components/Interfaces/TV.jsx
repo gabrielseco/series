@@ -45,8 +45,9 @@ class TV extends React.Component {
 
   }
 
-  episodios(){
-
+  episodios(id){
+    console.log('episodios')
+    this.props.history.pushState(null,'/episodes/'+id)
   }
 
   syncData(){
@@ -75,6 +76,31 @@ class TV extends React.Component {
     })
 
 
+  }
+
+  syncDataEpisodes(){
+    axios.get('http://192.168.1.130:5412/web/episodios_sails').then(res => {
+      console.log('res sync',res.data)
+      res = res.data;
+      res.map((value, i) => {
+        if(+value.Borrado === 0){
+          var data = {
+            id: value.ID,
+            idSerie: value.IDSerie,
+            nombre:value.Nombre,
+            numero:value.Numero,
+            overview: value.Descripcion,
+            airdate: value.Airdate,
+            serie: value.IDSerie
+          }
+          add('episodes', data, response => {
+            console.log('response',response)
+          });
+        }
+      });
+
+
+    })
   }
 
   openModal(data) {
@@ -115,11 +141,7 @@ class TV extends React.Component {
   render() {
     const { TV } = this.props
 
-    const episodios = (
-      <div className="diccionarios">
-          <button onClick={this.episodios.bind(this)}>EPISODIOS</button>
-      </div>
-    )
+
 
     if(TV.length > 0){
       this.state.TV = TV;
@@ -128,6 +150,11 @@ class TV extends React.Component {
         this.state.TV = this.state.TV.filter(this.refs.search.filter(filters));
       }
       var list = this.state.TV.map((TV, i) => {
+        var episodios = (
+          <div className="diccionarios">
+              <button onClick={this.episodios.bind(this, TV.id)}>EPISODIOS</button>
+          </div>
+        )
         return (
           <ListItem key={TV.id} data={TV} palabras={episodios} modify={this.modifyTV.bind(this)} openModal={this.openModal.bind(this,TV)}/>
         );
@@ -141,6 +168,8 @@ class TV extends React.Component {
           <div className="filmButton">
             <button className="addFilm" onClick={this.addTV.bind(this)}>ADD TV</button>
             <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
+            <button onClick={this.syncDataEpisodes.bind(this)}> SYNC DATA EPISODES</button>
+
           </div>
             {list}
             {this.renderModal()}
