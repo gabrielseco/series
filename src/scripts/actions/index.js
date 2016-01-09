@@ -2,7 +2,10 @@ import films from '../api/films/index'
 import TV from '../api/tv'
 import books from '../api/books'
 import shared from '../api/shared'
+import episodes from '../api/episodes'
 import * as types from '../constants/ActionTypes'
+
+/* $RECEIVE*/
 
 function receiveFilms(films) {
   return {
@@ -31,6 +34,8 @@ function receiveEpisodes(episodes){
     episodes: episodes
   }
 }
+
+/* $FILMS */
 
 export function getAllFilms() {
   return dispatch => {
@@ -73,6 +78,7 @@ export function deleteFilm(id, cb){
   }
 }
 
+/* $SERIES */
 export function getAllTV() {
   return dispatch => {
     shared.get('series', TV => {
@@ -111,6 +117,8 @@ export function deleteTV(id, cb){
     });
   }
 }
+
+/* $BOOKS */
 
 export function getAllBooks() {
   return dispatch => {
@@ -172,4 +180,44 @@ export function getAllEpisodes(id) {
 
   }
 
+}
+
+export function addOneEpisode(obj, cb) {
+  return dispatch => {
+    shared.new('episodes',obj, episode => {
+      cb (episode)
+    });
+  }
+}
+
+export function generateEpisodes(obj, cb){
+  return dispatch => {
+    episodes.generate(obj, episodes => {
+        cb(episodes);
+    })
+  }
+}
+
+export function deleteEpisode(id, cb){
+  return dispatch => {
+    shared.delete('episodes', id, episode => {
+      cb (episode)
+    });
+  }
+}
+
+export function getOneEpisode(id) {
+  return dispatch => {
+    shared.getOne('episodes', id, episode => {
+      dispatch(receiveEpisodes(episode))
+    });
+  }
+}
+
+export function modifyEpisode(obj, cb){
+  return dispatch => {
+    shared.modify('episodes', obj, episode => {
+      cb (episode)
+    });
+  }
 }

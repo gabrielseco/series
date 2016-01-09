@@ -18,6 +18,11 @@
         setTimeout(() => cb(res), timeout || TIMEOUT)
       });
     },
+    new(path, obj, cb, timeout) {
+      var results =  add(path, obj).then(res => {
+        setTimeout(() => cb(res), timeout || TIMEOUT)
+      });
+    },
     getOne(path, id, cb, timeout){
       var results =  getOne(path, id).then(res => {
         setTimeout(() => cb(res), timeout || TIMEOUT)

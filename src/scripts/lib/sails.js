@@ -19,7 +19,7 @@ var _url = "http://localhost:1337/"
   }
 
 
-  export async function add(path, obj, cb){
+  export async function add(path, obj){
     const response = axios.post(_url + path, obj);
     return response.data;
   }

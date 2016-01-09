@@ -21,6 +21,8 @@ class UITable extends React.Component {
 
                 }
   }
+  console.log(this.props.columns)
+  //this.props.columns.ver = this.props.colums.ver.bind(this)
  }
 
  onSearch(search) {

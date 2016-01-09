@@ -38,7 +38,8 @@ class ModifyFilm extends React.Component {
       id: this.props.params.id,
       nombre: this.refs.name.value,
       overview: this.refs.overview.value,
-      imagen: this.refs.imagen.value
+      imagen: this.refs.imagen.value,
+      color: this.refs.color.value
     }
 
     console.log('obj ModifyFilm',obj)
@@ -63,7 +64,8 @@ class ModifyFilm extends React.Component {
                   <label className="is-required">Nombre</label>
                   <input ref="name" className={this.state.inputName} defaultValue={this.state.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
                   <textarea ref="overview" className={this.state.inputName} defaultValue={this.state.data.overview}  name="overview" required placeholder="Descripcion" autoComplete="off"></textarea>
-                  <input ref="imagen" className={this.state.inputName} defaultValue={this.state.data.imagen} type="text" name="ref" required placeholder="Imagen" autoComplete="off"></input>
+                  <input ref="imagen" className={this.state.inputName} defaultValue={this.state.data.imagen} type="text" name="imagen" required placeholder="Imagen" autoComplete="off"></input>
+                  <input ref="color" className={this.state.inputName} defaultValue={this.state.data.color} type="text" name="color" placeholder="Color" autoComplete="off"></input>
 
                   <input type="submit" value="Enviar"></input>
           </form>

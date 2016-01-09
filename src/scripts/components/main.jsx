@@ -20,6 +20,9 @@ import AddBook from './Interfaces/AddBook.jsx';
 import ModifyBook from './Interfaces/ModifyBook.jsx';
 
 import Episodes from './Interfaces/Episodes.jsx';
+import AddEpisode from './Interfaces/AddEpisode.jsx';
+import ModifyEpisode from './Interfaces/ModifyEpisode.jsx';
+
 
 
 
@@ -53,6 +56,11 @@ try {
           component={Books}
           />
           <Route
+          path="/episodes/:id"
+          name="episodes"
+          component={Episodes}
+          />
+          <Route
           path="/addFilm"
           name="addFilm"
           component={AddFilm}
@@ -83,11 +91,15 @@ try {
           component={ModifyBook}
           />
           <Route
-          path="/episodes/:id"
-          name="episodes"
-          component={Episodes}
+          path="/addEpisode/:id"
+          name="addEpisode"
+          component={AddEpisode}
           />
-
+          <Route
+          path="/modifyEpisode/:id"
+          name="modifyEpisode"
+          component={ModifyEpisode}
+          />
         </Route>
       </Router>
     </Provider>
