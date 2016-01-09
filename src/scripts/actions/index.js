@@ -35,6 +35,15 @@ function receiveEpisodes(episodes){
   }
 }
 
+function receiveWords(words){
+  return {
+    type: types.RECEIVE_WORDS,
+    words: words
+  }
+}
+
+
+
 /* $FILMS */
 
 export function getAllFilms() {
@@ -220,4 +229,25 @@ export function modifyEpisode(obj, cb){
       cb (episode)
     });
   }
+}
+
+export function getDiccionariosPalabras(id) {
+
+  var $query = {
+    peliculas: {
+      contains: id
+    }
+  }
+  var $sort = "&sort=english asc"
+
+
+  let $where = "?where="+JSON.stringify($query) + $sort;
+
+  return dispatch => {
+    shared.findWhere('dictionary', $where,  words => {
+      dispatch(receiveWords(words))
+    })
+
+  }
+
 }

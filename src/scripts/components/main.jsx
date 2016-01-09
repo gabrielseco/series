@@ -10,6 +10,7 @@ import App from './Interfaces/App.jsx';
 import Films from './Interfaces/Films.jsx';
 import AddFilm from './Interfaces/AddFilm.jsx';
 import ModifyFilm from './Interfaces/ModifyFilm.jsx';
+import DiccionarioPeliculas from './Interfaces/DiccionarioPeliculas.jsx';
 
 import TV from './Interfaces/TV.jsx';
 import AddTV from './Interfaces/AddTV.jsx';
@@ -44,6 +45,11 @@ try {
           path="/"
           name="films"
           component={Films}
+          />
+          <Route
+          path="/diccionarios_pelicula/:id"
+          name="diccionario_peliculas"
+          component={DiccionarioPeliculas}
           />
           <Route
           path="/tv"

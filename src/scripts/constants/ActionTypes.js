@@ -8,3 +8,5 @@ export const RECEIVE_TV = 'RECEIVE_TV'
 export const RECEIVE_BOOKS = 'RECEIVE_BOOKS'
 
 export const RECEIVE_EPISODES = 'RECEIVE_EPISODES'
+
+export const RECEIVE_WORDS = 'RECEIVE_WORDS'

@@ -28,6 +28,44 @@ class Films extends React.Component {
     dispatch(getAllFilms())
   }
 
+  checkString(data){
+    var obj = {
+
+    }
+
+    Object.keys(data).map((value) => {
+      if(data [value] === ""){
+        delete data[value];
+      }
+    });
+
+    return data;
+
+
+
+  }
+
+  syncWords(){
+    axios.get('http://192.168.1.130:5412/web/diccionarios_sails').then(res => {
+      res = res.data;
+      res.map((value, i) => {
+          var data = {
+            id: value.ID,
+            series: value.IDSerie,
+            peliculas:value.IDPelicula,
+            libros: value.IDLibro,
+            episodios: value.IDEpisodio,
+            english: value.english,
+            spanish: value.spanish
+          }
+            data = this.checkString(data);
+            add('dictionary', data, response => {
+              console.log('response',response)
+            });
+      });
+    });
+  }
+
   syncData(){
     axios.get('http://192.168.1.130:5412/web/peliculas_sails').then(res => {
       console.log('res sync',res.data)
@@ -74,8 +112,8 @@ class Films extends React.Component {
 
   }
 
-  diccionarios(){
-    this.props.history.pushState(null,'/diccionarios/')
+  diccionarios(id){
+    this.props.history.pushState(null,'/diccionarios_pelicula/'+id)
   }
   searchUpdated(term) {
     this.setState({searchTerm: term});
@@ -118,11 +156,7 @@ class Films extends React.Component {
     const  { films } = this.props
 
 
-    const palabras = (
-      <div className="diccionarios">
-          <button onClick={this.diccionarios.bind(this)}>PALABRAS</button>
-      </div>
-    )
+
 
 
     if(films.length > 0) {
@@ -131,7 +165,13 @@ class Films extends React.Component {
         var filters = ['nombre'];
         this.state.films = this.state.films.filter(this.refs.search.filter(filters));
       }
+
       var list = this.state.films.map((film, i) => {
+        var palabras = (
+          <div className="diccionarios">
+              <button onClick={this.diccionarios.bind(this, film.id)}>PALABRAS</button>
+          </div>
+        )
         return (
           <ListItem {...this.props} {...this.state}
                     key={film.id} data={film}
@@ -153,6 +193,7 @@ class Films extends React.Component {
           <div className="filmButton">
             <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
             <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
+            <button onClick={this.syncWords.bind(this)}> SYNC WORDS </button>
           </div>
             {list}
             {this.renderModal()}
