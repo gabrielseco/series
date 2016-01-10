@@ -24,6 +24,8 @@ import Episodes from './Interfaces/Episodes.jsx';
 import AddEpisode from './Interfaces/AddEpisode.jsx';
 import ModifyEpisode from './Interfaces/ModifyEpisode.jsx';
 
+import AddWords   from './Interfaces/AddWords.jsx'
+import ModifyWord from './Interfaces/ModifyWord.jsx';
 
 
 
@@ -105,6 +107,16 @@ try {
           path="/modifyEpisode/:id"
           name="modifyEpisode"
           component={ModifyEpisode}
+          />
+          <Route
+          path="/addWords/:pelicula"
+          name="addWords"
+          component={AddWords}
+          />
+          <Route
+          path="/modifyWord/:id"
+          name="modifyWord"
+          component={ModifyWord}
           />
         </Route>
       </Router>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {getOneFilm, getDiccionariosPalabras} from '../../actions'
+import {getOneFilm, getDiccionariosPalabras, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
@@ -19,10 +19,12 @@ class DiccionarioPeliculas extends React.Component {
   }
   componentDidMount(){
     const {dispatch } = this.props;
+
     dispatch(getOneFilm(this.props.params.id, res => {
       console.log('res ModifyTV',res)
       this.setState({pelicula: res});
     }))
+
     dispatch(getDiccionariosPalabras(this.props.params.id))
 
 
@@ -34,7 +36,7 @@ class DiccionarioPeliculas extends React.Component {
   }
 
   addWords(){
-
+    this.props.history.pushState(null, '/addWords/'+this.props.params.id);
   }
 
   modifyTV(){
@@ -42,7 +44,6 @@ class DiccionarioPeliculas extends React.Component {
   }
   modifyFilm(){
     this.props.history.pushState(null, 'modifyFilm/'+this.props.params.id);
-
   }
 
   render(){
@@ -60,10 +61,10 @@ class DiccionarioPeliculas extends React.Component {
             header: 'Editar',
             cell: (value, data, rowIndex, property) => {
                var editar = () => {
-                 /*var id = data[rowIndex].id;
+                 var id = data[rowIndex].id;
                  console.log('id editar',id);
 
-                 this.props.history.pushState(null, 'modifyEpisode/'+id);*/
+                 this.props.history.pushState(null, 'modifyWord/'+id);
 
 
 
@@ -81,19 +82,16 @@ class DiccionarioPeliculas extends React.Component {
              header: 'Eliminar',
              cell: (value, data, rowIndex, property) => {
                 var eliminar = () => {
-                  /*var id = data[rowIndex].id;
-                  var nombre = data[rowIndex].nombre;
-                  var numero = data[rowIndex].numero;
-                  console.log(nombre+" "+id+" "+numero);
-
-                  var del = confirm('Quieres eliminar el episodio número '+numero+ ' con nombre: '+nombre);
+                  var id = data[rowIndex].id;
+                  var english = data[rowIndex].english
+                  var del = confirm('Quieres eliminar la palabra: '+english);
 
                   if(del){
                     const {dispatch } = this.props;
-                    dispatch(deleteEpisode(id, res => {
+                    dispatch(deleteWord(id, res => {
                       location.reload()
                     }))
-                  }*/
+                  }
                 };
 
                 return {
@@ -117,8 +115,6 @@ class DiccionarioPeliculas extends React.Component {
            query: ''
     }
 
-    /*const bread = (
-    )*/
 
     if(words.length > 0){
 

@@ -207,13 +207,7 @@ export function generateEpisodes(obj, cb){
   }
 }
 
-export function deleteEpisode(id, cb){
-  return dispatch => {
-    shared.delete('episodes', id, episode => {
-      cb (episode)
-    });
-  }
-}
+
 
 export function getOneEpisode(id) {
   return dispatch => {
@@ -226,6 +220,14 @@ export function getOneEpisode(id) {
 export function modifyEpisode(obj, cb){
   return dispatch => {
     shared.modify('episodes', obj, episode => {
+      cb (episode)
+    });
+  }
+}
+
+export function deleteEpisode(id, cb){
+  return dispatch => {
+    shared.delete('episodes', id, episode => {
       cb (episode)
     });
   }
@@ -250,4 +252,28 @@ export function getDiccionariosPalabras(id) {
 
   }
 
+}
+
+export function getOneWord(id, cb) {
+  return dispatch => {
+    shared.getOne('dictionary', id, word => {
+      cb(word);
+    });
+  }
+}
+
+export function modifyWord(obj, cb){
+  return dispatch => {
+    shared.modify('dictionary', obj, word => {
+      cb (word)
+    });
+  }
+}
+
+export function deleteWord(id, cb) {
+  return dispatch => {
+    shared.delete('dictionary', id, words => {
+      cb (words)
+    });
+  }
 }
