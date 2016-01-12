@@ -1,5 +1,5 @@
 import React from 'react';
-import {getOneFilm, getDiccionariosPalabras, deleteWord} from '../../actions'
+import {getOneTV, getDiccionariosEpisodios, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
@@ -7,7 +7,7 @@ import BreadCrumb from '../UI/BreadCrumb'
 
 
 
-class DiccionarioPeliculas extends React.Component {
+class DiccionarioEpisodios extends React.Component {
   static contextTypes = {
     store: React.PropTypes.object
   }
@@ -15,35 +15,23 @@ class DiccionarioPeliculas extends React.Component {
   constructor(props, context){
     super(props)
     this.context = context;
-    this.state = {pelicula: ''}
+    this.state = {serie: ''}
   }
   componentDidMount(){
     const {dispatch } = this.props;
-
-    dispatch(getOneFilm(this.props.params.id, res => {
-      console.log('res ModifyTV',res)
-      this.setState({pelicula: res});
+    dispatch(getOneTV(this.props.params.idSerie, res => {
+      this.setState({serie: res});
     }))
-
-    dispatch(getDiccionariosPalabras(this.props.params.id))
-
+    dispatch(getDiccionariosEpisodios(this.props.params.idEpisodio))
 
 
   }
-
-  addEpisodes(){
-    this.props.history.pushState(null, '/addEpisode/'+this.props.params.id);
-  }
-
   addWords(){
     this.props.history.pushState(null, '/addWords/'+this.props.params.id);
   }
 
   modifyTV(){
     this.props.history.pushState(null, 'modifyTV/'+this.props.params.id);
-  }
-  modifyFilm(){
-    this.props.history.pushState(null, 'modifyFilm/'+this.props.params.id);
   }
 
   render(){
@@ -104,7 +92,7 @@ class DiccionarioPeliculas extends React.Component {
 
         ];
     const { words } = this.props;
-    const peliculas = 'Peliculas';
+    const series = 'Series';
     const pagination = {
         page: 0,
         perPage: 10
@@ -117,10 +105,12 @@ class DiccionarioPeliculas extends React.Component {
 
 
     if(words.length > 0){
-      var texto = "Película > " + this.state.pelicula.nombre
+      console.log(words[0]);
+      var texto = "Serie > " + words[0].series.nombre + " > Season " +words[0].series.temporada + " > " + words[0].episodios.nombre;
+
     return(
       <div>
-        <BreadCrumb data={this.state.pelicula} texto={texto} parent={peliculas} goTo={this.modifyFilm.bind(this)}/>
+        <BreadCrumb data={this.state.serie} texto={texto} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
@@ -132,13 +122,13 @@ class DiccionarioPeliculas extends React.Component {
   } else {
     return (
       <div>
-        <BreadCrumb data={this.state.pelicula} texto={texto} parent={peliculas} goTo={this.modifyFilm.bind(this)}/>
+      <BreadCrumb data={this.state.serie} texto={texto} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <div>
-            No hay palabras en esta película
+            No hay palabras en esta serie
           </div>
         </div>
     </div>)
@@ -149,4 +139,4 @@ class DiccionarioPeliculas extends React.Component {
 function mapStateToProps(state) {
   return { words: state.words }
 }
-export default connect(mapStateToProps)(DiccionarioPeliculas)
+export default connect(mapStateToProps)(DiccionarioEpisodios)

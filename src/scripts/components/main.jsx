@@ -24,6 +24,9 @@ import Episodes from './Interfaces/Episodes.jsx';
 import AddEpisode from './Interfaces/AddEpisode.jsx';
 import ModifyEpisode from './Interfaces/ModifyEpisode.jsx';
 
+
+import Words                     from './Interfaces/Words.jsx'
+import DiccionarioEpisodios      from './Interfaces/DiccionarioEpisodios.jsx'
 import AddWords   from './Interfaces/AddWords.jsx'
 import ModifyWord from './Interfaces/ModifyWord.jsx';
 
@@ -48,11 +51,7 @@ try {
           name="films"
           component={Films}
           />
-          <Route
-          path="/diccionarios_pelicula/:id"
-          name="diccionario_peliculas"
-          component={DiccionarioPeliculas}
-          />
+
           <Route
           path="/tv"
           name="TV"
@@ -64,9 +63,24 @@ try {
           component={Books}
           />
           <Route
+          path="/dictionary"
+          name="words"
+          component={Words}
+          />
+          <Route
           path="/episodes/:id"
           name="episodes"
           component={Episodes}
+          />
+          <Route
+          path="diccionarios/:idSerie/episodio/:idEpisodio"
+          name="diccionarioepisodes"
+          component={DiccionarioEpisodios}
+          />
+          <Route
+          path="/diccionarios_pelicula/:id"
+          name="diccionario_peliculas"
+          component={DiccionarioPeliculas}
           />
           <Route
           path="/addFilm"

@@ -48,7 +48,7 @@ function receiveWords(words){
 
 export function getAllFilms() {
   return dispatch => {
-    shared.get('films',films => {
+    shared.get('films?sort=nombre asc',films => {
       dispatch(receiveFilms(films))
     })
 
@@ -90,7 +90,7 @@ export function deleteFilm(id, cb){
 /* $SERIES */
 export function getAllTV() {
   return dispatch => {
-    shared.get('series', TV => {
+    shared.get('series/getSeries', TV => {
       dispatch(receiveTV(TV))
     })
   }
@@ -199,9 +199,19 @@ export function addOneEpisode(obj, cb) {
   }
 }
 
-export function generateEpisodes(obj, cb){
+export function generateEpisodes(obj, episodesData, cb){
+  var newEpisodes = [];
+
+  episodes.generate(obj, episodes => {
+    if(episodes.length === episodesData) {
+      cb("No need");
+    }
+
+  })
+
   return dispatch => {
     episodes.generate(obj, episodes => {
+
         cb(episodes);
     })
   }
@@ -233,6 +243,17 @@ export function deleteEpisode(id, cb){
   }
 }
 
+export function getAllWords() {
+  return dispatch => {
+    shared.get('dictionary?sort=english asc', words => {
+      dispatch(receiveWords(words))
+    })
+
+  }
+
+}
+
+
 export function getDiccionariosPalabras(id) {
 
   var $query = {
@@ -242,6 +263,25 @@ export function getDiccionariosPalabras(id) {
   }
   var $sort = "&sort=english asc"
 
+
+  let $where = "?where="+JSON.stringify($query) + $sort;
+
+  return dispatch => {
+    shared.findWhere('dictionary', $where,  words => {
+      dispatch(receiveWords(words))
+    })
+
+  }
+
+}
+
+export function getDiccionariosEpisodios(id){
+  var $query = {
+    episodios: {
+      contains: id
+    }
+  }
+  var $sort = "&sort=english asc"
 
   let $where = "?where="+JSON.stringify($query) + $sort;
 

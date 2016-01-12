@@ -12,6 +12,7 @@ export default class UINavBar extends React.Component {
             <li><Link className="item" to="/">Films</Link></li>
             <li><Link className="item" to="tv">TV Shows</Link></li>
             <li><Link className="item" to="books">Books</Link></li>
+            <li><Link className="item" to="dictionary">Words</Link></li>
           </div>
         );
     }

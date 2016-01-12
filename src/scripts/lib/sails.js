@@ -3,7 +3,7 @@ var _url = "http://localhost:1337/"
 
   export async function get(path) {
 
-    const response = await axios.get(_url + path + '?sort=nombre asc');
+    const response = await axios.get(_url + path);
     return response.data;
 
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Table, Search, sortColumn } from 'reactabular';
 import Paginator from 'react-pagify';
 
@@ -22,6 +23,10 @@ class UITable extends React.Component {
                 }
   }
   console.log(this.props.columns)
+ }
+
+ componentDidMount(){
+   console.log(this.refs.search);
  }
 
  onSearch(search) {
@@ -49,14 +54,6 @@ onPerPage(e) {
         pagination: pagination
     });
 }
-
-addWords(){
-
-}
-
-
-
-
 
   render(){
       var dataPagination = this.props.data;
@@ -89,7 +86,7 @@ addWords(){
                         Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage.bind(this)}></input>
       </div>
         <div className='search-container'>
-                Search <Search columns={this.state.columns} data={this.state.data} onChange={this.onSearch.bind(this)}></Search>
+                Search <Search ref="search" columns={this.state.columns} data={this.state.data} onChange={this.onSearch.bind(this)}></Search>
         </div>
           <Table columns={this.props.columns} data={paginated.data} header={header}></Table>
           <div className='pagination'>

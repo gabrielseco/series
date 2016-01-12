@@ -24,6 +24,8 @@ class TV extends React.Component {
 
     dispatch(getAllTV());
 
+    this.refs.search.refs.search.focus();
+
   }
   addTV(){
     this.props.history.push('/addTV');

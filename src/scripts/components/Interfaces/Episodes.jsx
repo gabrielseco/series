@@ -30,6 +30,8 @@ class Episodes extends React.Component {
   }
   generateEpisodes(){
     const {dispatch} = this.props;
+    const { episodes } = this.props;
+
     var data = {
       idSerie: this.state.serie.idSerie,
       temporada: this.state.serie.temporada,
@@ -37,9 +39,9 @@ class Episodes extends React.Component {
     }
 
 
-    dispatch(generateEpisodes(data, res => {
+    dispatch(generateEpisodes(data, episodes,  res => {
       console.log('res episodes',res);
-      
+
     }))
 
 
@@ -70,10 +72,9 @@ class Episodes extends React.Component {
                  var ver = () => {
                    var idEpisodio = data[rowIndex].id;
                    console.log('id', idEpisodio);
-                   this.props.history.pushState(null,'/diccionarios/episodio/'+idEpisodio);
+                   var idSerie    = data[rowIndex].serie.id;
+                   this.props.history.pushState(null,'/diccionarios/'+idSerie+'/episodio/'+idEpisodio);
 
-                   //console.log('ver palabras de un capítulo'+id);
-                  // this.transitionTo('/dictionaryEpisode/:idPelicula/:idEpisodio', {idPelicula: id, idEpisodio: idEpisodio} );
 
                  };
 
@@ -146,10 +147,10 @@ class Episodes extends React.Component {
     }
 
     if(episodes.length > 0){
-
+      var texto = "Serie > " + episodes[0].serie.nombre + " > Season " +episodes[0].serie.temporada;
     return(
       <div>
-        <BreadCrumb data={episodes[0].serie} parent={Episodes.name} goTo={this.modifyTV.bind(this)}/>
+        <BreadCrumb data={episodes[0].serie} texto={texto} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>
@@ -162,7 +163,7 @@ class Episodes extends React.Component {
   } else {
     return (
       <div>
-        <BreadCrumb data={this.state.serie} parent={Episodes.name} goTo={this.modifyTV.bind(this)}/>
+        <BreadCrumb data={this.state.serie}  goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>

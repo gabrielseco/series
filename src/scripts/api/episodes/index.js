@@ -1,7 +1,7 @@
 /**
  * Mocking client-server processing
  */
-import { get, add, getOne, update, deleteData } from '../../lib/sails'
+import { get, add, getOne, update, deleteData, findWhere } from '../../lib/sails'
 import { _apiendpoint, _api_key, _image_path } from '../shared'
 import axios from 'axios'
 
@@ -36,7 +36,7 @@ export default {
       console.log('data', data);
       data.map((value, i) => {
         var results = add('episodes', value).then(res => {
-          
+
         });
       })
 
