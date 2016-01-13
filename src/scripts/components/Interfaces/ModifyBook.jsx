@@ -31,7 +31,8 @@ class ModifyBook extends React.Component {
       overview: this.refs.overview.value,
       youtube: this.refs.youtube.value,
       airdate: this.refs.airdate.value,
-      imagen: this.refs.imagen.value
+      imagen: this.refs.imagen.value,
+      color: this.refs.color.value  
     }
 
     const { dispatch } = this.props;
@@ -67,6 +68,7 @@ class ModifyBook extends React.Component {
                               defaultValue={fieldValues.airdate}></input>
               <label className="is-required">Descripción</label>
               <textarea ref="overview" defaultValue={fieldValues.overview}></textarea>
+              <input ref="color" defaultValue={fieldValues.color} type="text" name="color" placeholder="Color" autoComplete="off"></input>
               <input type='submit' value='ENVIAR'/>
             </form>
           </div>
