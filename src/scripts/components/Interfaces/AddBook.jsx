@@ -25,7 +25,7 @@ class AddBook extends React.Component {
 
     dispatch(addOneBook(obj, res => {
       console.log('res ADD BOOK',res);
-      this.props.history.push('/')
+      this.props.history.push('/books')
     }));
 
 
@@ -39,7 +39,7 @@ class AddBook extends React.Component {
               <label className="is-required">Nombre</label>
               <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
               <label className="is-required">Youtube</label>
-              <input ref="youtube" className={this.state.inputName} type="text" name="youtube" required placeholder="Youtube" autoComplete="off"></input>
+              <input ref="youtube" className={this.state.inputName} type="text" name="youtube" placeholder="Youtube" autoComplete="off"></input>
               <input type="submit" value="Enviar"></input>
       </form>
     )

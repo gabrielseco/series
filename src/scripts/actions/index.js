@@ -147,10 +147,10 @@ export function addOneBook(obj, cb) {
   }
 }
 
-export function getOneBook(id) {
+export function getOneBook(id, cb) {
   return dispatch => {
     shared.getOne('books', id, book => {
-      dispatch(receiveBooks(book))
+      cb(book)
     });
   }
 }
@@ -263,6 +263,25 @@ export function getDiccionariosPalabras(id) {
   }
   var $sort = "&sort=english asc"
 
+
+  let $where = "?where="+JSON.stringify($query) + $sort;
+
+  return dispatch => {
+    shared.findWhere('dictionary', $where,  words => {
+      dispatch(receiveWords(words))
+    })
+
+  }
+
+}
+
+export function getDiccionariosLibros(id){
+  var $query = {
+    libros: {
+      contains: id
+    }
+  }
+  var $sort = "&sort=english asc"
 
   let $where = "?where="+JSON.stringify($query) + $sort;
 

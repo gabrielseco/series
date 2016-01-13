@@ -1,7 +1,7 @@
 import React from 'react';
 import FormWords from './FormWords';
 import { connect } from 'react-redux';
-import {modifyFilm, getOneFilm} from '../../actions'
+import {modifyFilm, getOneFilm, getOneBook} from '../../actions'
 
 
 
@@ -24,6 +24,8 @@ class AddWords extends React.Component {
 
   componentDidMount(){
     var idPelicula = +this.props.params.pelicula;
+    var idLibro = +this.props.params.libro;
+
     if(idPelicula !== undefined){
       fieldValues.idPelicula = idPelicula;
       const { dispatch } = this.props;
@@ -35,13 +37,34 @@ class AddWords extends React.Component {
 
     }
 
+    if (idLibro !== undefined) {
+      fieldValues.idLibro = idLibro;
+      const { dispatch } = this.props;
+
+      dispatch(getOneBook(fieldValues.idLibro, res => {
+        console.log('res film',res)
+        this.setState({data: res, form: 2});
+      }))
+    }
+
+  }
+  finalizarPelicula(){
+    this.props.history.pushState(null, 'diccionarios_pelicula/'+this.props.params.pelicula);
+  }
+  finalizarLibro(){
+    this.props.history.pushState(null, 'diccionarios_libros/'+this.props.params.libro);
+
   }
 
   render(){
     var form = null
     switch(+this.state.form){
       case 1:
-        form = <FormWords {...this.props} fieldValues={fieldValues}/>
+        form = <FormWords {...this.props} fieldValues={fieldValues} finalizar={this.finalizarPelicula.bind(this)}/>
+        break;
+      case 2:
+        form = <FormWords {...this.props} fieldValues={fieldValues} finalizar={this.finalizarLibro.bind(this)}/>
+
         break;
     }
 

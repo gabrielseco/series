@@ -190,7 +190,7 @@ class Films extends React.Component {
 
     return(
         <div id='films' className="films">
-        <SearchInput ref='search' className='search-input' ref='search' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
+        <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
           <div className="filmButton">
             <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
             <button onClick={this.syncData.bind(this)}> SYNC DATA</button>

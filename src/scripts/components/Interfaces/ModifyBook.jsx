@@ -16,7 +16,9 @@ class ModifyBook extends React.Component {
 
     const { dispatch } = this.props;
 
-    dispatch(getOneBook(this.props.params.id))
+    dispatch(getOneBook(this.props.params.id, res => {
+      this.setState({data: res});
+    }))
 
   }
 
@@ -44,9 +46,8 @@ class ModifyBook extends React.Component {
   }
 
   render() {
-    const  { books } = this.props
-    if(books.nombre !== undefined){
-      fieldValues = books
+    if(this.state.data !== ''){
+      fieldValues = this.state.data
       return(
         <div>
           <img className='img' src={fieldValues.imagen} width="230" height="345"/>
@@ -70,8 +71,9 @@ class ModifyBook extends React.Component {
             </form>
           </div>
       )
-    }
+    } else {
     return (<div></div>)
+   }
 
   }
 }

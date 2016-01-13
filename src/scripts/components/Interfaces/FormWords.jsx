@@ -60,17 +60,13 @@ class FormWords extends React.Component {
     this.refs.english.focus()
   }
 
-  finalizar(){
-    this.props.history.pushState(null, 'diccionarios_pelicula/'+this.props.fieldValues.idPelicula);
-  }
-
   render() {
     return (
       <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
               <input ref="english" type="text" name="english" required placeholder="English" autoComplete="off"></input>
               <input ref="spanish" type="text" name="spanish" required placeholder="Español" autoComplete="off"></input>
               <input type="submit" value="Siguiente"></input>
-              <input type="button" value="Finalizar" onClick={this.finalizar.bind(this)}></input>
+              <input type="button" value="Finalizar" onClick={this.props.finalizar.bind(this)}></input>
       </form>
     )
   }

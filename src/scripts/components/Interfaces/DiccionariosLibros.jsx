@@ -1,5 +1,5 @@
 import React from 'react';
-import {getOneFilm, getDiccionariosPalabras, deleteWord} from '../../actions'
+import {getOneBook, getDiccionariosLibros, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
@@ -7,7 +7,7 @@ import BreadCrumb from '../UI/BreadCrumb'
 
 
 
-class DiccionarioPeliculas extends React.Component {
+class DiccionarioLibros extends React.Component {
   static contextTypes = {
     store: React.PropTypes.object
   }
@@ -15,35 +15,29 @@ class DiccionarioPeliculas extends React.Component {
   constructor(props, context){
     super(props)
     this.context = context;
-    this.state = {pelicula: ''}
+    this.state = {libro: ''}
   }
   componentDidMount(){
     const {dispatch } = this.props;
 
-    dispatch(getOneFilm(this.props.params.id, res => {
-      console.log('res ModifyTV',res)
-      this.setState({pelicula: res});
+    dispatch(getOneBook(this.props.params.id, res => {
+      console.log('res DiccionarioLibros',res)
+      this.setState({libro: res});
     }))
 
-    dispatch(getDiccionariosPalabras(this.props.params.id))
+    dispatch(getDiccionariosLibros(this.props.params.id))
 
 
 
-  }
-
-  addEpisodes(){
-    this.props.history.pushState(null, '/addEpisode/'+this.props.params.id);
   }
 
   addWords(){
-    this.props.history.pushState(null, '/addWords/'+this.props.params.id+"/0");
+    this.props.history.pushState(null, '/addWords/0/'+this.props.params.id);
   }
 
-  modifyTV(){
-    this.props.history.pushState(null, 'modifyTV/'+this.props.params.id);
-  }
-  modifyFilm(){
-    this.props.history.pushState(null, 'modifyFilm/'+this.props.params.id);
+  modifyBook(){
+    this.props.history.pushState(null, '/modifyBook/'+this.props.params.id);
+
   }
 
   render(){
@@ -104,7 +98,6 @@ class DiccionarioPeliculas extends React.Component {
 
         ];
     const { words } = this.props;
-    const peliculas = 'Peliculas';
     const pagination = {
         page: 0,
         perPage: 10
@@ -115,12 +108,14 @@ class DiccionarioPeliculas extends React.Component {
            query: ''
     }
 
+    var texto = "Libros > " + this.state.libro.nombre
+
+
 
     if(words.length > 0){
-      var texto = "Película > " + this.state.pelicula.nombre
     return(
       <div>
-        <BreadCrumb data={this.state.pelicula} texto={texto} goTo={this.modifyFilm.bind(this)}/>
+        <BreadCrumb data={this.state.libro} texto={texto} goTo={this.modifyBook.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
@@ -132,13 +127,13 @@ class DiccionarioPeliculas extends React.Component {
   } else {
     return (
       <div>
-        <BreadCrumb data={this.state.pelicula} texto={texto} goTo={this.modifyFilm.bind(this)}/>
+        <BreadCrumb data={this.state.libro} texto={texto} goTo={this.modifyBook.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <div>
-            No hay palabras en esta película
+            No hay palabras en este libro
           </div>
         </div>
     </div>)
@@ -149,4 +144,4 @@ class DiccionarioPeliculas extends React.Component {
 function mapStateToProps(state) {
   return { words: state.words }
 }
-export default connect(mapStateToProps)(DiccionarioPeliculas)
+export default connect(mapStateToProps)(DiccionarioLibros)

@@ -10,7 +10,6 @@ import App from './Interfaces/App.jsx';
 import Films from './Interfaces/Films.jsx';
 import AddFilm from './Interfaces/AddFilm.jsx';
 import ModifyFilm from './Interfaces/ModifyFilm.jsx';
-import DiccionarioPeliculas from './Interfaces/DiccionarioPeliculas.jsx';
 
 import TV from './Interfaces/TV.jsx';
 import AddTV from './Interfaces/AddTV.jsx';
@@ -26,7 +25,10 @@ import ModifyEpisode from './Interfaces/ModifyEpisode.jsx';
 
 
 import Words                     from './Interfaces/Words.jsx'
+import DiccionarioPeliculas from './Interfaces/DiccionarioPeliculas.jsx';
 import DiccionarioEpisodios      from './Interfaces/DiccionarioEpisodios.jsx'
+import DiccionarioLibros         from './Interfaces/DiccionariosLibros.jsx'
+
 import AddWords   from './Interfaces/AddWords.jsx'
 import ModifyWord from './Interfaces/ModifyWord.jsx';
 
@@ -83,6 +85,11 @@ try {
           component={DiccionarioPeliculas}
           />
           <Route
+          path="diccionarios_libros/:id"
+          name="diccionariolibros"
+          component={DiccionarioLibros}
+          />
+          <Route
           path="/addFilm"
           name="addFilm"
           component={AddFilm}
@@ -123,7 +130,7 @@ try {
           component={ModifyEpisode}
           />
           <Route
-          path="/addWords/:pelicula"
+          path="/addWords/:pelicula/:libro"
           name="addWords"
           component={AddWords}
           />

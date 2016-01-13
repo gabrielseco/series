@@ -27,6 +27,8 @@ class Books extends React.Component {
   componentDidMount(){
     const {dispatch } = this.props;
     dispatch(getAllBooks())
+    this.refs.search.refs.search.focus();
+
   }
 
   syncData(){
@@ -73,8 +75,9 @@ class Books extends React.Component {
 
   }
 
-  diccionarios(){
-    this.props.history.pushState(null,'/diccionarios/')
+  diccionarios(id){
+    console.log(JSON.stringify(id))
+    this.props.history.pushState(null,'/diccionarios_libros/'+id)
   }
   searchUpdated(term) {
     this.setState({searchTerm: term});
@@ -119,11 +122,7 @@ class Books extends React.Component {
     console.log(books)
 
 
-    const palabras = (
-      <div className="diccionarios">
-          <button onClick={this.diccionarios.bind(this)}>PALABRAS</button>
-      </div>
-    )
+
 
 
     if(books.length > 0) {
@@ -133,6 +132,11 @@ class Books extends React.Component {
         this.state.books = this.state.books.filter(this.refs.search.filter(filters));
       }
       var list = this.state.books.map((book, i) => {
+        var palabras = (
+          <div className="diccionarios">
+              <button onClick={this.diccionarios.bind(this, book.id)}>PALABRAS</button>
+          </div>
+        )
         return (
           <ListItem {...this.props} {...this.state}
                     key={book.id} data={book}
@@ -150,7 +154,7 @@ class Books extends React.Component {
 
     return(
         <div id='films' className="films">
-        <SearchInput className='search-input' ref='search' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
+        <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
           <div className="filmButton">
             <button className="addFilm" onClick={this.addBook.bind(this)}>ADD BOOK</button>
             <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
