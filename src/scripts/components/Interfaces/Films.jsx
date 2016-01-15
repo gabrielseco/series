@@ -63,6 +63,8 @@ class Films extends React.Component {
             add('dictionary', data, response => {
               console.log('response',response)
             });
+            setTimeout(() =>{location.reload()},250000)
+
       });
     });
   }
@@ -84,6 +86,8 @@ class Films extends React.Component {
           add('films', data, response => {
             console.log('response',response)
           });
+          setTimeout(() =>{location.reload()},2500)
+
         }
       });
 

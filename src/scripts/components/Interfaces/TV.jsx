@@ -72,6 +72,7 @@ class TV extends React.Component {
             console.log('response',response)
           });
         }
+        setTimeout(() =>{location.reload()},2500)
       });
 
 
@@ -90,7 +91,7 @@ class TV extends React.Component {
             id: value.ID,
             idSerie: value.IDSerie,
             nombre:value.Nombre,
-            numero:value.Numero,
+            numero:Number(value.Numero),
             overview: value.Descripcion,
             airdate: value.Airdate,
             serie: value.IDSerie
@@ -98,6 +99,7 @@ class TV extends React.Component {
           add('episodes', data, response => {
             console.log('response',response)
           });
+          setTimeout(() =>{location.reload()},5000)
         }
       });
 

@@ -34,11 +34,15 @@ export default {
   generate(obj, cb, timeout){
     this.getData(obj).then(data => {
       console.log('data', data);
-      data.map((value, i) => {
-        var results = add('episodes', value).then(res => {
-
+      for(var i = 0; i < data.length; i++){
+        var results = add('episodes', data[i]).then(res => {
+          console.log('res',i);
         });
-      })
+        setTimeout(()=> {
+          cb(true)
+        },2000)
+      }
+
 
     })
 

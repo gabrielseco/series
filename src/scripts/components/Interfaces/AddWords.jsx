@@ -1,7 +1,7 @@
 import React from 'react';
 import FormWords from './FormWords';
 import { connect } from 'react-redux';
-import {modifyFilm, getOneFilm, getOneBook} from '../../actions'
+import {modifyFilm, getOneFilm, getOneBook, getOneTV} from '../../actions'
 
 
 
@@ -24,9 +24,12 @@ class AddWords extends React.Component {
 
   componentDidMount(){
     var idPelicula = +this.props.params.pelicula;
+    var idSerie = +this.props.params.serie;
+    var idEpisodio = +this.props.params.episodio;
     var idLibro = +this.props.params.libro;
 
-    if(idPelicula !== undefined){
+
+    if(idPelicula !== 0){
       fieldValues.idPelicula = idPelicula;
       const { dispatch } = this.props;
 
@@ -37,7 +40,20 @@ class AddWords extends React.Component {
 
     }
 
-    if (idLibro !== undefined) {
+    if(idSerie !== 0) {
+      fieldValues.idSerie = idSerie;
+      fieldValues.idEpisodio = idEpisodio;
+
+      const { dispatch } = this.props;
+
+      dispatch(getOneTV(fieldValues.idSerie, res => {
+        console.log('res SERIE',res)
+        this.setState({data: res, form: 3});
+      }))
+
+    }
+
+    if (idLibro !== 0) {
       fieldValues.idLibro = idLibro;
       const { dispatch } = this.props;
 
@@ -53,6 +69,10 @@ class AddWords extends React.Component {
   }
   finalizarLibro(){
     this.props.history.pushState(null, 'diccionarios_libros/'+this.props.params.libro);
+  }
+
+  finalizarSerie(){
+    this.props.history.pushState(null, 'diccionarios/'+this.props.params.serie+'/episodio/'+this.props.params.episodio);
 
   }
 
@@ -64,7 +84,9 @@ class AddWords extends React.Component {
         break;
       case 2:
         form = <FormWords {...this.props} fieldValues={fieldValues} finalizar={this.finalizarLibro.bind(this)}/>
-
+        break;
+      case 3:
+        form = <FormWords {...this.props} fieldValues={fieldValues} finalizar={this.finalizarSerie.bind(this)}/>
         break;
     }
 

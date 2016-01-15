@@ -27,7 +27,7 @@ class DiccionarioEpisodios extends React.Component {
 
   }
   addWords(){
-    this.props.history.pushState(null, '/addWords/'+this.props.params.id);
+    this.props.history.pushState(null, '/addWords/0/'+this.props.params.idSerie+"/"+this.props.params.idEpisodio + "/0");
   }
 
   modifyTV(){
@@ -128,7 +128,7 @@ class DiccionarioEpisodios extends React.Component {
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <div>
-            No hay palabras en esta serie
+            No hay palabras en este episodio
           </div>
         </div>
     </div>)

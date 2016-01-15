@@ -25,7 +25,9 @@ export default {
         youtube: obj.youtube,
         airdate: books.data.items[i].volumeInfo.publishedDate
       }
-      return data;
+
+
+      //return data;
 
     }
   }

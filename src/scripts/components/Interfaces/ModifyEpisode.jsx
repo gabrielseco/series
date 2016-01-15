@@ -4,6 +4,9 @@ import {modifyEpisode, getOneEpisode} from '../../actions'
 
 var fieldValues = {
 }
+var float = {
+        float: 'right'
+};
 
 class ModifyEpisode extends React.Component {
 
@@ -16,7 +19,7 @@ class ModifyEpisode extends React.Component {
 
     const { dispatch } = this.props;
 
-    dispatch(getOneEpisode(this.props.params.id))
+    dispatch(getOneEpisode(this.props.params.idEpisodio))
 
   }
 
@@ -42,12 +45,20 @@ class ModifyEpisode extends React.Component {
 
   }
 
+  addWords(){
+    this.props.history.pushState(null, '/addWords/0/'+this.props.params.idSerie+"/"+this.props.params.idEpisodio + "/0");
+
+  }
+
   render() {
     const  { episodes } = this.props
     if(episodes.nombre !== undefined){
       fieldValues = episodes
       return(
         <div>
+        <div className="dictionaryButton" style={float}>
+           <button className="addWords" onClick={this.addWords.bind(this)}>ADD WORDS</button>
+         </div>
           <img className='img' src={fieldValues.serie.imagen} width="230" height="345"/>
             <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
               <label className="is-required">Nombre</label>

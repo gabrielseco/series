@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {modifyBook, getOneBook} from '../../actions'
+import Colors from '../UI/Colors.js';
 
 var fieldValues = {
 }
+var float = {
+        float: 'right'
+};
 
 class ModifyBook extends React.Component {
 
@@ -16,9 +20,11 @@ class ModifyBook extends React.Component {
 
     const { dispatch } = this.props;
 
+
     dispatch(getOneBook(this.props.params.id, res => {
-      this.setState({data: res});
+      this.setState({data: res})
     }))
+
 
   }
 
@@ -32,7 +38,7 @@ class ModifyBook extends React.Component {
       youtube: this.refs.youtube.value,
       airdate: this.refs.airdate.value,
       imagen: this.refs.imagen.value,
-      color: this.refs.color.value  
+      color: this.refs.color.value
     }
 
     const { dispatch } = this.props;
@@ -42,18 +48,24 @@ class ModifyBook extends React.Component {
       this.props.history.push('/books')
     }));
 
+  }
 
-
+  changeColor(value){
+    console.log('value changed',value)
+    this.refs.color.value = value.target.firstChild.data.slice(1);
   }
 
   render() {
     if(this.state.data !== ''){
       fieldValues = this.state.data
+
       return(
         <div>
-          <img className='img' src={fieldValues.imagen} width="230" height="345"/>
+          <img ref='imagen' className='img' src={fieldValues.imagen} width="230" height="345"/>
+          <div style={float}>
+            <Colors data={fieldValues.imagen} changeColor={this.changeColor.bind(this)}/>
+          </div>
             <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
-
               <label className="is-required">Nombre</label>
               <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre"
                      defaultValue={fieldValues.nombre}></input>

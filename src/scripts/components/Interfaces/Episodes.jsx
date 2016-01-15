@@ -41,6 +41,9 @@ class Episodes extends React.Component {
 
     dispatch(generateEpisodes(data, episodes,  res => {
       console.log('res episodes',res);
+      if(res === true){
+        location.reload();
+      }
 
     }))
 
@@ -90,10 +93,10 @@ class Episodes extends React.Component {
             header: 'Editar',
             cell: (value, data, rowIndex, property) => {
                var editar = () => {
-                 var id = data[rowIndex].id;
-                 console.log('id editar',id);
+                 var idEpisodio = data[rowIndex].id;
+                 var idSerie = this.props.params.id
 
-                 this.props.history.pushState(null, 'modifyEpisode/'+id);
+                 this.props.history.pushState(null, 'modifyEpisode/'+idSerie+"/"+idEpisodio);
 
 
 

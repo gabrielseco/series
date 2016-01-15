@@ -180,7 +180,7 @@ export function getAllEpisodes(id) {
     }
   }
 
-  let $where = "?where="+JSON.stringify($query);
+  let $where = "?where="+JSON.stringify($query)+"&sort=numero ASC";
 
   return dispatch => {
     shared.findWhere('episodes', $where,  episodes => {
@@ -201,13 +201,6 @@ export function addOneEpisode(obj, cb) {
 
 export function generateEpisodes(obj, episodesData, cb){
   var newEpisodes = [];
-
-  episodes.generate(obj, episodes => {
-    if(episodes.length === episodesData) {
-      cb("No need");
-    }
-
-  })
 
   return dispatch => {
     episodes.generate(obj, episodes => {

@@ -125,12 +125,12 @@ try {
           component={AddEpisode}
           />
           <Route
-          path="/modifyEpisode/:id"
+          path="/modifyEpisode/:idSerie/:idEpisodio"
           name="modifyEpisode"
           component={ModifyEpisode}
           />
           <Route
-          path="/addWords/:pelicula/:libro"
+          path="/addWords/:pelicula/:serie/:episodio/:libro"
           name="addWords"
           component={AddWords}
           />

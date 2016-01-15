@@ -47,6 +47,8 @@ class Books extends React.Component {
           add('books', data, response => {
             console.log('response',response)
           });
+          setTimeout(() =>{location.reload()},2500)
+
       });
 
 
