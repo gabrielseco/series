@@ -13,7 +13,9 @@ import UINavBar from '../UI/NavBar';
     return (
       <div>
         <UINavBar/>
-        {this.props.children}
+        <div className='main'>
+          {this.props.children}
+        </div>
       </div>
     );
   }

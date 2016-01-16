@@ -38,7 +38,7 @@ class ModifyWord extends React.Component {
 
     dispatch(modifyWord(obj, res => {
       console.log('res modify WORD',res);
-      this.props.history.push('/diccionarios_pelicula/'+this.state.data.peliculas.id);
+      this.props.history.goBack()
     }));
 
 
@@ -49,7 +49,6 @@ class ModifyWord extends React.Component {
     if(this.state.data !== ''){
     return(
       <div>
-        <img className='img' src={this.state.data.peliculas.imagen} width="230" height="345"/>
           <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                   <label className="is-required">English</label>
                   <input ref="english" className={this.state.inputName} defaultValue={this.state.data.english} type="text" name="english" required placeholder="English" autoComplete="off"></input>

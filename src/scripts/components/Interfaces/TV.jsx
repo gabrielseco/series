@@ -87,13 +87,23 @@ class TV extends React.Component {
       res = res.data;
       res.map((value, i) => {
         if(+value.Borrado === 0){
+          if(value.Airdate !== ''){
+            var fecha = value.Airdate.split("/");
+                if(fecha[0] < 10) {
+                  fecha[0] ="0"+fecha[0];
+                }
+                if(fecha[1] < 10) {
+                  fecha[1] ="0"+fecha[1];
+                }
+                fecha = fecha[2] + "-" +fecha[0] + "-"+fecha[1];
+          }
           var data = {
             id: value.ID,
             idSerie: value.IDSerie,
             nombre:value.Nombre,
             numero:Number(value.Numero),
             overview: value.Descripcion,
-            airdate: value.Airdate,
+            airdate: fecha,
             serie: value.IDSerie
           }
           add('episodes', data, response => {

@@ -1,10 +1,14 @@
 import React from 'react';
-import {getAllWords, deleteWord} from '../../actions'
+import {getAllWords, deleteWord, makeBackup} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
+import UILoading from '../UI/Loading'
 
 
 
+var style = {
+  paddingLeft:'100px'
+}
 
 class Words extends React.Component {
   static contextTypes = {
@@ -14,12 +18,15 @@ class Words extends React.Component {
   constructor(props, context){
     super(props)
     this.context = context;
-    //this.state = {pelicula: ''}
+    this.state = {data: ''}
   }
   componentDidMount(){
     const {dispatch } = this.props;
 
-    dispatch(getAllWords());
+    dispatch(getAllWords(res => {
+      console.log('res',res);
+      this.setState({data: res});
+    }));
 
 
 
@@ -109,17 +116,17 @@ class Words extends React.Component {
     }
 
 
-    if(words.length > 0){
+    if(this.state.data !== ''){
 
     return(
-      <div>
-          <UITable data={words} columns={columns} pagination={pagination} search={search}/>
+      <div style={style}>
+          <UITable  data={this.state.data} columns={columns} pagination={pagination} search={search}/>
       </div>
     );
   } else {
     return (
       <div>
-            No hay palabras
+          <UILoading/>
     </div>
   )
   }

@@ -9,10 +9,22 @@ li{
 
 
 
-.bar{
-  padding:20px;
+.header{
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: 50px;
+  z-index: 9999;
+  background: #fff;
 
+  .container {
+    max-width: 1140px;
+    padding: 10px 40px;
+    margin: 0 auto;
+    min-width: 1020px;
+    position: relative;
+  }
   .item{
     padding:10px 10px 0 5px;
     color:rgba(0,0,0,0.8);

@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {modifyFilm, getOneFilm} from '../../actions'
+import Colors from '../UI/Colors.js';
+
 
 var fieldValues = {
   nombre: null,
@@ -11,6 +13,9 @@ var fieldValues = {
   id: null
 };
 
+var float = {
+        float: 'right'
+};
 
 class ModifyFilm extends React.Component {
 
@@ -55,15 +60,23 @@ class ModifyFilm extends React.Component {
 
   }
 
+  changeColor(value){
+    console.log('value changed',value)
+    this.refs.color.value = value.target.firstChild.data.slice(1);
+  }
+
   render() {
     if(this.state.data !== ''){
     return(
       <div>
         <img className='img' src={this.state.data.imagen} width="230" height="345"/>
-          <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
+        <div style={float}>
+          <Colors data={this.state.data.imagen} changeColor={this.changeColor.bind(this)}/>
+        </div>
+        <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                   <label className="is-required">Nombre</label>
                   <input ref="name" className={this.state.inputName} defaultValue={this.state.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
-                  <textarea ref="overview" className={this.state.inputName} defaultValue={this.state.data.overview}  name="overview" required placeholder="Descripcion" autoComplete="off"></textarea>
+                  <textarea ref="overview" className={this.state.inputName} defaultValue={this.state.data.overview}  name="overview" placeholder="Descripcion" autoComplete="off"></textarea>
                   <input ref="imagen" className={this.state.inputName} defaultValue={this.state.data.imagen} type="text" name="imagen" required placeholder="Imagen" autoComplete="off"></input>
                   <input ref="color" className={this.state.inputName} defaultValue={this.state.data.color} type="text" name="color" placeholder="Color" autoComplete="off"></input>
 

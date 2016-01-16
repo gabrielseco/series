@@ -32,7 +32,7 @@ class DiccionarioLibros extends React.Component {
   }
 
   addWords(){
-    this.props.history.pushState(null, '/addWords/0/'+this.props.params.id);
+    this.props.history.pushState(null, '/addWords/0/0/0/'+this.props.params.id);
   }
 
   modifyBook(){

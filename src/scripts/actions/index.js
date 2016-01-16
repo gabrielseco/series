@@ -236,10 +236,10 @@ export function deleteEpisode(id, cb){
   }
 }
 
-export function getAllWords() {
+export function getAllWords(cb) {
   return dispatch => {
-    shared.get('dictionary?sort=english asc', words => {
-      dispatch(receiveWords(words))
+    shared.get('dictionary/getWords', words => {
+      cb(words)
     })
 
   }
