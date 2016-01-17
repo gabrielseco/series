@@ -36,7 +36,7 @@ class DiccionarioPeliculas extends React.Component {
   }
 
   addWords(){
-    this.props.history.pushState(null, '/addWords/'+this.props.params.id+"/0");
+    this.props.history.pushState(null, '/addWords/'+this.props.params.id+"/0/0/0");
   }
 
   modifyTV(){
