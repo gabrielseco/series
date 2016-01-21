@@ -27,7 +27,7 @@ class ModifyEpisode extends React.Component {
     e.preventDefault();
 
     var obj = {
-      id: this.props.params.id,
+      id: this.props.params.idEpisodio,
       nombre: this.refs.name.value,
       overview: this.refs.overview.value,
       numero: this.refs.numero.value,
@@ -36,9 +36,10 @@ class ModifyEpisode extends React.Component {
 
     const { dispatch } = this.props;
 
+    console.log(obj);
     dispatch(modifyEpisode(obj, res => {
       console.log('res modify EPISODE',res);
-      this.props.history.push('/episodes/'+this.props.params.id)
+      this.props.history.push('/episodes/'+this.props.params.idEpisodio)
     }));
 
 

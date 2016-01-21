@@ -2,7 +2,15 @@
   "name": "react14",
   "version": "1.0.0",
   "description": "Starter for using react 0.14",
-  "main": "main.js",
+  "private": true,
+  "src": "src",
+  "test": "test",
+  "dist": "dist",
+  "mainInput": "main",
+  "mainOutput": "main",
+  "scripts": {
+    "start": "grunt serve"
+  },
   "dependencies": {
     "axios": "^0.7.0",
     "babel-preset-react": "^6.1.2",
@@ -10,6 +18,8 @@
     "css-loader": "^0.22.0",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-copy": "^0.8.2",
     "grunt-webpack": "^1.0.11",
     "history": "^1.13.0",
     "load-grunt-tasks": "^3.3.0",
@@ -17,6 +27,7 @@
     "node-sass": "^3.4.1",
     "node-vibrant": "^2.0.1",
     "react": "^0.14.2",
+    "react-document-title": "^2.0.1",
     "react-dom": "^0.14.2",
     "react-modal": "^0.6.1",
     "react-pagify": "^0.10.1",
@@ -42,9 +53,6 @@
     "redux-devtools": "^2.1.5",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "react"

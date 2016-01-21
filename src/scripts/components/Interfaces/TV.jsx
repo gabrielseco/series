@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import {getAllTV, deleteTV} from '../../actions'
 import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
@@ -109,7 +110,7 @@ class TV extends React.Component {
           add('episodes', data, response => {
             console.log('response',response)
           });
-          setTimeout(() =>{location.reload()},5000)
+          setTimeout(() =>{location.reload()},150000)
         }
       });
 
@@ -177,6 +178,8 @@ class TV extends React.Component {
 
     }
     return(
+        <div>
+          <DocumentTitle title="TV"/>
         <div id='films' className="films">
         <SearchInput className='search-input' ref='search' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
           <div className="filmButton">
@@ -187,6 +190,7 @@ class TV extends React.Component {
           </div>
             {list}
             {this.renderModal()}
+        </div>
         </div>
     )
  }

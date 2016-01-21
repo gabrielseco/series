@@ -11,7 +11,7 @@ module.exports = {
   context:__dirname,
   output: {
     filename: 'main.js',
-    publicPath: '/assets/',
+    publicPath: './assets/',
     path:'/src/assets'
   },
 
@@ -31,8 +31,8 @@ module.exports = {
   resolve: {
     extensions: ['', '.js','.jsx'],
     alias: {
-      'styles': './src/scripts/styles/*',
-      'components': './src/scripts/components/*'
+      'styles': './src/scripts/styles',
+      'components': './src/scripts/components/'
     }
   },
   module: {

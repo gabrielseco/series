@@ -18,7 +18,7 @@ module.exports = {
 
   debug: false,
   devtool: false,
-  entry: './src/scripts/components/main.js',
+  entry: './src/scripts/components/main.jsx',
 
   stats: {
     colors: true,
@@ -47,7 +47,8 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['es2015','react'],
+          presets: ['es2015','react','stage-0'],
+          plugins: ["transform-runtime"],
           cacheDirectory: true
         }
       },

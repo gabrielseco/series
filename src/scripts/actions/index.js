@@ -175,9 +175,7 @@ export function deleteBook(id, cb){
 export function getAllEpisodes(id) {
 
   var $query = {
-    serie:{
-      contains: id
-    }
+    serie:id
   }
 
   let $where = "?where="+JSON.stringify($query)+"&sort=numero ASC";
@@ -270,10 +268,9 @@ export function getDiccionariosPalabras(id) {
 
 export function getDiccionariosLibros(id){
   var $query = {
-    libros: {
-      contains: id
-    }
+    libros: id
   }
+
   var $sort = "&sort=english asc"
 
   let $where = "?where="+JSON.stringify($query) + $sort;
@@ -289,9 +286,7 @@ export function getDiccionariosLibros(id){
 
 export function getDiccionariosEpisodios(id){
   var $query = {
-    episodios: {
-      contains: id
-    }
+    episodios: id
   }
   var $sort = "&sort=english asc"
 

@@ -1,5 +1,7 @@
 import axios from 'axios'
 var _url = "http://localhost:1337/"
+console.log('location',location.path());
+
 
   export async function get(path) {
 

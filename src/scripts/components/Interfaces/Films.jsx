@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import {getAllFilms, deleteFilm} from '../../actions'
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -193,15 +194,18 @@ class Films extends React.Component {
 
 
     return(
-        <div id='films' className="films">
-        <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
-          <div className="filmButton">
-            <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
-            <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
-            <button onClick={this.syncWords.bind(this)}> SYNC WORDS </button>
+        <div>
+          <DocumentTitle title="Films"/>
+          <div id='films' className="films">
+          <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
+            <div className="filmButton">
+              <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
+              <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
+              <button onClick={this.syncWords.bind(this)}> SYNC WORDS </button>
+            </div>
+              {list}
+              {this.renderModal()}
           </div>
-            {list}
-            {this.renderModal()}
         </div>
     )
  }
