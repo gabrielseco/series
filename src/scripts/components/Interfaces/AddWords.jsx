@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import FormWords from './FormWords';
 import { connect } from 'react-redux';
 import {modifyFilm, getOneFilm, getOneBook, getOneTV} from '../../actions'
@@ -93,6 +94,7 @@ class AddWords extends React.Component {
 
     return (
       <div>
+        <DocumentTitle title="Add Words"/>
         <img className='img' width="230" height="345" src={this.state.data.imagen} alt={this.state.data.nombre} title={this.state.data.nombre}/>
         {form}
       </div>

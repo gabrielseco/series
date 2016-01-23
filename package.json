@@ -3,14 +3,6 @@
   "version": "1.0.0",
   "description": "Starter for using react 0.14",
   "private": true,
-  "src": "src",
-  "test": "test",
-  "dist": "dist",
-  "mainInput": "main",
-  "mainOutput": "main",
-  "scripts": {
-    "start": "grunt serve"
-  },
   "dependencies": {
     "axios": "^0.7.0",
     "babel-preset-react": "^6.1.2",

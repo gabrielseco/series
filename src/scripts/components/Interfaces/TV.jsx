@@ -14,6 +14,14 @@ const modalStyle = {
   }
 }
 
+
+const enable = () => {
+    return {
+    syncTV: 0,
+    syncEpisodes: 0
+  }
+}
+
 class TV extends React.Component {
 
   constructor(props) {
@@ -155,6 +163,14 @@ class TV extends React.Component {
 
   render() {
     const { TV } = this.props
+    var buttons = [];
+
+      if(enable.syncTV === 1){
+        buttons.push(<button key={1} onClick={this.syncData.bind(this)}> SYNC DATA</button>)
+      }
+      if(enable.syncEpisodes === 1){
+        buttons.push(<button key={2} onClick={this.syncDataEpisodes.bind(this)}> SYNC DATA EPISODES</button>)
+      }
 
 
 
@@ -184,10 +200,9 @@ class TV extends React.Component {
         <SearchInput className='search-input' ref='search' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
           <div className="filmButton">
             <button className="addFilm" onClick={this.addTV.bind(this)}>ADD TV</button>
-            <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
-            <button onClick={this.syncDataEpisodes.bind(this)}> SYNC DATA EPISODES</button>
-
+            {buttons}
           </div>
+
             {list}
             {this.renderModal()}
         </div>

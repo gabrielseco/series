@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import {getAllBooks, deleteBook} from '../../actions'
 import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
@@ -155,14 +156,17 @@ class Books extends React.Component {
 
 
     return(
-        <div id='films' className="films">
-        <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
-          <div className="filmButton">
-            <button className="addFilm" onClick={this.addBook.bind(this)}>ADD BOOK</button>
-            <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
+      <div>
+          <DocumentTitle title="Books"/>
+          <div id='films' className="films">
+          <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
+            <div className="filmButton">
+              <button className="addFilm" onClick={this.addBook.bind(this)}>ADD BOOK</button>
+              <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
+            </div>
+              {list}
+              {this.renderModal()}
           </div>
-            {list}
-            {this.renderModal()}
         </div>
     )
  }

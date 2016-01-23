@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import { connect } from 'react-redux';
 import {modifyEpisode, getOneEpisode} from '../../actions'
 
@@ -57,6 +58,7 @@ class ModifyEpisode extends React.Component {
       fieldValues = episodes
       return(
         <div>
+        <DocumentTitle title={fieldValues.nombre}/>
         <div className="dictionaryButton" style={float}>
            <button className="addWords" onClick={this.addWords.bind(this)}>ADD WORDS</button>
          </div>

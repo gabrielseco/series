@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import {getOneFilm, getDiccionariosPalabras, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
@@ -120,6 +121,7 @@ class DiccionarioPeliculas extends React.Component {
       var texto = "Película > " + this.state.pelicula.nombre
     return(
       <div>
+        <DocumentTitle title={this.state.pelicula.nombre + " | Words"}/>
         <BreadCrumb data={this.state.pelicula} texto={texto} goTo={this.modifyFilm.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">

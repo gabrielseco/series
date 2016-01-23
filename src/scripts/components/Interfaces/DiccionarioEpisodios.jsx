@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import {getOneTV, getDiccionariosEpisodios, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
@@ -110,6 +111,7 @@ class DiccionarioEpisodios extends React.Component {
 
     return(
       <div>
+        <DocumentTitle title={words[0].series.nombre + " Words"}/>
         <BreadCrumb data={this.state.serie} texto={texto} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">

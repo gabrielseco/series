@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import { connect } from 'react-redux';
 import {modifyWord, getOneWord} from '../../actions'
 
@@ -49,6 +50,7 @@ class ModifyWord extends React.Component {
     if(this.state.data !== ''){
     return(
       <div>
+        <DocumentTitle title="Modify Word"/>
           <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                   <label className="is-required">English</label>
                   <input ref="english" className={this.state.inputName} defaultValue={this.state.data.english} type="text" name="english" required placeholder="English" autoComplete="off"></input>

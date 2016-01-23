@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import {getOneBook, getDiccionariosLibros, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
@@ -115,6 +116,7 @@ class DiccionarioLibros extends React.Component {
     if(words.length > 0){
     return(
       <div>
+        <DocumentTitle title={this.state.libro.nombre + " | Words"}/>
         <BreadCrumb data={this.state.libro} texto={texto} goTo={this.modifyBook.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">

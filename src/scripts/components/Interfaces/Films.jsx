@@ -17,6 +17,13 @@ const modalStyle = {
   }
 }
 
+const enable = () => {
+    return {
+    syncFilms: 0,
+    syncWords: 0
+  }
+}
+
 
 class Films extends React.Component {
 
@@ -160,10 +167,14 @@ class Films extends React.Component {
   //and then I can use the search component
   render() {
     const  { films } = this.props
+    var buttons = [];
 
-
-
-
+      if(enable.syncFilms === 1){
+        buttons.push(<button key={1} onClick={this.syncData.bind(this)}> SYNC DATA</button>)
+      }
+      if(enable.syncWords === 1){
+        buttons.push(<button key={2} onClick={this.syncWords.bind(this)}> SYNC WORDS </button>)
+      }
 
     if(films.length > 0) {
       this.state.films = films;
@@ -200,8 +211,7 @@ class Films extends React.Component {
           <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
             <div className="filmButton">
               <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
-              <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
-              <button onClick={this.syncWords.bind(this)}> SYNC WORDS </button>
+              {buttons}
             </div>
               {list}
               {this.renderModal()}

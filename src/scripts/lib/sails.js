@@ -1,6 +1,11 @@
 import axios from 'axios'
 var _url = "http://localhost:1337/"
-console.log('location',location.path());
+
+console.log('location',window.location.href.slice(7));
+
+/*if(window.location.href.slice(7) !== 'localhost:8000/#/'){
+  _url  = "https://heroku-sails-ggseco.herokuapp.com/"
+}*/
 
 
   export async function get(path) {

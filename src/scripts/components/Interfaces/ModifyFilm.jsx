@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import { connect } from 'react-redux';
 import {modifyFilm, getOneFilm} from '../../actions'
 import Colors from '../UI/Colors.js';
@@ -69,6 +70,7 @@ class ModifyFilm extends React.Component {
     if(this.state.data !== ''){
     return(
       <div>
+      <DocumentTitle title="Modify Film"/>
         <img className='img' src={this.state.data.imagen} width="230" height="345"/>
         <div style={float}>
           <Colors data={this.state.data.imagen} changeColor={this.changeColor.bind(this)}/>

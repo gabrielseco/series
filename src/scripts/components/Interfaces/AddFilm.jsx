@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import { connect } from 'react-redux';
 import {addOneFilm} from '../../actions'
 
@@ -34,11 +35,14 @@ class AddFilm extends React.Component {
   render() {
 
     return(
-      <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
-              <label className="is-required">Nombre</label>
-              <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
-              <input type="submit" value="Enviar"></input>
-      </form>
+      <div>
+        <DocumentTitle title="ADD FILM"/>
+        <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
+                <label className="is-required">Nombre</label>
+                <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
+                <input type="submit" value="Enviar"></input>
+        </form>
+      </div>
     )
  }
 }

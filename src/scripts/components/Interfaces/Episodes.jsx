@@ -1,4 +1,5 @@
 import React from 'react';
+import DocumentTitle from 'react-document-title'
 import {getAllEpisodes, deleteEpisode, generateEpisodes, getOneTV} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
@@ -152,8 +153,10 @@ class Episodes extends React.Component {
 
     if(episodes.length > 0){
       var texto = "Serie > " + episodes[0].serie.nombre + " > Season " +episodes[0].serie.temporada;
+      var title = episodes[0].serie.nombre + " Season "+ episodes[0].serie.temporada;
     return(
       <div>
+        <DocumentTitle title={title}/>
         <BreadCrumb data={episodes[0].serie} texto={texto} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
