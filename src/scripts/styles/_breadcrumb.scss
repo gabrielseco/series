@@ -1,6 +1,5 @@
 .breadcrumb {
   margin-top: 5px;
-  background: #325D56;
   width: 100%;
   height:360px;
 
@@ -14,5 +13,9 @@
     font-size: 1.4rem;
     float: right;
     padding: 30px;
+
+    a{
+      color:#fff;
+    }
   }
 }

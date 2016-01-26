@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title'
 import {getAllEpisodes, deleteEpisode, generateEpisodes, getOneTV} from '../../actions'
 import { connect } from 'react-redux';
@@ -153,11 +154,12 @@ class Episodes extends React.Component {
 
     if(episodes.length > 0){
       var texto = "Serie > " + episodes[0].serie.nombre + " > Season " +episodes[0].serie.temporada;
+      var link  = <Link to="/tv">{texto}</Link>
       var title = episodes[0].serie.nombre + " Season "+ episodes[0].serie.temporada;
     return(
       <div>
         <DocumentTitle title={title}/>
-        <BreadCrumb data={episodes[0].serie} texto={texto} goTo={this.modifyTV.bind(this)}/>
+        <BreadCrumb data={episodes[0].serie} texto={link} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>
@@ -168,6 +170,7 @@ class Episodes extends React.Component {
       </div>
     );
   } else {
+    var texto = "Serie > " + this.state.serie.nombre + " > Season " +this.state.serie.temporada;
     return (
       <div>
         <BreadCrumb data={this.state.serie}  goTo={this.modifyTV.bind(this)}/>

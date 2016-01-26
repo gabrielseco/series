@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import DocumentTitle from 'react-document-title'
 import {getOneTV, getDiccionariosEpisodios, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
@@ -107,12 +108,13 @@ class DiccionarioEpisodios extends React.Component {
 
     if(words.length > 0){
       console.log(words[0]);
+      var url = "episodes/"+this.props.params.idSerie
       var texto = "Serie > " + words[0].series.nombre + " > Season " +words[0].series.temporada + " > " + words[0].episodios.nombre;
-
+      var link = <Link to={url}>{texto}</Link>
     return(
       <div>
         <DocumentTitle title={words[0].series.nombre + " Words"}/>
-        <BreadCrumb data={this.state.serie} texto={texto} goTo={this.modifyTV.bind(this)}/>
+        <BreadCrumb data={this.state.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
