@@ -25,6 +25,7 @@ li{
     min-width: 1020px;
     position: relative;
   }
+
   .item{
     padding:10px 10px 0 5px;
     color:rgba(0,0,0,0.8);
@@ -36,4 +37,11 @@ li{
       padding-bottom:20px;
     }
   }
+  .item-active {
+    color:rgba(0,0,0,1);
+    border-bottom: 2px rgba(0,0,0,0.8) solid;
+    padding-bottom:20px;
+  }
+
+
 }
