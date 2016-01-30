@@ -1,19 +1,25 @@
 'use strict';
 
-import React from 'react';
+import React, { PropTypes } from 'react'
 import {Link} from 'react-router';
 var classNames = require('classnames');
 
 
-export default class ItemNav extends React.Component {
-    render() {
-      var btnClass = classNames({
-        'item': true,
-        'item-active':this.props.URL === location.hash.slice(1)
-      });
+const ItemNav = ( { URL, children }) => {
 
-        return (
-          <li><Link className={btnClass} to={this.props.URL} >{this.props.children}</Link></li>
-        );
-    }
+  var btnClass = classNames({
+    'item': true,
+    'item-active': URL === location.hash.slice(1)
+  });
+
+  return(
+    <li> <Link className={ btnClass } to={ URL } > { children } </Link> </li>
+  )
 }
+
+ItemNav.propTypes = {
+  URL: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired
+}
+
+export default ItemNav
