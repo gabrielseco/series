@@ -6,20 +6,24 @@ var classNames = require('classnames');
 
 
 const ItemNav = ( { URL, children }) => {
-
+  var active = {
+    paddingBottom:'20px',
+    borderBottom:'2px #000 solid',
+    fontWeight:400
+  }
   var btnClass = classNames({
     'item': true,
-    'item-active': URL === location.hash.slice(1)
   });
 
   return(
-    <li> <Link className={ btnClass } to={ URL } > { children } </Link> </li>
+    <li> <Link activeClassName="active" className={ btnClass } activeStyle={active} to={ URL } > { children } </Link> </li>
   )
 }
 
 ItemNav.propTypes = {
   URL: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired
+  children: PropTypes.string.isRequired,
 }
+
 
 export default ItemNav

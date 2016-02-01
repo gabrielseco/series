@@ -3,17 +3,19 @@ import DocumentTitle from 'react-document-title'
 import {Link} from 'react-router';
 import UINavBar from '../UI/NavBar';
 
+
  class App extends React.Component {
 
   constructor(props) {
     super(props);
+
   }
 
   render() {
 
     return (
       <div>
-        <UINavBar/>
+        <UINavBar history={this.props.history}/>
         <DocumentTitle title="LEARN WORDS"/>
         <div className='main'>
           {this.props.children}
@@ -22,4 +24,9 @@ import UINavBar from '../UI/NavBar';
     );
   }
 }
+
+
+
+
+
 export default App

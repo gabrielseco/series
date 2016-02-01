@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom'
-import { Router, Route} from 'react-router'
+import { Router, Route, IndexRoute} from 'react-router'
 import createHistory from 'history/lib/createHashHistory';
 import { Provider } from 'react-redux'
 import configureStore from '../store/configureStore'
+
+import D3 from './Interfaces/D3.jsx';
+
 
 import App from './Interfaces/App.jsx';
 import Films from './Interfaces/Films.jsx';
@@ -50,85 +53,92 @@ try {
         <Route component={App}>
           <Route
           path="/"
-          name="films"
-          component={Films}
-          />
+          >
+            <IndexRoute
+            component={Films}
+            />
+            <Route
+            path="/addFilm"
+            component={AddFilm}
+            />
+            <Route
+            path="/modifyFilm/:id"
+            component={ModifyFilm}
+            />
+            <Route
+            path="/diccionarios_pelicula/:id"
+            component={DiccionarioPeliculas}
+            />
+          </Route>
 
           <Route
-          path="/tv"
-          name="TV"
-          component={TV}
-          />
+          path="/tv">
+            <IndexRoute
+            component={TV}
+            />
+            <Route
+            path="/addTV"
+            component={AddTV}
+            />
+            <Route
+            path="/modifyTV/:id"
+            component={ModifyTV}
+            />
+            <Route
+            path="/episodes/:id"
+            component={Episodes}
+            />
+            <Route
+            path="/diccionarios/:idSerie/episodio/:idEpisodio"
+            component={DiccionarioEpisodios}
+            />
+            <Route
+            path="/addEpisode/:id"
+            component={AddEpisode}
+            />
+            <Route
+            path="/modifyEpisode/:idSerie/:idEpisodio"
+            name="modifyEpisode"
+            component={ModifyEpisode}
+            />
+
+          </Route>
           <Route
-          path="/books"
-          name="Books"
-          component={Books}
-          />
+          path="/books">
+            <IndexRoute
+            component={Books}
+            />
+
+            <Route
+            path="/addBook"
+            name="addBook"
+            component={AddBook}
+            />
+            <Route
+            path="/modifyBook/:id"
+            name="modifyBook"
+            component={ModifyBook}
+            />
+
+            <Route
+            path="/diccionarios_libros/:id"
+            name="diccionariolibros"
+            component={DiccionarioLibros}
+            />
+
+          </Route>
           <Route
           path="/dictionary"
           name="words"
           component={Words}
           />
           <Route
-          path="/episodes/:id"
-          name="episodes"
-          component={Episodes}
+          path="/d3"
+          name="d3"
+          component={D3}
           />
-          <Route
-          path="diccionarios/:idSerie/episodio/:idEpisodio"
-          name="diccionarioepisodes"
-          component={DiccionarioEpisodios}
-          />
-          <Route
-          path="/diccionarios_pelicula/:id"
-          name="diccionario_peliculas"
-          component={DiccionarioPeliculas}
-          />
-          <Route
-          path="diccionarios_libros/:id"
-          name="diccionariolibros"
-          component={DiccionarioLibros}
-          />
-          <Route
-          path="/addFilm"
-          name="addFilm"
-          component={AddFilm}
-          />
-          <Route
-          path="/modifyFilm/:id"
-          name="modifyFilm"
-          component={ModifyFilm}
-          />
-          <Route
-          path="/addTV"
-          name="addTV"
-          component={AddTV}
-          />
-          <Route
-          path="/modifyTV/:id"
-          name="ModifyTV"
-          component={ModifyTV}
-          />
-          <Route
-          path="/addBook"
-          name="addBook"
-          component={AddBook}
-          />
-          <Route
-          path="/modifyBook/:id"
-          name="modifyBook"
-          component={ModifyBook}
-          />
-          <Route
-          path="/addEpisode/:id"
-          name="addEpisode"
-          component={AddEpisode}
-          />
-          <Route
-          path="/modifyEpisode/:idSerie/:idEpisodio"
-          name="modifyEpisode"
-          component={ModifyEpisode}
-          />
+
+
           <Route
           path="/addWords/:pelicula/:serie/:episodio/:libro"
           name="addWords"

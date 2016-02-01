@@ -23,6 +23,7 @@ class DiccionarioEpisodios extends React.Component {
     const {dispatch } = this.props;
     dispatch(getOneTV(this.props.params.idSerie, res => {
       this.setState({serie: res});
+      console.log('res',res);
     }))
     dispatch(getDiccionariosEpisodios(this.props.params.idEpisodio))
 
@@ -33,7 +34,7 @@ class DiccionarioEpisodios extends React.Component {
   }
 
   modifyTV(){
-    this.props.history.pushState(null, 'modifyTV/'+this.props.params.id);
+    this.props.history.pushState(null, 'tv/modifyTV/'+this.props.params.id);
   }
 
   render(){
@@ -54,7 +55,7 @@ class DiccionarioEpisodios extends React.Component {
                  var id = data[rowIndex].id;
                  console.log('id editar',id);
 
-                 this.props.history.pushState(null, 'modifyWord/'+id);
+                 this.props.history.pushState(null, '/modifyWord/'+id);
 
 
 
@@ -108,7 +109,7 @@ class DiccionarioEpisodios extends React.Component {
 
     if(words.length > 0){
       console.log(words[0]);
-      var url = "episodes/"+this.props.params.idSerie
+      var url = "/tv/episodes/"+this.props.params.idSerie
       var texto = "Serie > " + words[0].series.nombre + " > Season " +words[0].series.temporada + " > " + words[0].episodios.nombre;
       var link = <Link to={url}>{texto}</Link>
     return(
@@ -124,9 +125,12 @@ class DiccionarioEpisodios extends React.Component {
       </div>
     );
   } else {
+    var url = "/tv/episodes/"+this.props.params.idSerie
+    var texto = "Serie > " + this.state.serie.nombre + " > Season " +this.state.serie.temporada
+    var link = <Link to={url}>{texto}</Link>
     return (
       <div>
-      <BreadCrumb data={this.state.serie} texto={texto} goTo={this.modifyTV.bind(this)}/>
+      <BreadCrumb data={this.state.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>

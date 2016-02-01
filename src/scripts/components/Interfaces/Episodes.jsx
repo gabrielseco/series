@@ -58,7 +58,7 @@ class Episodes extends React.Component {
   }
 
   modifyTV(){
-    this.props.history.pushState(null, 'modifyTV/'+this.props.params.id);
+    this.props.history.pushState(null, '/modifyTV/'+this.props.params.id);
   }
 
   render(){
@@ -99,7 +99,7 @@ class Episodes extends React.Component {
                  var idEpisodio = data[rowIndex].id;
                  var idSerie = this.props.params.id
 
-                 this.props.history.pushState(null, 'modifyEpisode/'+idSerie+"/"+idEpisodio);
+                 this.props.history.pushState(null, '/modifyEpisode/'+idSerie+"/"+idEpisodio);
 
 
 
