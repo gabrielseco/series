@@ -24,7 +24,6 @@ class Words extends React.Component {
     const {dispatch } = this.props;
 
     dispatch(getAllWords(res => {
-      console.log('res',res);
       this.setState({data: res});
     }));
 
@@ -120,7 +119,7 @@ class Words extends React.Component {
 
     return(
       <div style={style}>
-          <UITable  data={this.state.data} columns={columns} pagination={pagination} search={search}/>
+          <UITable data={this.state.data} columns={columns} pagination={pagination} search={search}/>
       </div>
     );
   } else {

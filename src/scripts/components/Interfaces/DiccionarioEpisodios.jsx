@@ -109,7 +109,7 @@ class DiccionarioEpisodios extends React.Component {
 
     if(words.length > 0){
       console.log(words[0]);
-      var url = "/tv/episodes/"+this.props.params.idSerie
+      var url = "/episodes/"+this.props.params.idSerie
       var texto = "Serie > " + words[0].series.nombre + " > Season " +words[0].series.temporada + " > " + words[0].episodios.nombre;
       var link = <Link to={url}>{texto}</Link>
     return(
@@ -125,7 +125,7 @@ class DiccionarioEpisodios extends React.Component {
       </div>
     );
   } else {
-    var url = "/tv/episodes/"+this.props.params.idSerie
+    var url = "/episodes/"+this.props.params.idSerie
     var texto = "Serie > " + this.state.serie.nombre + " > Season " +this.state.serie.temporada
     var link = <Link to={url}>{texto}</Link>
     return (

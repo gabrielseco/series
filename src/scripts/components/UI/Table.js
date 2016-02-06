@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Table, Search, sortColumn } from 'reactabular';
-import Paginator from 'react-pagify';
+var Table = require('reactabular').Table;
+var Search = require('reactabular').Search;
+var Paginator = require('react-pagify');
+var sortColumn = require('reactabular').sortColumn;
 
 
 class UITable extends React.Component {
@@ -22,12 +24,10 @@ class UITable extends React.Component {
 
                 }
   }
-  console.log(this.props.columns)
  }
 
  componentDidMount(){
-   console.log(this.refs.search);
- }
+   }
 
  onSearch(search) {
    this.setState({
@@ -42,7 +42,6 @@ class UITable extends React.Component {
     this.setState({
         pagination: pagination
     });
-    console.log(pagination)
 }
 
 onPerPage(e) {

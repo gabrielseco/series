@@ -66,14 +66,14 @@ class AddWords extends React.Component {
 
   }
   finalizarPelicula(){
-    this.props.history.pushState(null, '/films/diccionarios_pelicula/'+this.props.params.pelicula);
+    this.props.history.pushState(null, '/diccionarios_pelicula/'+this.props.params.pelicula);
   }
   finalizarLibro(){
-    this.props.history.pushState(null, '/books/diccionarios_libros/'+this.props.params.libro);
+    this.props.history.pushState(null, '/diccionarios_libros/'+this.props.params.libro);
   }
 
   finalizarSerie(){
-    this.props.history.pushState(null, '/tv/diccionarios/'+this.props.params.serie+'/episodio/'+this.props.params.episodio);
+    this.props.history.pushState(null, '/diccionarios/'+this.props.params.serie+'/episodio/'+this.props.params.episodio);
 
   }
 
