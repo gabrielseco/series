@@ -1,21 +1,59 @@
 import axios from 'axios'
 var _url = "http://localhost:1337/"
 
+  function getPromise(path){
+    return new Promise(function(resolve, reject) {
+      axios.get(_url + path).then(response => {
+        resolve(response)
+      }).catch(error => {
+        return reject(error)
+      })
+    });
+  }
+
   export async function get(path) {
 
-    const response = await axios.get(_url + path);
-    return response.data;
+      try {
+
+        var response = await getPromise(path);
+        return response.data
+
+      } catch(error) {
+
+        return error;
+
+      }
 
   }
 
   export async function getWhere(path){
-    const response = await axios.get(_url + path);
-    return response.data;
+
+    try {
+
+      var response = await getPromise(path);
+      return response.data
+
+    } catch(error) {
+
+      return error;
+
+    }
+
   }
 
   export async function getOne(path, id){
-    const response = await axios.get(_url + path + "/" +id);
-    return response.data;
+
+    try {
+
+      var response = await getPromise(path + "/" + id);
+      return response.data
+
+    } catch(error) {
+
+      return error;
+
+    }
+
   }
 
 

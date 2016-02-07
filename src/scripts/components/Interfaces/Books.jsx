@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
 import Modal from 'react-modal'
 import SearchInput from 'react-search-input';
-
+import MessageInfo from '../UI/MessageInfo'
+import Loading from '../UI/Loading'
 import { add } from '../../lib/sails'
 import axios from 'axios';
 
@@ -23,12 +24,16 @@ class Books extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {modalIsOpen: false, book: '', searchTerm: ''}
+    this.state = {modalIsOpen: false, book: '', searchTerm: '', books: null}
   }
   componentDidMount(){
     const {dispatch } = this.props;
-    dispatch(getAllBooks())
-    this.refs.search.refs.search.focus();
+    dispatch(getAllBooks( books => {
+      this.setState({
+        books: books
+      })
+      this.refs.search.refs.search.focus();
+    }))
 
   }
 
@@ -79,7 +84,6 @@ class Books extends React.Component {
   }
 
   diccionarios(id){
-    console.log(JSON.stringify(id))
     this.props.history.pushState(null,'/diccionarios_libros/'+id)
   }
   searchUpdated(term) {
@@ -87,7 +91,6 @@ class Books extends React.Component {
   }
 
   openModal(data) {
-    console.log('data',data)
     this.setState({modalIsOpen: true, book: data});
   }
   closeModal() {
@@ -116,62 +119,72 @@ class Books extends React.Component {
 
   }
 
-  //redux is sends the objects readonly, you have to do an action to modify the object
-  //to avoid this I pass it to the component state
-  //and then I can use the search component
+
   render() {
-    const  { books } = this.props
     var list = null;
-    console.log(books)
+    var message = null;
+    var _books = this.state.books
 
 
+    if(this.state.books !== null) {
+      message = this.renderMessage(this.state.books)
 
-
-
-    if(books.length > 0) {
-      this.state.books = books;
       if (this.state.searchTerm.length > 0) {
         var filters = ['nombre'];
-        this.state.books = this.state.books.filter(this.refs.search.filter(filters));
+        _books = this.state.books.filter(this.refs.search.filter(filters));
       }
-      var list = this.state.books.map((book, i) => {
-        var palabras = (
-          <div className="diccionarios">
-              <button onClick={this.diccionarios.bind(this, book.id)}>PALABRAS</button>
-          </div>
-        )
-        return (
-          <ListItem {...this.props} {...this.state}
-                    key={book.id} data={book}
-                    modify={this.modifyBook}
-                    palabras={palabras}
-                    openModal={this.openModal.bind(this,book)}/>
-        );
 
-      });
+      if(_books.length > 0){
 
-
-    }
-
-
-
-    return(
-      <div>
-          <DocumentTitle title="Books"/>
-          <div id='films' className="films">
-          <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
-            <div className="filmButton">
-              <button className="addFilm" onClick={this.addBook.bind(this)}>ADD BOOK</button>
-              <button onClick={this.syncData.bind(this)}> SYNC DATA</button>
+        var list = _books.map((book, i) => {
+          var palabras = (
+            <div className="diccionarios">
+                <button onClick={this.diccionarios.bind(this, book.id)}>PALABRAS</button>
             </div>
-              {list}
-              {this.renderModal()}
-          </div>
-        </div>
-    )
+          )
+          return (
+            <ListItem {...this.props} {...this.state}
+                      key={book.id} data={book}
+                      modify={this.modifyBook}
+                      palabras={palabras}
+                      openModal={this.openModal.bind(this,book)}/>
+          );
+
+        });
+
+        return(
+            <div>
+              <DocumentTitle title="TV"/>
+              {message}
+              {this.renderList(list, _books)}
+              {this.renderModal(this.state.TV)}
+            </div>
+        )
+      }
+   } else {
+     return (<Loading/>)
+   }
+ }
+ renderMessage(books){
+    if(books.status == undefined)
+       return null
+
+    return <MessageInfo statusCode={books.status}/>
+ }
+
+ renderList(list, books){
+   if(books.status !== 0){
+     return (
+       <div id='films' className="films">
+       <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
+         <div className="filmButton">
+           <button className="addFilm" onClick={this.addBook.bind(this)}>ADD TV</button>
+         </div>
+           {list}
+       </div>
+     )
+   }
  }
 }
-function mapStateToProps(state) {
-  return { books: state.books }
-}
-export default connect(mapStateToProps)(Books)
+
+export default connect()(Books)

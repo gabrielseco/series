@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
 import SearchInput from 'react-search-input';
 import Modal from 'react-modal'
+import MessageInfo from '../UI/MessageInfo'
+import Loading from '../UI/Loading'
 import axios from 'axios'
 import { add } from '../../lib/sails'
 
@@ -26,14 +28,18 @@ class TV extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {modalIsOpen: false, tv: '', searchTerm: ''}
+    this.state = {modalIsOpen: false, tv: '', searchTerm: '', series: null}
   }
   componentDidMount(){
     const {dispatch } = this.props;
 
-    dispatch(getAllTV());
+    dispatch(getAllTV(TV => {
+      this.setState({
+        series: TV
+      })
+      this.refs.search.refs.search.focus();
+    }));
 
-    this.refs.search.refs.search.focus();
 
   }
   addTV(){
@@ -162,8 +168,9 @@ class TV extends React.Component {
   }
 
   render() {
-    const { TV } = this.props
     var buttons = [];
+    var message = null;
+    var _series = this.state.series;
 
       if(enable.syncTV === 1){
         buttons.push(<button key={1} onClick={this.syncData.bind(this)}> SYNC DATA</button>)
@@ -174,43 +181,63 @@ class TV extends React.Component {
 
 
 
-    if(TV.length > 0){
-      this.state.TV = TV;
+    if(this.state.series !== null){
+      message = this.renderMessage(this.state.series)
+
       if (this.state.searchTerm.length > 0) {
         var filters = ['nombre'];
-        this.state.TV = this.state.TV.filter(this.refs.search.filter(filters));
+        _series = this.state.series.filter(this.refs.search.filter(filters));
       }
-      var list = this.state.TV.map((TV, i) => {
-        var episodios = (
-          <div className="diccionarios">
-              <button onClick={this.episodios.bind(this, TV.id)}>EPISODIOS</button>
+
+      if(_series.length > 0){
+        var list = _series.map((TV, i) => {
+          var episodios = (
+            <div className="diccionarios">
+                <button onClick={this.episodios.bind(this, TV.id)}>EPISODIOS</button>
+            </div>
+          )
+          return (
+            <ListItem key={TV.id} data={TV} palabras={episodios} modify={this.modifyTV.bind(this)} openModal={this.openModal.bind(this,TV)}/>
+          );
+
+        });
+      }
+
+      return(
+          <div>
+            <DocumentTitle title="TV"/>
+            {message}
+            {this.renderList(list, _series, buttons)}
+            {this.renderModal(this.state.TV)}
           </div>
-        )
-        return (
-          <ListItem key={TV.id} data={TV} palabras={episodios} modify={this.modifyTV.bind(this)} openModal={this.openModal.bind(this,TV)}/>
-        );
+      )
 
-      });
-
+    } else {
+      return(<Loading/>)
     }
-    return(
-        <div>
-          <DocumentTitle title="TV"/>
-        <div id='films' className="films">
-        <SearchInput className='search-input' ref='search' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
-          <div className="filmButton">
-            <button className="addFilm" onClick={this.addTV.bind(this)}>ADD TV</button>
-            {buttons}
-          </div>
 
-            {list}
-            {this.renderModal()}
-        </div>
-        </div>
-    )
+ }
+ renderMessage(series){
+    if(series.status == undefined)
+       return null
+
+    return <MessageInfo statusCode={series.status}/>
+ }
+
+ renderList(list, series, buttons){
+   if(series.status !== 0){
+     return (
+       <div id='films' className="films">
+       <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
+         <div className="filmButton">
+           <button className="addFilm" onClick={this.addTV.bind(this)}>ADD TV</button>
+           {buttons}
+         </div>
+           {list}
+       </div>
+     )
+   }
  }
 }
-function mapStateToProps(state) {
-  return { TV: state.TV }
-}
-export default connect(mapStateToProps)(TV)
+
+export default connect()(TV)

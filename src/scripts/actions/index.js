@@ -46,10 +46,11 @@ function receiveWords(words){
 
 /* $FILMS */
 
-export function getAllFilms() {
+export function getAllFilms(cb) {
   return dispatch => {
     shared.get('films?sort=nombre asc',films => {
       dispatch(receiveFilms(films))
+      cb(films)
     })
 
   }
@@ -88,9 +89,10 @@ export function deleteFilm(id, cb){
 }
 
 /* $SERIES */
-export function getAllTV() {
+export function getAllTV(cb) {
   return dispatch => {
     shared.get('series/getSeries', TV => {
+      cb(TV)
       dispatch(receiveTV(TV))
     })
   }
@@ -129,10 +131,11 @@ export function deleteTV(id, cb){
 
 /* $BOOKS */
 
-export function getAllBooks() {
+export function getAllBooks(cb) {
   return dispatch => {
     shared.get('books', books => {
       dispatch(receiveBooks(books))
+      cb(books)
     })
 
   }

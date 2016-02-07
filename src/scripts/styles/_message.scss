@@ -1,0 +1,70 @@
+.message-info {
+  position: relative;
+  background: rgba(42,45,50,0.85);
+  padding: 22px;
+  line-height: 1.4;
+  z-index: 1000;
+  color: rgba(250,251,255,0.95);
+  font-size: 90%;
+  font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
+  width: 100%;
+  position: absolute;
+  top:30;
+  left:0;
+
+  .message-inner{
+    position: relative;
+
+    p{
+      padding: 0.25em 2em 0.25em 3em;
+    }
+  }
+
+  .button-close {
+    background: transparent;
+    top: 50%;
+    right: 5%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    overflow: hidden;
+    text-indent: 100%;
+    cursor: pointer;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .button-close::before, .button-close::after {
+    -webkit-transform: translate(-50%,-50%) rotate(45deg);
+    transform: translate(-50%,-50%) rotate(45deg);
+    background: #b7b5b3;
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 60%;
+    top: 50%;
+    left: 50%;
+    background: #FFF;
+
+  }
+
+  .button-close::before {
+    -webkit-transform: translate(-50%,-50%) rotate(45deg);
+     transform: translate(-50%,-50%) rotate(45deg);
+  }
+  .button-close::after {
+    -webkit-transform: translate(-50%,-50%) rotate(-45deg);
+     transform: translate(-50%,-50%) rotate(-45deg);
+  }
+
+
+
+}
+
+
+.message-hide{
+	-webkit-animation-direction: reverse;
+	animation-direction: reverse;
+}

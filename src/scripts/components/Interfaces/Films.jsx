@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
 import Modal from 'react-modal'
 import SearchInput from 'react-search-input';
+import MessageInfo from '../UI/MessageInfo'
+import Loading from '../UI/Loading'
 
 import { add } from '../../lib/sails'
 
@@ -29,12 +31,15 @@ class Films extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {modalIsOpen: false, film: '', searchTerm: ''}
+    this.state = {modalIsOpen: false, film: '', searchTerm: '', films: null}
   }
   componentDidMount(){
-    const {dispatch } = this.props;
-    dispatch(getAllFilms())
-    this.refs.search.refs.search.focus();
+    const { dispatch } = this.props;
+    dispatch(getAllFilms(films => {
+      this.setState({films: films})
+      this.refs.search.refs.search.focus();
+    }))
+
   }
 
   checkString(data){
@@ -98,8 +103,6 @@ class Films extends React.Component {
 
         }
       });
-
-
     })
 
 
@@ -166,8 +169,9 @@ class Films extends React.Component {
   //to avoid this I pass it to the component state
   //and then I can use the search component
   render() {
-    const  { films } = this.props
-    var buttons = [];
+      var buttons = [];
+      var message = null;
+      var _films = this.state.films;
 
       if(enable.syncFilms === 1){
         buttons.push(<button key={1} onClick={this.syncData.bind(this)}> SYNC DATA</button>)
@@ -176,14 +180,16 @@ class Films extends React.Component {
         buttons.push(<button key={2} onClick={this.syncWords.bind(this)}> SYNC WORDS </button>)
       }
 
-    if(films.length > 0) {
-      this.state.films = films;
+    if(this.state.films !== null) {
+      message = this.renderMessage(this.state.films)
       if (this.state.searchTerm.length > 0) {
         var filters = ['nombre'];
-        this.state.films = this.state.films.filter(this.refs.search.filter(filters));
+        _films = this.state.films.filter(this.refs.search.filter(filters));
       }
 
-      var list = this.state.films.map((film, i) => {
+      if(_films.length > 0){
+
+      var list = _films.map((film, i) => {
         var palabras = (
           <div className="diccionarios">
               <button onClick={this.diccionarios.bind(this, film.id)}>PALABRAS</button>
@@ -199,28 +205,42 @@ class Films extends React.Component {
 
       });
 
-
-    }
-
+     }
 
 
-    return(
-        <div>
-          <DocumentTitle title="Films"/>
-          <div id='films' className="films">
-          <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
-            <div className="filmButton">
-              <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
-              {buttons}
-            </div>
-              {list}
-              {this.renderModal()}
+      return(
+          <div>
+            <DocumentTitle title="Films"/>
+            {message}
+            {this.renderList(list, _films, buttons)}
+            {this.renderModal(this.state.film)}
           </div>
-        </div>
-    )
+      )
+
+    } else {
+      return (<Loading/>)
+    }
+ }
+ renderMessage(films){
+    if(films.status == undefined)
+       return null
+
+    return <MessageInfo statusCode={films.status}/>
+ }
+
+ renderList(list, films, buttons){
+   if(films.status !== 0){
+     return (
+       <div id='films' className="films">
+       <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
+         <div className="filmButton">
+           <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
+           {buttons}
+         </div>
+           {list}
+       </div>
+     )
+   }
  }
 }
-function mapStateToProps(state) {
-  return { films: state.films }
-}
-export default connect(mapStateToProps)(Films)
+export default connect()(Films)
