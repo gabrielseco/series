@@ -10,7 +10,7 @@ export default class MessageInfo extends React.Component{
   constructor(props){
     super(props)
     var active = this.props.statusCode === 0 ? true : false;
-    this.state = {active : active, hide: null}
+    this.state = {active : active}
     this.interval = null;
   }
 
@@ -18,6 +18,10 @@ export default class MessageInfo extends React.Component{
     this.interval = setInterval(()=> {
       this.setState({active: !this.state.active})
     },this.props.time)
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval)
   }
 
   handleActive(){
@@ -35,8 +39,7 @@ export default class MessageInfo extends React.Component{
 
   renderMessage(){
     var active = classNames({
-      'message-info': true,
-      'hide': !this.state.active
+      'message-info': true
     });
     var status = this.props.statusCode === 0
                  ?
@@ -75,7 +78,7 @@ MessageInfo.propTypes = {
 }
 
 MessageInfo.defaultProps  = {
-  time: 500
+  time: 1000
 }
 
 

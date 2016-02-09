@@ -32,7 +32,7 @@ class Books extends React.Component {
       this.setState({
         books: books
       })
-      this.refs.search.refs.search.focus();
+      //this.refs.search.refs.search.focus();
     }))
 
   }
@@ -151,19 +151,20 @@ class Books extends React.Component {
           );
 
         });
+      }
 
         return(
             <div>
               <DocumentTitle title="TV"/>
               {message}
               {this.renderList(list, _books)}
-              {this.renderModal(this.state.TV)}
+              {this.renderModal(this.state.book)}
             </div>
         )
-      }
    } else {
-     return (<Loading/>)
+     return <Loading/>
    }
+
  }
  renderMessage(books){
     if(books.status == undefined)

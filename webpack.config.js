@@ -19,6 +19,7 @@ module.exports = {
   debug: true,
   devtool: false,
   entry: [
+    'webpack-dev-server/client?http://localhost:8000', // WebpackDevServer host and port
       'webpack/hot/only-dev-server',
       './src/scripts/components/main.jsx'
   ],
@@ -37,6 +38,12 @@ module.exports = {
   },
   module: {
     loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: ['react-hot'],
+        query:{}
+      },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
