@@ -1,5 +1,14 @@
 import axios from 'axios'
-var _url = "http://localhost:1337/"
+var _url = getURL();
+
+  function getURL (){
+
+    if(window.location.host === 'localhost:8000'){
+      return location.protocol + "//" + 'localhost:1337' + "/";
+    }
+    return location.protocol + "//" + window.location.host + "/";
+    
+  }
 
   function getPromise(path){
     return new Promise(function(resolve, reject) {

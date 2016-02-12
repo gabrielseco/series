@@ -34,7 +34,7 @@ class DiccionarioEpisodios extends React.Component {
   }
 
   modifyTV(){
-    this.props.history.pushState(null, 'tv/modifyTV/'+this.props.params.id);
+    this.props.history.pushState(null, '/modifyTV/'+this.props.params.idSerie);
   }
 
   render(){
