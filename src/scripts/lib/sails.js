@@ -8,7 +8,9 @@ console.log('_url', _url);
     if(window.location.host === 'localhost:8000'){
       return location.protocol + "//" + 'localhost:1337' + "/";
     }
-    return  "https://" + window.location.host + "/";
+    if(window.location.host === 'localhost:1337'){
+      return location.protocol + "//" + 'localhost:1337' + "/";
+    }    return  "https://" + window.location.host + "/";
 
   }
 
