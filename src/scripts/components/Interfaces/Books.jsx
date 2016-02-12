@@ -179,7 +179,7 @@ class Books extends React.Component {
        <div id='films' className="films">
        <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
          <div className="filmButton">
-           <button className="addFilm" onClick={this.addBook.bind(this)}>ADD TV</button>
+           <button className="addFilm" onClick={this.addBook.bind(this)}>ADD BOOK</button>
          </div>
            {list}
        </div>

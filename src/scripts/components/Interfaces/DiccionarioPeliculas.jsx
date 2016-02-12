@@ -132,6 +132,7 @@ class DiccionarioPeliculas extends React.Component {
       </div>
     );
   } else {
+    var texto = "Película > " + this.state.pelicula.nombre
     return (
       <div>
         <BreadCrumb data={this.state.pelicula} texto={texto} goTo={this.modifyFilm.bind(this)}/>

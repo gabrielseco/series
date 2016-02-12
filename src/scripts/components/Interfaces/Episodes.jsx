@@ -173,7 +173,7 @@ class Episodes extends React.Component {
     var texto = "Serie > " + this.state.serie.nombre + " > Season " +this.state.serie.temporada;
     return (
       <div>
-        <BreadCrumb data={this.state.serie}  goTo={this.modifyTV.bind(this)}/>
+        <BreadCrumb data={this.state.serie} texto={texto}  goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>
