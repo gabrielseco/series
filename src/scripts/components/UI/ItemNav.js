@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 var classNames = require('classnames');
 
 
-const ItemNav = ( { URL, children }) => {
+const ItemNav = ( { URL, children, disable }) => {
   var active = {
     paddingBottom:'20px',
     borderBottom:'2px #000 solid',
@@ -14,9 +14,12 @@ const ItemNav = ( { URL, children }) => {
   var btnClass = classNames({
     'item': true,
   });
+  var hidden = classNames({
+    'hidden': disable
+  })
 
   return(
-    <li> <Link activeClassName="active" className={ btnClass } activeStyle={active} to={ URL } > { children } </Link> </li>
+    <li className={hidden}> <Link activeClassName="active" className={ btnClass } activeStyle={active} to={ URL } > { children } </Link> </li>
   )
 }
 

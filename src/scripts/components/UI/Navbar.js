@@ -9,9 +9,9 @@ const UINavBar = () => (
     <div className="container">
       <ItemNav URL="/" history={history}>Films</ItemNav>
       <ItemNav URL="/tv">TV Shows</ItemNav>
-      <ItemNav URL="/books">Books</ItemNav>
+      <ItemNav URL="/books" disable>Books</ItemNav>
       <ItemNav URL="/dictionary">Words</ItemNav>
-      <ItemNav URL="/d3">D3</ItemNav>
+      <ItemNav URL="/d3" disable>D3</ItemNav>
 
     </div>
   </div>

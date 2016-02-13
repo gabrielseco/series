@@ -144,9 +144,9 @@ export function getAllBooks(cb) {
 
 export function addOneBook(obj, cb) {
   return dispatch => {
-    books.addBook(obj, book => {
-      cb (book)
-    });
+    shared.new('books', obj, book => {
+      cb(book)
+    })
   }
 }
 

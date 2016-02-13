@@ -54,7 +54,7 @@ class ModifyFilm extends React.Component {
 
     dispatch(modifyFilm(obj, res => {
       console.log('res modify FILM',res);
-      this.props.history.push('/')
+      this.props.history.goBack()
     }));
 
 

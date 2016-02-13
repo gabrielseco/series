@@ -46,7 +46,7 @@ class ModifyTV extends React.Component {
 
     dispatch(modifyTV(obj, res => {
       console.log('res modify TV',res);
-      this.props.history.push('/tv')
+      this.props.history.goBack()
     }));
 
 

@@ -37,6 +37,18 @@ module.exports = {
     }
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['eslint'],
+        include: './src/scripts'
+      },
+      {
+        test: /\.js?$/,
+        loaders: ['eslint'],
+        include: './src/scripts'
+      },
+    ],
     loaders: [
       {
         test: /\.jsx?$/,

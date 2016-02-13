@@ -1,8 +1,6 @@
 import axios from 'axios'
 var _url = getURL();
 
-console.log('_url', _url);
-
   function getURL (){
 
     if(window.location.host === 'localhost:8000'){
