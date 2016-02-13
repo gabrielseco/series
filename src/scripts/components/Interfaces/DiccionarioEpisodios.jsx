@@ -17,7 +17,7 @@ class DiccionarioEpisodios extends React.Component {
   constructor(props, context){
     super(props)
     this.context = context;
-    this.state = {serie: ''}
+    this.state = {serie: '', episodio: ''}
   }
   componentDidMount(){
     const {dispatch } = this.props;
@@ -26,6 +26,17 @@ class DiccionarioEpisodios extends React.Component {
       console.log('res',res);
     }))
     dispatch(getDiccionariosEpisodios(this.props.params.idEpisodio))
+
+
+  }
+
+  getEpisode(idEpisodio, episodios){
+
+    for( var i = 0; i < episodios.length; i++ ){
+      if (episodios[i].id === idEpisodio) {
+        return episodios[i].nombre;
+      }
+    }
 
 
   }
@@ -125,9 +136,12 @@ class DiccionarioEpisodios extends React.Component {
       </div>
     );
   } else {
-    var url = "/episodes/"+this.props.params.idSerie
-    var texto = "Serie > " + this.state.serie.nombre + " > Season " +this.state.serie.temporada
-    var link = <Link to={url}>{texto}</Link>
+    if(this.state.serie > ''){
+      var url = "/episodes/"+this.props.params.idSerie
+      var episodio = this.getEpisode(+this.props.params.idEpisodio, this.state.serie.episodios)
+      var texto = "Serie > " + this.state.serie.nombre + " > Season " +this.state.serie.temporada + " > " + episodio
+      var link = <Link to={url}>{texto}</Link>
+    }
     return (
       <div>
       <BreadCrumb data={this.state.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
