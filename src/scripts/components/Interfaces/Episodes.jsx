@@ -22,7 +22,6 @@ class Episodes extends React.Component {
   componentDidMount(){
     const {dispatch } = this.props;
     dispatch(getOneTV(this.props.params.id, res => {
-      console.log('res ModifyTV',res)
       this.setState({serie: res});
     }))
     dispatch(getAllEpisodes(this.props.params.id))

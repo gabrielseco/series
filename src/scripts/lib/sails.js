@@ -8,7 +8,8 @@ var _url = getURL();
     }
     if(window.location.host === 'localhost:1337'){
       return location.protocol + "//" + 'localhost:1337' + "/";
-    }    return  "https://" + window.location.host + "/";
+    }
+    return  "https://" + window.location.host + "/";
 
   }
 

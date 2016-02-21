@@ -22,7 +22,6 @@ class DiccionarioPeliculas extends React.Component {
     const {dispatch } = this.props;
 
     dispatch(getOneFilm(this.props.params.id, res => {
-      console.log('res ModifyTV',res)
       this.setState({pelicula: res});
     }))
 

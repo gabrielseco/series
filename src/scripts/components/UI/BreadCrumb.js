@@ -15,7 +15,6 @@ export default class BreadCrumb extends React.Component {
 
       const background = () => {
         var color  = null;
-        console.log(this.props.data)
 
         if(this.props.data.color === null){
           color = '325D56';

@@ -23,18 +23,26 @@ class DiccionarioEpisodios extends React.Component {
     const {dispatch } = this.props;
     dispatch(getOneTV(this.props.params.idSerie, res => {
       this.setState({serie: res});
-      console.log('res',res);
     }))
     dispatch(getDiccionariosEpisodios(this.props.params.idEpisodio))
 
 
   }
 
+  checkNumber(number){
+
+    if (number < 10 && typeof number !== 'string') {
+      number = "0" + number;
+    }
+    return number
+  }
+
   getEpisode(idEpisodio, episodios){
 
     for( var i = 0; i < episodios.length; i++ ){
       if (episodios[i].id === idEpisodio) {
-        return episodios[i].nombre;
+        episodios[i].numero = this.checkNumber(episodios[i].numero)
+        return episodios[i];
       }
     }
 
@@ -64,7 +72,6 @@ class DiccionarioEpisodios extends React.Component {
             cell: (value, data, rowIndex, property) => {
                var editar = () => {
                  var id = data[rowIndex].id;
-                 console.log('id editar',id);
 
                  this.props.history.pushState(null, '/modifyWord/'+id);
 
@@ -119,10 +126,11 @@ class DiccionarioEpisodios extends React.Component {
 
 
     if(words.length > 0){
-      console.log(words[0]);
+      var numero = this.checkNumber(words[0].episodios.numero)
       var url = "/episodes/"+this.props.params.idSerie
-      var texto = "Serie > " + words[0].series.nombre + " > Season " +words[0].series.temporada + " > " + words[0].episodios.nombre;
+      var texto = "Serie > " + words[0].series.nombre + " > " +words[0].series.temporada + "x" + numero + " > " + words[0].episodios.nombre;
       var link = <Link to={url}>{texto}</Link>
+
     return(
       <div>
         <DocumentTitle title={words[0].series.nombre + " Words"}/>
@@ -139,7 +147,7 @@ class DiccionarioEpisodios extends React.Component {
     if(this.state.serie > ''){
       var url = "/episodes/"+this.props.params.idSerie
       var episodio = this.getEpisode(+this.props.params.idEpisodio, this.state.serie.episodios)
-      var texto = "Serie > " + this.state.serie.nombre + " > Season " +this.state.serie.temporada + " > " + episodio
+      var texto = "Serie > " + this.state.serie.nombre + " > " +this.state.serie.temporada + "x" + episodio.numero + " > " + episodio.nombre
       var link = <Link to={url}>{texto}</Link>
     }
     return (

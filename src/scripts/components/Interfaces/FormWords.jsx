@@ -48,10 +48,8 @@ class FormWords extends React.Component {
 
     data = this.checkObject(data);
 
-    console.log('data',data);
 
     add('dictionary', data, response => {
-      console.log('response',response)
     });
 
 

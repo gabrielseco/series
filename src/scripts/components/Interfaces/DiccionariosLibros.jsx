@@ -22,7 +22,6 @@ class DiccionarioLibros extends React.Component {
     const {dispatch } = this.props;
 
     dispatch(getOneBook(this.props.params.id, res => {
-      console.log('res DiccionarioLibros',res)
       this.setState({libro: res});
     }))
 
