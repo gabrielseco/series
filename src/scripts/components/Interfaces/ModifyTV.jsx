@@ -40,8 +40,6 @@ class ModifyTV extends React.Component {
       color: this.refs.color.value
     }
 
-    console.log('obj ModifyTV',obj)
-
     const { dispatch } = this.props;
 
     dispatch(modifyTV(obj, res => {

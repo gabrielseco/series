@@ -37,10 +37,9 @@ class ModifyEpisode extends React.Component {
 
     const { dispatch } = this.props;
 
-    console.log(obj);
     dispatch(modifyEpisode(obj, res => {
       console.log('res modify EPISODE',res);
-      this.props.history.push('/episodes/'+this.props.params.idEpisodio)
+      this.props.history.goBack()
     }));
 
 

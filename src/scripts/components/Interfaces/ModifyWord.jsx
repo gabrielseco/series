@@ -33,8 +33,6 @@ class ModifyWord extends React.Component {
       english: this.refs.english.value,
     }
 
-    console.log('obj ModifyTV',obj)
-
     const { dispatch } = this.props;
 
     dispatch(modifyWord(obj, res => {

@@ -45,7 +45,7 @@ class ModifyBook extends React.Component {
 
     dispatch(modifyBook(obj, res => {
       console.log('res modify BOOK',res);
-      this.props.history.push('/books')
+      this.props.history.goBack()
     }));
 
   }
