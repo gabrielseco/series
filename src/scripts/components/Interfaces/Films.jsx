@@ -5,8 +5,10 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
 import Modal from 'react-modal'
-import SearchInput from 'react-search-input';
+import SearchInput from 'react-search-input'
 import MessageInfo from '../UI/MessageInfo'
+import MySearchInput from '../UI/MessageInfo'
+
 import Loading from '../UI/Loading'
 
 import { add } from '../../lib/sails'
@@ -37,7 +39,7 @@ class Films extends React.Component {
     const { dispatch } = this.props;
     dispatch(getAllFilms(films => {
       this.setState({films: films})
-      this.refs.search.refs.search.focus();
+      console.log();
     }))
 
   }
@@ -228,11 +230,22 @@ class Films extends React.Component {
     return <MessageInfo statusCode={films.status}/>
  }
 
+ renderSearch(){
+   return (
+     <div className='search-input'>
+       <div className='search-wrapper'>
+         <span className="search-icon">⚲</span>
+         <SearchInput ref='search' className='search-field' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' autoFocus />
+       </div>
+     </div>
+   )
+ }
+
  renderList(list, films, buttons){
    if(films.status !== 0){
      return (
        <div id='films' className="films">
-       <SearchInput ref='search' className='search-input' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' />
+          {this.renderSearch()}
          <div className="filmButton">
            <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
            {buttons}

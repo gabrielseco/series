@@ -12,6 +12,7 @@ class AddTV extends React.Component {
     this.state = {inputName: '', }
   }
 
+
   handleForm(e){
     e.preventDefault();
 
@@ -40,7 +41,7 @@ class AddTV extends React.Component {
       <DocumentTitle title="Add TV"/>
       <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
               <label className="is-required">Nombre</label>
-              <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
+              <input ref="name" className={this.state.inputName} type="text" name="name" autoFocus required placeholder="Nombre" autoComplete="off"></input>
               <label className="is-required">Temporada</label>
               <input ref="temporada" className={this.state.inputName} type="text" name="temporada" required placeholder="Temporada"></input>
               <input type="submit" value="Enviar"></input>

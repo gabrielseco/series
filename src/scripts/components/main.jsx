@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute} from 'react-router'
-import createHistory from 'history/lib/createHashHistory';
+import { browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
 import configureStore from '../store/configureStore'
 
@@ -37,9 +37,7 @@ import ModifyWord from './Interfaces/ModifyWord.jsx';
 
 
 
-var history = createHistory({
-  queryKey: false
-});
+
 
 const store = configureStore()
 
@@ -49,7 +47,7 @@ try {
 
   render((
     <Provider store={store}>
-      <Router history={history}>
+      <Router history={browserHistory}>
         <Route component={App}>
           <Route
           path="/"

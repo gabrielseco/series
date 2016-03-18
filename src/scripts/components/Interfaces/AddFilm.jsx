@@ -19,8 +19,6 @@ class AddFilm extends React.Component {
       nombre: this.refs.name.value
     }
 
-    console.log('obj addFilm',obj)
-
     const { dispatch } = this.props;
 
     dispatch(addOneFilm(obj, res => {
@@ -39,7 +37,7 @@ class AddFilm extends React.Component {
         <DocumentTitle title="ADD FILM"/>
         <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                 <label className="is-required">Nombre</label>
-                <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
+                <input ref="name" className={this.state.inputName} type="text" name="name" autoFocus required placeholder="Nombre" autoComplete="off"></input>
                 <input type="submit" value="Enviar"></input>
         </form>
       </div>
