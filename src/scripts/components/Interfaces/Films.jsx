@@ -1,17 +1,15 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title'
 import {getAllFilms, deleteFilm} from '../../actions'
-import axios from 'axios';
 import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
 import Modal from 'react-modal'
 import SearchInput from 'react-search-input'
 import MessageInfo from '../UI/MessageInfo'
 import MySearchInput from '../UI/MessageInfo'
-
 import Loading from '../UI/Loading'
+import Paginator from 'react-pagify'
 
-import { add } from '../../lib/sails'
 
 
 
@@ -21,19 +19,12 @@ const modalStyle = {
   }
 }
 
-const enable = () => {
-    return {
-    syncFilms: 0,
-    syncWords: 0
-  }
-}
-
 
 class Films extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {modalIsOpen: false, film: '', searchTerm: '', films: null}
+    this.state = {modalIsOpen: false, film: '', searchTerm: '', films: null, pagination:{ page: 0, perPage: 10 }}
   }
   componentDidMount(){
     const { dispatch } = this.props;
@@ -44,71 +35,25 @@ class Films extends React.Component {
 
   }
 
-  checkString(data){
-    var obj = {
+  onSelect(page) {
+     var pagination = this.state.pagination || {};
 
-    }
+     pagination.page = page;
 
-    Object.keys(data).map((value) => {
-      if(data [value] === ""){
-        delete data[value];
-      }
-    });
+     this.setState({
+         pagination: pagination
+     });
+ }
 
-    return data;
+ onPerPage(e) {
+     var pagination = this.state.pagination || {};
 
+     pagination.perPage = parseInt(event.target.value, 10);
 
-
-  }
-
-  syncWords(){
-    axios.get('http://192.168.1.130:5412/web/diccionarios_sails').then(res => {
-      res = res.data;
-      res.map((value, i) => {
-          var data = {
-            id: value.ID,
-            series: value.IDSerie,
-            peliculas:value.IDPelicula,
-            libros: value.IDLibro,
-            episodios: value.IDEpisodio,
-            english: value.english,
-            spanish: value.spanish
-          }
-            data = this.checkString(data);
-            add('dictionary', data, response => {
-              console.log('response',response)
-            });
-            setTimeout(() =>{location.reload()},250000)
-
-      });
-    });
-  }
-
-  syncData(){
-    axios.get('http://192.168.1.130:5412/web/peliculas_sails').then(res => {
-      console.log('res sync',res.data)
-      res = res.data;
-      res.map((value, i) => {
-        if(+value.Borrado === 0){
-          var data = {
-            id: value.ID,
-            idMovieDB: value.IDMovieDB,
-            year:value.Year,
-            overview: value.Descripcion,
-            nombre: value.Nombre,
-            imagen: value.Foto
-          }
-          add('films', data, response => {
-            console.log('response',response)
-          });
-          setTimeout(() =>{location.reload()},2500)
-
-        }
-      });
-    })
-
-
-  }
+     this.setState({
+         pagination: pagination
+     });
+ }
 
   addFilm(){
     this.props.history.push('/addFilm');
@@ -133,6 +78,7 @@ class Films extends React.Component {
   diccionarios(id){
     this.props.history.pushState(null,'/diccionarios_pelicula/'+id)
   }
+
   searchUpdated(term) {
     this.setState({searchTerm: term});
   }
@@ -171,16 +117,9 @@ class Films extends React.Component {
   //to avoid this I pass it to the component state
   //and then I can use the search component
   render() {
-      var buttons = [];
-      var message = null;
-      var _films = this.state.films;
+      let message = null;
+      let _films = this.state.films;
 
-      if(enable.syncFilms === 1){
-        buttons.push(<button key={1} onClick={this.syncData.bind(this)}> SYNC DATA</button>)
-      }
-      if(enable.syncWords === 1){
-        buttons.push(<button key={2} onClick={this.syncWords.bind(this)}> SYNC WORDS </button>)
-      }
 
     if(this.state.films !== null) {
       message = this.renderMessage(this.state.films)
@@ -191,12 +130,16 @@ class Films extends React.Component {
 
       if(_films.length > 0){
 
-      var list = _films.map((film, i) => {
+      _films = Paginator.paginate(_films, this.state.pagination);
+
+
+      var list = _films.data.map((film, i) => {
         var palabras = (
           <div className="diccionarios">
               <button onClick={this.diccionarios.bind(this, film.id)}>PALABRAS</button>
           </div>
-        )
+        );
+
         return (
           <ListItem {...this.props} {...this.state}
                     key={film.id} data={film}
@@ -214,7 +157,7 @@ class Films extends React.Component {
           <div>
             <DocumentTitle title="Films"/>
             {message}
-            {this.renderList(list, _films, buttons)}
+            {this.renderList(list, _films)}
             {this.renderModal(this.state.film)}
           </div>
       )
@@ -241,16 +184,25 @@ class Films extends React.Component {
    )
  }
 
- renderList(list, films, buttons){
+ renderList(list, films){
    if(films.status !== 0){
      return (
        <div id='films' className="films">
           {this.renderSearch()}
          <div className="filmButton">
            <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
-           {buttons}
          </div>
            {list}
+           <br/>
+           <div className='pagination'>
+               <Paginator
+                   page={films.page}
+                   pages={films.amount}
+                   beginPages={3}
+                   endPages={3}
+                   onSelect={this.onSelect.bind(this)}>
+              </Paginator>
+           </div>
        </div>
      )
    }
