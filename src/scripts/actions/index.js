@@ -251,9 +251,7 @@ export function getAllWords(cb) {
 export function getDiccionariosPalabras(id) {
 
   var $query = {
-    peliculas: {
-      contains: id
-    }
+    peliculas: id
   }
   var $sort = "&sort=english asc"
 
