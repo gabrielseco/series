@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute} from 'react-router'
-import { browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, useRouterHistory} from 'react-router'
+import { createHashHistory } from 'history'
 import { Provider } from 'react-redux'
 import configureStore from '../store/configureStore'
 
@@ -36,6 +36,7 @@ import AddWords   from './Interfaces/AddWords.jsx'
 import ModifyWord from './Interfaces/ModifyWord.jsx';
 
 
+const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })
 
 
 
@@ -47,7 +48,7 @@ try {
 
   render((
     <Provider store={store}>
-      <Router history={browserHistory}>
+      <Router history={appHistory}>
         <Route component={App}>
           <Route
           path="/"
