@@ -66,3 +66,9 @@ div.show-image:hover h3{
     @include button__bg($width:none,$display:inline-block,$back:#0C5EB0);
   }
 }
+
+
+.films-results{
+  text-align: center;
+  padding-top:20px;
+}

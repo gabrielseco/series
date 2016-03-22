@@ -9,25 +9,34 @@ class AddFilm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '', }
+    this.state = {inputName: '', films: [], obj:{}}
   }
 
   handleForm(e){
     e.preventDefault();
-
-    var obj = {
-      nombre: this.refs.name.value
-    }
+    this.state.obj.nombre = this.refs.name.value
 
     const { dispatch } = this.props;
 
-    dispatch(addOneFilm(obj, res => {
-      console.log('res ADD FILM',res);
-      this.props.history.push('/')
+
+    dispatch(addOneFilm(this.state.obj, this.state.films, res => {
+      if(res.id !== undefined){
+        this.props.history.push('/')
+      }
+      this.setState({
+        films: res,
+        obj: res[0]
+      })
+
     }));
 
 
 
+  }
+
+  updateFilm(film){
+    this.refs.name.value = film.nombre
+    this.state.obj = film
   }
 
   render() {
@@ -40,6 +49,13 @@ class AddFilm extends React.Component {
                 <input ref="name" className={this.state.inputName} type="text" name="name" autoFocus required placeholder="Nombre" autoComplete="off"></input>
                 <input type="submit" value="Enviar"></input>
         </form>
+        <div className='films-results'>
+        {this.state.films.map((film, i) => {
+          return(
+            <img src={film.imagen} key={i} alt={film.nombre} onClick={this.updateFilm.bind(this,film)}/>
+          )
+        })}
+        </div>
       </div>
     )
  }

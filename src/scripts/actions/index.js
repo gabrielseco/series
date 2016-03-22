@@ -5,6 +5,7 @@ import shared from '../api/shared'
 import episodes from '../api/episodes'
 import * as types from '../constants/ActionTypes'
 
+
 /* $RECEIVE*/
 
 function receiveFilms(films) {
@@ -65,9 +66,9 @@ export function getOneFilm(id, cb){
   }
 }
 
-export function addOneFilm(obj, cb) {
+export function addOneFilm(obj, results, cb) {
   return dispatch => {
-    films.addFilm(obj, film => {
+    films.addFilm(obj, results, film => {
       cb (film)
     });
   }

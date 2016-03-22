@@ -10,44 +10,55 @@ const TIMEOUT = 300
 
 export default {
   getDataFilm(obj, cb){
-    var name = obj.nombre.trim(),
-        imagen = _image_path,
+    let films = [];
+    let name = obj.nombre.trim(),
+        imagen = null,
         year = null,
         idMovieDB = null,
         overview = null;
 
   axios.get(_apiendpoint + 'search/movie?api_key='+ _api_key +'&query='+ name).then(response => {
-      console.log('res moviedb add', response);
       response = response.data;
 
       if(response.results.length > 0){
-        name = response.results[0].original_title;
-        imagen += response.results[0].poster_path;
-        year = response.results[0].release_date.slice(0, 4);
-        idMovieDB = response.results[0].id;
-        overview = response.results[0].overview;
+        response.results.map((film, index) => {
+          name = film.original_title;
+          imagen = _image_path +  film.poster_path;
+          year = film.release_date.slice(0, 4);
+          idMovieDB = film.id;
+          overview = film.overview;
+          let data = {
+           'nombre': name,
+           'imagen': imagen,
+           'year': Number(year),
+           'idMovieDB': Number(idMovieDB),
+           'overview': overview
+         };
+         films.push(data)
+         if(index === (response.results.length -1) ){
+           cb(films)
+         }
+        });
+
     }
-
-    var data = {
-     'nombre': name,
-     'imagen': imagen,
-     'year': Number(year),
-     'idMovieDB': Number(idMovieDB),
-     'overview': overview
-   };
-
-   cb(data)
 
   });
 
 
   },
-  addFilm(obj, cb, timeout){
+  addFilm(obj, results, cb, timeout){
+    if(results.length === 0){
+
     this.getDataFilm(obj,function(data){
-      var results = add('films', data).then(res => {
-        setTimeout(() => cb(res), timeout || TIMEOUT)
-      });
+      cb(data);
     })
+
+  } else {
+
+    var results = add('films', obj).then(res => {
+      setTimeout(() => cb(res), timeout || TIMEOUT)
+    })
+  }
 
   },
 }
