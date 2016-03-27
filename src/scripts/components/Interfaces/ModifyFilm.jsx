@@ -72,9 +72,10 @@ class ModifyFilm extends React.Component {
       <div>
       <DocumentTitle title="Modify Film"/>
         <img className='img' src={this.state.data.imagen} width="230" height="345"/>
+        {/*
         <div style={float}>
           <Colors data={this.state.data.imagen} changeColor={this.changeColor.bind(this)}/>
-        </div>
+        </div>*/}
         <form onSubmit={this.handleForm.bind(this)} id="addFilm" role="form">
                   <label className="is-required">Nombre</label>
                   <input ref="name" className={this.state.inputName} defaultValue={this.state.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>

@@ -45,6 +45,8 @@ const store = configureStore()
 try {
 
   require('../styles/main.scss');
+  require('velocity-animate');
+  require('velocity-animate/velocity.ui');
 
   render((
     <Provider store={store}>

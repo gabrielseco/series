@@ -52,7 +52,6 @@ class ModifyTV extends React.Component {
   }
 
   changeColor(value){
-    console.log('value changed',value)
     this.refs.color.value = value.target.firstChild.data.slice(1);
   }
 
@@ -60,9 +59,10 @@ class ModifyTV extends React.Component {
     if(this.state.data !== ''){
     return(
       <div>
-        <div style={float}>
-          <Colors data={this.state.data.imagen} changeColor={this.changeColor.bind(this)}/>
-        </div>
+      {/*
+      <div style={float}>
+      <Colors data={this.state.data.imagen} changeColor={this.changeColor.bind(this)}/>
+      </div>*/}
         <img className='img' src={this.state.data.imagen} width="230" height="345"/>
           <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                   <label className="is-required">Nombre</label>

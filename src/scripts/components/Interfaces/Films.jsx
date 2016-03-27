@@ -13,6 +13,8 @@ import Paginator from 'react-pagify'
 
 
 
+
+
 const modalStyle = {
   content : {
     height: '20%'
@@ -192,6 +194,7 @@ class Films extends React.Component {
          <div className="filmButton">
            <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
          </div>
+
            {list}
            <br/>
            <div className='pagination'>
