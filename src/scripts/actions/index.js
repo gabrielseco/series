@@ -326,3 +326,22 @@ export function deleteWord(id, cb) {
     });
   }
 }
+
+function mapWords(words) {
+  const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+  var newWords = [];
+  words.map(word => {
+    word['month'] = months[word['month'] - 1];
+    newWords.push(word)
+  });
+
+  return newWords;
+}
+
+export function getWordsBetweenMonths(cb){
+  return dispatch => {
+    shared.get('dictionary/getWordsMonth', words => {
+      cb (mapWords(words));
+    })
+  }
+}
