@@ -12,7 +12,8 @@ import BreadCrumb from '../UI/BreadCrumb'
 
 class DiccionarioEpisodios extends React.Component {
   static contextTypes = {
-    store: React.PropTypes.object
+    store: React.PropTypes.object,
+    router: React.PropTypes.object.isRequired
   }
 
   constructor(props, context){
@@ -50,11 +51,11 @@ class DiccionarioEpisodios extends React.Component {
 
   }
   addWords(){
-    this.props.history.pushState(null, '/addWords/0/'+this.props.params.idSerie+"/"+this.props.params.idEpisodio + "/0");
+    this.context.router.push('/addWords/0/'+this.props.params.idSerie+"/"+this.props.params.idEpisodio + "/0");
   }
 
   modifyTV(){
-    this.props.history.pushState(null, '/modifyTV/'+this.props.params.idSerie);
+    this.context.router.push('/modifyTV/'+this.props.params.idSerie);
   }
 
   render(){

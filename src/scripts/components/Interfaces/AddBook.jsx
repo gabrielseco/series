@@ -28,7 +28,6 @@ class AddBook extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(addOneBook(obj, res => {
-      console.log('res ADD BOOK',res);
       this.props.history.push('/books')
     }));
 

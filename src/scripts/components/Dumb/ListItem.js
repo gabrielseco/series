@@ -11,13 +11,13 @@ export default class ListItem extends React.Component {
     }
 
     pulse(){
-      console.log('pulse')
       this.refs.velocity.runAnimation()
     }
 
     render() {
+
       let animation = "callout.pulse"
-      
+
       let alt = this.props.data.temporada === undefined
                 ? this.props.data.nombre
                 : this.props.data.nombre + " Season " + this.props.data.temporada
@@ -44,3 +44,7 @@ export default class ListItem extends React.Component {
       );
     }
 }
+
+ListItem.contextTypes =  {
+  router: React.PropTypes.object.isRequired
+};

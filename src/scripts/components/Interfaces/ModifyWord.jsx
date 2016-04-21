@@ -13,12 +13,10 @@ class ModifyWord extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.props.params.id)
-
+    
     const { dispatch } = this.props;
 
     dispatch(getOneWord(this.props.params.id, res => {
-      console.log('res Modify Word',res)
       this.setState({data: res});
     }))
 

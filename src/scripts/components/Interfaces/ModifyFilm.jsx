@@ -26,12 +26,10 @@ class ModifyFilm extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.props.params.id)
 
     const { dispatch } = this.props;
 
     dispatch(getOneFilm(this.props.params.id, res => {
-      console.log('res ModifyFilm',res)
       this.setState({data: res});
     }))
 
@@ -48,12 +46,9 @@ class ModifyFilm extends React.Component {
       color: this.refs.color.value
     }
 
-    console.log('obj ModifyFilm',obj)
-
     const { dispatch } = this.props;
 
     dispatch(modifyFilm(obj, res => {
-      console.log('res modify FILM',res);
       this.props.history.goBack()
     }));
 
@@ -62,7 +57,6 @@ class ModifyFilm extends React.Component {
   }
 
   changeColor(value){
-    console.log('value changed',value)
     this.refs.color.value = value.target.firstChild.data.slice(1);
   }
 

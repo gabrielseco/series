@@ -10,7 +10,8 @@ import BreadCrumb from '../UI/BreadCrumb'
 
 class DiccionarioPeliculas extends React.Component {
   static contextTypes = {
-    store: React.PropTypes.object
+    store: React.PropTypes.object,
+    router: React.PropTypes.object.isRequired
   }
 
   constructor(props, context){
@@ -32,18 +33,18 @@ class DiccionarioPeliculas extends React.Component {
   }
 
   addEpisodes(){
-    this.props.history.pushState(null, '/addEpisode/'+this.props.params.id);
+    this.context.router.push('/addEpisode/'+this.props.params.id);
   }
 
   addWords(){
-    this.props.history.pushState(null, '/addWords/'+this.props.params.id+"/0/0/0");
+    this.context.router.push('/addWords/'+this.props.params.id+"/0/0/0");
   }
 
   modifyTV(){
-    this.props.history.pushState(null, 'modifyTV/'+this.props.params.id);
+    this.context.router.push('modifyTV/'+this.props.params.id);
   }
   modifyFilm(){
-    this.props.history.pushState(null, 'modifyFilm/'+this.props.params.id);
+    this.context.router.push('modifyFilm/'+this.props.params.id);
   }
 
   render(){
@@ -64,7 +65,7 @@ class DiccionarioPeliculas extends React.Component {
                  var id = data[rowIndex].id;
                  console.log('id editar',id);
 
-                 this.props.history.pushState(null, 'modifyWord/'+id);
+                 this.context.router.push(null, 'modifyWord/'+id);
 
 
 

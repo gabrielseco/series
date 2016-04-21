@@ -10,7 +10,8 @@ import BreadCrumb from '../UI/BreadCrumb'
 
 class DiccionarioLibros extends React.Component {
   static contextTypes = {
-    store: React.PropTypes.object
+    store: React.PropTypes.object,
+    router: React.PropTypes.object.isRequired
   }
 
   constructor(props, context){
@@ -32,11 +33,11 @@ class DiccionarioLibros extends React.Component {
   }
 
   addWords(){
-    this.props.history.pushState(null, '/addWords/0/0/0/'+this.props.params.id);
+    this.context.router.push('/addWords/0/0/0/'+this.props.params.id);
   }
 
   modifyBook(){
-    this.props.history.pushState(null, '/modifyBook/'+this.props.params.id);
+    this.context.router.push('/modifyBook/'+this.props.params.id);
 
   }
 
@@ -58,7 +59,7 @@ class DiccionarioLibros extends React.Component {
                  var id = data[rowIndex].id;
                  console.log('id editar',id);
 
-                 this.props.history.pushState(null, 'modifyWord/'+id);
+                 this.context.router.push(null, 'modifyWord/'+id);
 
 
 

@@ -24,10 +24,12 @@ const modalStyle = {
 
 class Films extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor(props,context) {
+    super(props,context);
     this.state = {modalIsOpen: false, film: '', searchTerm: '', films: null, pagination:{ page: 0, perPage: 10 }}
   }
+
+
   componentDidMount(){
     const { dispatch } = this.props;
     dispatch(getAllFilms(films => {
@@ -58,16 +60,14 @@ class Films extends React.Component {
  }
 
   addFilm(){
-    this.props.history.push('/addFilm');
+    this.context.router.push('/addFilm');
   }
 
   modifyFilm(data){
-    console.log('modifyFilm',data)
-    this.props.history.pushState(null,'/modifyFilm/'+data.id)
+    this.context.router.push('/modifyFilm/'+data.id)
   }
 
   remove(){
-    console.log('remove',this.state.film);
     const { dispatch } = this.props;
 
     dispatch(deleteFilm(this.state.film.id , res => {
@@ -78,7 +78,7 @@ class Films extends React.Component {
   }
 
   diccionarios(id){
-    this.props.history.pushState(null,'/diccionarios_pelicula/'+id)
+    this.context.router.push('/diccionarios_pelicula/'+id)
   }
 
   searchUpdated(term) {
@@ -211,4 +211,9 @@ class Films extends React.Component {
    }
  }
 }
+
+Films.contextTypes =  {
+  router: React.PropTypes.object.isRequired
+};
+
 export default connect()(Films)

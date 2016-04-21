@@ -11,7 +11,8 @@ import BreadCrumb from '../UI/BreadCrumb'
 
 class Episodes extends React.Component {
   static contextTypes = {
-    store: React.PropTypes.object
+    store: React.PropTypes.object,
+    router: React.PropTypes.object.isRequired
   }
 
   constructor(props, context){
@@ -53,11 +54,11 @@ class Episodes extends React.Component {
   }
 
   addEpisodes(){
-    this.props.history.pushState(null, '/addEpisode/'+this.props.params.id);
+    this.context.router.push('/addEpisode/'+this.props.params.id);
   }
 
   modifyTV(){
-    this.props.history.pushState(null, '/modifyTV/'+this.props.params.id);
+    this.context.router.push('/modifyTV/'+this.props.params.id);
   }
 
   render(){
@@ -78,7 +79,7 @@ class Episodes extends React.Component {
                    var idEpisodio = data[rowIndex].id;
                    console.log('id', idEpisodio);
                    var idSerie    = data[rowIndex].serie.id;
-                   this.props.history.pushState(null,'/diccionarios/'+idSerie+'/episodio/'+idEpisodio);
+                   this.context.router.push('/diccionarios/'+idSerie+'/episodio/'+idEpisodio);
 
 
                  };
@@ -98,7 +99,7 @@ class Episodes extends React.Component {
                  var idEpisodio = data[rowIndex].id;
                  var idSerie = this.props.params.id
 
-                 this.props.history.pushState(null, '/modifyEpisode/'+idSerie+"/"+idEpisodio);
+                 this.context.router.push('/modifyEpisode/'+idSerie+"/"+idEpisodio);
 
 
 

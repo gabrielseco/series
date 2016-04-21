@@ -18,8 +18,8 @@ const modalStyle = {
 
 class TV extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor(props,context) {
+    super(props, context);
     this.state = {modalIsOpen: false, tv: '', searchTerm: '', series: null, pagination:{ page: 0, perPage: 10 }}
   }
   componentDidMount(){
@@ -55,12 +55,11 @@ class TV extends React.Component {
  }
 
   addTV(){
-    this.props.history.push('/addTV');
+    this.context.router.push('/addTV');
 
   }
   modifyTV(data){
-    console.log('modifyTV',data)
-    this.props.history.pushState(null,'/modifyTV/'+data.id)
+    this.context.router.push('/modifyTV/'+data.id)
   }
 
   remove(){
@@ -68,20 +67,17 @@ class TV extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(deleteTV(this.state.tv.id , res => {
-      console.log('res DELETE TV',res);
       location.reload()
     }));
 
   }
 
   episodios(id){
-    console.log('episodios')
-    this.props.history.pushState(null,'/episodes/'+id)
+    this.context.router.push('/episodes/'+id)
   }
 
 
   openModal(data) {
-    console.log('data',data)
     this.setState({modalIsOpen: true, tv: data});
   }
 
@@ -200,5 +196,9 @@ class TV extends React.Component {
    }
  }
 }
+
+TV.contextTypes =  {
+  router: React.PropTypes.object.isRequired
+};
 
 export default connect()(TV)
