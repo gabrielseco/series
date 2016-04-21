@@ -75,7 +75,7 @@ class DiccionarioEpisodios extends React.Component {
                var editar = () => {
                  var id = data[rowIndex].id;
 
-                 this.props.history.pushState(null, '/modifyWord/'+id);
+                 this.context.router.push('/modifyWord/'+id);
 
 
 

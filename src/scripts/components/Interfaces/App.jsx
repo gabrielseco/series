@@ -15,7 +15,7 @@ import UINavBar from '../UI/NavBar';
 
     return (
       <div>
-        <UINavBar history={this.props.history}/>
+        <UINavBar/>
         <DocumentTitle title="LEARN WORDS"/>
         <div className='main'>
           {this.props.children}

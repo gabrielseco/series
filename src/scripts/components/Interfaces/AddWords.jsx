@@ -18,8 +18,13 @@ var fieldValues = {
 
 class AddWords extends React.Component {
 
-  constructor(props){
-    super(props)
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
+
+  constructor(props,context){
+    super(props,context)
     this.state = {form: '', data: ''}
   }
 
@@ -35,7 +40,6 @@ class AddWords extends React.Component {
       const { dispatch } = this.props;
 
       dispatch(getOneFilm(fieldValues.idPelicula, res => {
-        console.log('res film',res)
         this.setState({data: res, form: 1});
       }))
 
@@ -48,7 +52,6 @@ class AddWords extends React.Component {
       const { dispatch } = this.props;
 
       dispatch(getOneTV(fieldValues.idSerie, res => {
-        console.log('res SERIE',res)
         this.setState({data: res, form: 3});
       }))
 
@@ -59,21 +62,20 @@ class AddWords extends React.Component {
       const { dispatch } = this.props;
 
       dispatch(getOneBook(fieldValues.idLibro, res => {
-        console.log('res film',res)
         this.setState({data: res, form: 2});
       }))
     }
 
   }
   finalizarPelicula(){
-    this.props.history.pushState(null, '/diccionarios_pelicula/'+this.props.params.pelicula);
+    this.context.router.push('/diccionarios_pelicula/'+this.props.params.pelicula);
   }
   finalizarLibro(){
-    this.props.history.pushState(null, '/diccionarios_libros/'+this.props.params.libro);
+    this.context.router.push('/diccionarios_libros/'+this.props.params.libro);
   }
 
   finalizarSerie(){
-    this.props.history.pushState(null, '/diccionarios/'+this.props.params.serie+'/episodio/'+this.props.params.episodio);
+    this.context.router.push('/diccionarios/'+this.props.params.serie+'/episodio/'+this.props.params.episodio);
 
   }
 
