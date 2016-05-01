@@ -249,7 +249,7 @@ export function getAllWords(cb) {
 }
 
 
-export function getDiccionariosPalabras(id) {
+export function getDiccionariosPalabras(id, cb) {
 
   var $query = {
     peliculas: id
@@ -261,7 +261,7 @@ export function getDiccionariosPalabras(id) {
 
   return dispatch => {
     shared.findWhere('dictionary', $where,  words => {
-      dispatch(receiveWords(words))
+      cb(words)
     })
 
   }
@@ -286,7 +286,7 @@ export function getDiccionariosLibros(id){
 
 }
 
-export function getDiccionariosEpisodios(id){
+export function getDiccionariosEpisodios(id, cb){
   var $query = {
     episodios: id
   }
@@ -296,7 +296,7 @@ export function getDiccionariosEpisodios(id){
 
   return dispatch => {
     shared.findWhere('dictionary', $where,  words => {
-      dispatch(receiveWords(words))
+      cb(words)
     })
 
   }

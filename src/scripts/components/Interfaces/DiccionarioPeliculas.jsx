@@ -4,9 +4,8 @@ import {getOneFilm, getDiccionariosPalabras, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
-
-
-
+import Loading from '../UI/Loading'
+import _ from 'lodash';
 
 class DiccionarioPeliculas extends React.Component {
   static contextTypes = {
@@ -17,32 +16,27 @@ class DiccionarioPeliculas extends React.Component {
   constructor(props, context){
     super(props)
     this.context = context;
-    this.state = {pelicula: ''}
+    this.state = {words: null}
   }
   componentDidMount(){
     const {dispatch } = this.props;
 
-    dispatch(getOneFilm(this.props.params.id, res => {
-      this.setState({pelicula: res});
+    dispatch(getDiccionariosPalabras(this.props.params.id, words => {
+      this.setState({
+        words: words
+      })
     }))
 
-    dispatch(getDiccionariosPalabras(this.props.params.id))
-
 
 
   }
 
-  addEpisodes(){
-    this.context.router.push('/addEpisode/'+this.props.params.id);
-  }
 
   addWords(){
     this.context.router.push('/addWords/'+this.props.params.id+"/0/0/0");
   }
 
-  modifyTV(){
-    this.context.router.push('modifyTV/'+this.props.params.id);
-  }
+
   modifyFilm(){
     this.context.router.push('modifyFilm/'+this.props.params.id);
   }
@@ -63,7 +57,6 @@ class DiccionarioPeliculas extends React.Component {
             cell: (value, data, rowIndex, property) => {
                var editar = () => {
                  var id = data[rowIndex].id;
-                 console.log('id editar',id);
 
                  this.context.router.push(null, 'modifyWord/'+id);
 
@@ -104,7 +97,6 @@ class DiccionarioPeliculas extends React.Component {
             }
 
         ];
-    const { words } = this.props;
     const peliculas = 'Peliculas';
     const pagination = {
         page: 0,
@@ -115,27 +107,30 @@ class DiccionarioPeliculas extends React.Component {
            column: '',
            query: ''
     }
+    const words = this.state.words;
 
-
+    if(words === null){
+      return <Loading/>
+    } else {
     if(words.length > 0){
-      var texto = "Película > " + this.state.pelicula.nombre
+      var texto = "Película > " + this.props.film.nombre
     return(
       <div>
-        <DocumentTitle title={this.state.pelicula.nombre + " | Words"}/>
-        <BreadCrumb data={this.state.pelicula} texto={texto} goTo={this.modifyFilm.bind(this)}/>
+        <DocumentTitle title={this.props.film.nombre + " | Words"}/>
+        <BreadCrumb data={this.props.film} texto={texto} goTo={this.modifyFilm.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
-          <UITable data={words} columns={columns} pagination={pagination} search={search}/>
+          <UITable data={this.state.words} columns={columns} pagination={pagination} search={search}/>
         </div>
       </div>
     );
   } else {
-    var texto = "Película > " + this.state.pelicula.nombre
+    var texto = "Película > " + this.props.film.nombre
     return (
       <div>
-        <BreadCrumb data={this.state.pelicula} texto={texto} goTo={this.modifyFilm.bind(this)}/>
+        <BreadCrumb data={this.props.film} texto={texto} goTo={this.modifyFilm.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
@@ -147,9 +142,10 @@ class DiccionarioPeliculas extends React.Component {
     </div>)
   }
 }
+}
 
 }
-function mapStateToProps(state) {
-  return { words: state.words }
+function mapStateToProps(state, props) {
+  return { film: _.find(state.films, {id: Number(props.params.id)}) }
 }
 export default connect(mapStateToProps)(DiccionarioPeliculas)

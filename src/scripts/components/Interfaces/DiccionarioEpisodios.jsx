@@ -5,29 +5,29 @@ import {getOneTV, getDiccionariosEpisodios, deleteWord} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
-
-
+import Loading from '../UI/Loading'
+import _ from 'lodash';
 
 
 
 class DiccionarioEpisodios extends React.Component {
   static contextTypes = {
-    store: React.PropTypes.object,
     router: React.PropTypes.object.isRequired
   }
 
   constructor(props, context){
     super(props)
     this.context = context;
-    this.state = {serie: '', episodio: ''}
+    this.state = {words: null}
   }
   componentDidMount(){
     const {dispatch } = this.props;
-    dispatch(getOneTV(this.props.params.idSerie, res => {
-      this.setState({serie: res});
-    }))
-    dispatch(getDiccionariosEpisodios(this.props.params.idEpisodio))
 
+    dispatch(getDiccionariosEpisodios(this.props.params.idEpisodio, words => {
+      this.setState({
+        words: words
+      })
+    }));
 
   }
 
@@ -42,6 +42,7 @@ class DiccionarioEpisodios extends React.Component {
   getEpisode(idEpisodio, episodios){
 
     for( var i = 0; i < episodios.length; i++ ){
+      console.log(episodios);
       if (episodios[i].id === idEpisodio) {
         episodios[i].numero = this.checkNumber(episodios[i].numero)
         return episodios[i];
@@ -114,29 +115,31 @@ class DiccionarioEpisodios extends React.Component {
             }
 
         ];
-    const { words } = this.props;
     const series = 'Series';
     const pagination = {
         page: 0,
         perPage: 10
-    }
+    };
 
     const search = {
            column: '',
            query: ''
-    }
+    };
 
-
+    const words = this.state.words;
+    if(this.state.words === null){
+      return <Loading/>
+    } else {
     if(words.length > 0){
       var numero = this.checkNumber(words[0].episodios.numero)
       var url = "/episodes/"+this.props.params.idSerie
-      var texto = "Serie > " + words[0].series.nombre + " > " +words[0].series.temporada + "x" + numero + " > " + words[0].episodios.nombre;
+      var texto = "Serie > " + this.props.serie.nombre + " > " +this.props.serie.temporada + "x" + numero + " > " + words[0].episodios.nombre;
       var link = <Link to={url}>{texto}</Link>
 
     return(
       <div>
-        <DocumentTitle title={words[0].series.nombre + " Words"}/>
-        <BreadCrumb data={this.state.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
+        <DocumentTitle title={this.props.serie.nombre + " Words"}/>
+        <BreadCrumb data={this.props.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
@@ -149,7 +152,7 @@ class DiccionarioEpisodios extends React.Component {
     if(this.state.serie > ''){
       var url = "/episodes/"+this.props.params.idSerie
       var episodio = this.getEpisode(+this.props.params.idEpisodio, this.state.serie.episodios)
-      var texto = "Serie > " + this.state.serie.nombre + " > " +this.state.serie.temporada + "x" + episodio.numero + " > " + episodio.nombre
+      var texto = "Serie > " + this.props.serie.nombre + " > " +this.props.serie.temporada + "x" + episodio.numero + " > " + episodio.nombre
       var link = <Link to={url}>{texto}</Link>
     }
     return (
@@ -166,9 +169,10 @@ class DiccionarioEpisodios extends React.Component {
     </div>)
   }
 }
+}
 
 }
-function mapStateToProps(state) {
-  return { words: state.words }
+function mapStateToProps(state, props) {
+  return { words: state.words, serie: _.find(state.TV, {id: Number(props.params.idSerie)}) }
 }
 export default connect(mapStateToProps)(DiccionarioEpisodios)

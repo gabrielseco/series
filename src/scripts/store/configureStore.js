@@ -4,7 +4,6 @@ import thunk from 'redux-thunk'
 import combinedReducer from '../reducers'
 import persistState from 'redux-localstorage'
 
-console.log(combinedReducer)
 export default function configureStore(initialState) {
   const middleware = process.env.NODE_ENV === 'production' ?
   [ thunk ] :

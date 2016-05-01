@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title'
-import {getAllEpisodes, deleteEpisode, generateEpisodes, getOneTV} from '../../actions'
+import {getAllEpisodes, deleteEpisode, generateEpisodes} from '../../actions'
 import { connect } from 'react-redux';
 import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
-
+import Loading from '../UI/Loading'
+import _ from 'lodash';
 
 
 
@@ -18,17 +19,12 @@ class Episodes extends React.Component {
   constructor(props, context){
     super(props)
     this.context = context;
-    this.state = {serie: ''}
+    this.state = {episodios: null}
   }
   componentDidMount(){
     const {dispatch } = this.props;
-    dispatch(getOneTV(this.props.params.id, res => {
-      this.setState({serie: res});
-    }))
+
     dispatch(getAllEpisodes(this.props.params.id))
-
-
-
 
   }
   generateEpisodes(){
@@ -153,13 +149,13 @@ class Episodes extends React.Component {
     }
 
     if(episodes.length > 0){
-      var texto = "Serie > " + episodes[0].serie.nombre + " > Season " +episodes[0].serie.temporada;
+      var texto = "Serie > " + this.props.serie.nombre + " > Season " +this.props.serie.temporada;
       var link  = <Link to="/tv">{texto}</Link>
-      var title = episodes[0].serie.nombre + " Season "+ episodes[0].serie.temporada;
+      var title = this.props.serie.nombre + " Season "+ this.props.serie.temporada;
     return(
       <div>
         <DocumentTitle title={title}/>
-        <BreadCrumb data={episodes[0].serie} texto={link} goTo={this.modifyTV.bind(this)}/>
+        <BreadCrumb data={this.props.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>
@@ -170,10 +166,10 @@ class Episodes extends React.Component {
       </div>
     );
   } else {
-    var texto = "Serie > " + this.state.serie.nombre + " > Season " +this.state.serie.temporada;
+    var texto = "Serie > " + this.props.serie.nombre + " > Season " +this.props.serie.temporada;
     return (
       <div>
-        <BreadCrumb data={this.state.serie} texto={texto}  goTo={this.modifyTV.bind(this)}/>
+        <BreadCrumb data={this.props.serie} texto={texto}  goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>
@@ -185,7 +181,7 @@ class Episodes extends React.Component {
 }
 
 }
-function mapStateToProps(state) {
-  return { episodes: state.episodes }
+function mapStateToProps(state, props) {
+  return { episodes: state.episodes, serie: _.find(state.TV, {id: Number(props.params.id)}) }
 }
 export default connect(mapStateToProps)(Episodes)

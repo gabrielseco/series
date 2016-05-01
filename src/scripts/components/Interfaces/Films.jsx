@@ -70,7 +70,6 @@ class Films extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(deleteFilm(this.state.film.id , res => {
-      console.log('res DELETE FILM',res);
       location.reload()
     }));
 
@@ -85,7 +84,6 @@ class Films extends React.Component {
   }
 
   openModal(data) {
-    console.log('data',data)
     this.setState({modalIsOpen: true, film: data});
   }
   closeModal() {
@@ -120,7 +118,6 @@ class Films extends React.Component {
   render() {
       let message = null;
       let _films = this.state.films;
-      console.log(_films)
 
     if(_films !== null) {
       message = this.renderMessage(_films)
@@ -211,7 +208,6 @@ class Films extends React.Component {
  }
 }
 function mapStateToProps(state, props) {
-
     return {
     films: state.films
   }
