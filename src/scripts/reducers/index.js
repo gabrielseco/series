@@ -8,5 +8,4 @@ import words from './words'
 const combinedReducer = combineReducers({
   films, TV, books, episodes, words
 })
-
 export default combinedReducer

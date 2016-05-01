@@ -17,7 +17,6 @@ class D3 extends React.Component {
   componentDidMount(){
     const {dispatch } = this.props;
     dispatch(getWordsBetweenMonths( data => {
-      console.log('data',data);
       this.setState({
         data: data
       });
@@ -31,6 +30,7 @@ class D3 extends React.Component {
     return(
       <div>
           <DocumentTitle title="D3"/>
+          <h3>ESTADÍSTICAS DE PALABRAS INSERTADAS POR MES</h3>
           <ResponsiveContainer height={400}>
           <ComposedChart data={this.state.data}>
           <XAxis dataKey="month"/>

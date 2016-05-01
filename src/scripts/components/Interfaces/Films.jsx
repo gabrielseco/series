@@ -33,9 +33,8 @@ class Films extends React.Component {
   componentDidMount(){
     const { dispatch } = this.props;
     dispatch(getAllFilms(films => {
-      this.setState({films: films})
-      console.log();
-    }))
+        this.setState({films: films})
+      }))
 
   }
 
@@ -121,13 +120,13 @@ class Films extends React.Component {
   render() {
       let message = null;
       let _films = this.state.films;
+      console.log(_films)
 
-
-    if(this.state.films !== null) {
-      message = this.renderMessage(this.state.films)
+    if(_films !== null) {
+      message = this.renderMessage(_films)
       if (this.state.searchTerm.length > 0) {
         var filters = ['nombre'];
-        _films = this.state.films.filter(this.refs.search.filter(filters));
+        _films = _films.filter(this.refs.search.filter(filters));
       }
 
       if(_films.length > 0){
@@ -211,9 +210,19 @@ class Films extends React.Component {
    }
  }
 }
+function mapStateToProps(state, props) {
+
+    return {
+    films: state.films
+  }
+}
 
 Films.contextTypes =  {
   router: React.PropTypes.object.isRequired
 };
 
-export default connect()(Films)
+Films.getDefaultProps = {
+  films: []
+}
+
+export default connect(mapStateToProps)(Films)
