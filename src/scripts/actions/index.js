@@ -176,7 +176,7 @@ export function deleteBook(id, cb){
 }
 //create the query as object stringify after putting as string shows %27% on url
 
-export function getAllEpisodes(id) {
+export function getAllEpisodes(id, cb) {
 
   var $query = {
     serie:id
@@ -187,6 +187,7 @@ export function getAllEpisodes(id) {
   return dispatch => {
     shared.findWhere('episodes', $where,  episodes => {
       dispatch(receiveEpisodes(episodes))
+      cb(episodes)
     })
 
   }

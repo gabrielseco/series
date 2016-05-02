@@ -24,21 +24,25 @@ class Episodes extends React.Component {
   componentDidMount(){
     const {dispatch } = this.props;
 
-    dispatch(getAllEpisodes(this.props.params.id))
+    dispatch(getAllEpisodes(this.props.params.id, res => {
+      this.setState({
+        episodios: res
+      })
+    }))
 
   }
   generateEpisodes(){
     const {dispatch} = this.props;
-    const { episodes } = this.props;
+    const episodios = this.state.episodios;
 
     var data = {
-      idSerie: this.state.serie.idSerie,
-      temporada: this.state.serie.temporada,
+      idSerie: this.props.serie.idSerie,
+      temporada: this.props.serie.temporada,
       id:this.props.params.id
     }
 
 
-    dispatch(generateEpisodes(data, episodes,  res => {
+    dispatch(generateEpisodes(data, episodios,  res => {
       console.log('res episodes',res);
       if(res === true){
         location.reload();
@@ -137,7 +141,7 @@ class Episodes extends React.Component {
             }
 
         ];
-    const { episodes } = this.props;
+    const episodios = this.state.episodios;
     const pagination = {
         page: 0,
         perPage: 10
@@ -148,7 +152,11 @@ class Episodes extends React.Component {
            query: ''
     }
 
-    if(episodes.length > 0){
+    if(episodios === null){
+      return <Loading/>
+    } else {
+
+    if(episodios.length > 0){
       var texto = "Serie > " + this.props.serie.nombre + " > Season " +this.props.serie.temporada;
       var link  = <Link to="/tv">{texto}</Link>
       var title = this.props.serie.nombre + " Season "+ this.props.serie.temporada;
@@ -161,7 +169,7 @@ class Episodes extends React.Component {
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>
                 <button onClick={this.generateEpisodes.bind(this)}>GENERATE</button>
           </div>
-          <UITable data={episodes} columns={columns} pagination={pagination} search={search}/>
+          <UITable data={episodios} columns={columns} pagination={pagination} search={search}/>
         </div>
       </div>
     );
@@ -179,9 +187,10 @@ class Episodes extends React.Component {
     </div>)
   }
 }
+}
 
 }
 function mapStateToProps(state, props) {
-  return { episodes: state.episodes, serie: _.find(state.TV, {id: Number(props.params.id)}) }
+  return { serie: _.find(state.TV, {id: Number(props.params.id)}) }
 }
 export default connect(mapStateToProps)(Episodes)

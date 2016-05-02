@@ -39,13 +39,13 @@ class DiccionarioEpisodios extends React.Component {
     return number
   }
 
-  getEpisode(idEpisodio, episodios){
+  getEpisode(idEpisodio){
+    const { episodes } = this.props
 
-    for( var i = 0; i < episodios.length; i++ ){
-      console.log(episodios);
-      if (episodios[i].id === idEpisodio) {
-        episodios[i].numero = this.checkNumber(episodios[i].numero)
-        return episodios[i];
+    for( var i = 0; i < episodes.length; i++ ){
+      if (episodes[i].id === idEpisodio) {
+        episodes[i].numero = this.checkNumber(episodes[i].numero)
+        return episodes[i];
       }
     }
 
@@ -149,15 +149,16 @@ class DiccionarioEpisodios extends React.Component {
       </div>
     );
   } else {
-    if(this.state.serie > ''){
+    if(this.props.serie > ''){
       var url = "/episodes/"+this.props.params.idSerie
-      var episodio = this.getEpisode(+this.props.params.idEpisodio, this.state.serie.episodios)
+      var episodio = this.getEpisode(+this.props.params.idEpisodio)
       var texto = "Serie > " + this.props.serie.nombre + " > " +this.props.serie.temporada + "x" + episodio.numero + " > " + episodio.nombre
       var link = <Link to={url}>{texto}</Link>
+
     }
     return (
       <div>
-      <BreadCrumb data={this.state.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
+      <BreadCrumb data={this.props.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
@@ -173,6 +174,11 @@ class DiccionarioEpisodios extends React.Component {
 
 }
 function mapStateToProps(state, props) {
-  return { words: state.words, serie: _.find(state.TV, {id: Number(props.params.idSerie)}) }
+  console.log(state.episodes);
+  return {
+    words: state.words,
+    serie: _.find(state.TV, {id: Number(props.params.idSerie)}),
+    episodes: state.episodes
+  }
 }
 export default connect(mapStateToProps)(DiccionarioEpisodios)
