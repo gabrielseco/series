@@ -7,6 +7,8 @@ import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
 import Loading from '../UI/Loading'
 import _ from 'lodash';
+import {mouseTrap} from 'react-mousetrap';
+
 
 
 
@@ -19,6 +21,18 @@ class DiccionarioEpisodios extends React.Component {
     super(props)
     this.context = context;
     this.state = {words: null}
+  }
+
+  componentWillMount(){
+    this.props.bindShortcut(['command+e', 'ctrl+e'], (e) => {
+      e.preventDefault();
+      this.addWords();
+    });
+    this.props.bindShortcut('esc', (e) => {
+      e.preventDefault();
+      console.log(this.context.router)
+      this.context.router.goBack();
+    });
   }
   componentDidMount(){
     const {dispatch } = this.props;
@@ -181,4 +195,4 @@ function mapStateToProps(state, props) {
     episodes: state.episodes
   }
 }
-export default connect(mapStateToProps)(DiccionarioEpisodios)
+export default connect(mapStateToProps)(mouseTrap(DiccionarioEpisodios))

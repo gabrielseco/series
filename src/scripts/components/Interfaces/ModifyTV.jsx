@@ -33,7 +33,6 @@ class ModifyTV extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(modifyTV(obj, res => {
-      console.log('res modify TV',res);
       this.props.history.goBack()
     }));
 

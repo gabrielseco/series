@@ -2,7 +2,9 @@ import React from 'react';
 import DocumentTitle from 'react-document-title'
 import FormWords from './FormWords';
 import { connect } from 'react-redux';
-import {modifyFilm, getOneFilm, getOneBook, getOneTV} from '../../actions'
+import {modifyFilm, getOneFilm, getOneBook, getOneTV} from '../../actions';
+import {mouseTrap} from 'react-mousetrap';
+
 
 
 
@@ -26,6 +28,25 @@ class AddWords extends React.Component {
   constructor(props,context){
     super(props,context)
     this.state = {form: '', data: ''}
+  }
+
+  componentWillMount(){
+    var idPelicula = +this.props.params.pelicula;
+    var idSerie = +this.props.params.serie;
+    var idEpisodio = +this.props.params.episodio;
+    var idLibro = +this.props.params.libro;
+    this.props.bindShortcut(['ctrl+e','command+e'], (e) => {
+      e.preventDefault();
+      if(idPelicula !== 0){
+        this.finalizarPelicula();
+      }
+      if(idSerie !== 0){
+        this.finalizarSerie();
+      }
+      if(idLibro != 0){
+        this.finalizarLibro();
+      }
+    });
   }
 
   componentDidMount(){
@@ -105,4 +126,4 @@ class AddWords extends React.Component {
 
 }
 
-export default connect()(AddWords)
+export default connect()(mouseTrap(AddWords))

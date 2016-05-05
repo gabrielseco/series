@@ -7,6 +7,8 @@ import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
 import Loading from '../UI/Loading'
 import _ from 'lodash';
+import {mouseTrap} from 'react-mousetrap';
+
 
 
 
@@ -21,6 +23,19 @@ class Episodes extends React.Component {
     this.context = context;
     this.state = {episodios: null}
   }
+
+  componentWillMount(){
+    this.props.bindShortcut(['ctrl+g','command+g'], (e) => {
+      e.preventDefault();
+      this.generateEpisodes();
+    });
+    this.props.bindShortcut('esc', (e) => {
+      e.preventDefault();
+      this.context.router.goBack();
+    });
+  }
+
+
   componentDidMount(){
     const {dispatch } = this.props;
 
@@ -193,4 +208,4 @@ class Episodes extends React.Component {
 function mapStateToProps(state, props) {
   return { serie: _.find(state.TV, {id: Number(props.params.id)}) }
 }
-export default connect(mapStateToProps)(Episodes)
+export default connect(mapStateToProps)(mouseTrap(Episodes))
