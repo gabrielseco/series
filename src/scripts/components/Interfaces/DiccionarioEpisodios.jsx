@@ -28,6 +28,10 @@ class DiccionarioEpisodios extends React.Component {
       e.preventDefault();
       this.addWords();
     });
+    this.props.bindShortcut(['ctrl+m','command+m'], (e) => {
+      e.preventDefault();
+      this.modifyTV();
+    });
     this.props.bindShortcut('esc', (e) => {
       e.preventDefault();
       console.log(this.context.router)

@@ -29,6 +29,10 @@ class Episodes extends React.Component {
       e.preventDefault();
       this.generateEpisodes();
     });
+    this.props.bindShortcut(['ctrl+m','command+m'], (e) => {
+      e.preventDefault();
+      this.modifyTV();
+    });
     this.props.bindShortcut('esc', (e) => {
       e.preventDefault();
       this.context.router.goBack();

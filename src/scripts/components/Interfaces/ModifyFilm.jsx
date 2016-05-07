@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import {modifyFilm} from '../../actions'
 import Colors from '../UI/Colors.js';
 import _ from 'lodash';
+import {mouseTrap} from 'react-mousetrap';
+
 
 
 
@@ -21,10 +23,21 @@ var float = {
 };
 
 class ModifyFilm extends React.Component {
-
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
   constructor(props) {
     super(props);
     this.state = {inputName: '', data: ''}
+  }
+
+  componentWillMount(){
+
+    this.props.bindShortcut('esc', (e) => {
+      e.preventDefault();
+      this.context.router.goBack();
+    });
+
   }
 
   handleForm(e){
@@ -87,4 +100,4 @@ function mapStateToProps(state, props) {
 }
 
 
-export default connect(mapStateToProps)(ModifyFilm)
+export default connect(mapStateToProps)(mouseTrap(ModifyFilm))

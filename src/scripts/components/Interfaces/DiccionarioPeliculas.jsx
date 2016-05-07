@@ -6,6 +6,8 @@ import UITable from '../UI/Table'
 import BreadCrumb from '../UI/BreadCrumb'
 import Loading from '../UI/Loading'
 import _ from 'lodash';
+import {mouseTrap} from 'react-mousetrap';
+
 
 class DiccionarioPeliculas extends React.Component {
   static contextTypes = {
@@ -18,6 +20,22 @@ class DiccionarioPeliculas extends React.Component {
     this.context = context;
     this.state = {words: null}
   }
+
+  componentWillMount(){
+    this.props.bindShortcut(['ctrl+e','command+e'], (e) => {
+      e.preventDefault();
+      this.addWords();
+    });
+    this.props.bindShortcut(['ctrl+m','command+m'], (e) => {
+      e.preventDefault();
+      this.modifyFilm();
+    });
+    this.props.bindShortcut('esc', (e) => {
+      e.preventDefault();
+      this.context.router.goBack();
+    });
+  }
+
   componentDidMount(){
     const {dispatch } = this.props;
 
@@ -148,4 +166,4 @@ class DiccionarioPeliculas extends React.Component {
 function mapStateToProps(state, props) {
   return { film: _.find(state.films, {id: Number(props.params.id)}) }
 }
-export default connect(mapStateToProps)(DiccionarioPeliculas)
+export default connect(mapStateToProps)(mouseTrap(DiccionarioPeliculas))

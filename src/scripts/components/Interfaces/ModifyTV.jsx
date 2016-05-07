@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {modifyTV} from '../../actions'
+import {modifyTV} from '../../actions';
+import {mouseTrap} from 'react-mousetrap';
+
 
 import Colors from '../UI/Colors.js';
 
@@ -12,9 +14,20 @@ var float = {
 
 class ModifyTV extends React.Component {
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = {inputName: '', data: ''}
+  }
+
+  componentWillMount(){
+    this.props.bindShortcut('esc', (e) => {
+      e.preventDefault();
+      this.context.router.goBack();
+    });
   }
 
 
@@ -79,4 +92,4 @@ function mapStateToProps(state, props) {
 }
 
 
-export default connect(mapStateToProps)(ModifyTV)
+export default connect(mapStateToProps)(mouseTrap(ModifyTV))

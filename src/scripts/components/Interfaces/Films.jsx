@@ -9,6 +9,8 @@ import MessageInfo from '../UI/MessageInfo'
 import MySearchInput from '../UI/MessageInfo'
 import Loading from '../UI/Loading'
 import Paginator from 'react-pagify'
+import {mouseTrap} from 'react-mousetrap';
+
 
 
 
@@ -27,6 +29,14 @@ class Films extends React.Component {
   constructor(props,context) {
     super(props,context);
     this.state = {modalIsOpen: false, film: '', searchTerm: '', films: null, pagination:{ page: 0, perPage: 10 }}
+  }
+
+  componentWillMount(){
+    this.props.bindShortcut(['ctrl+e','command+e'], (e) => {
+      e.preventDefault();
+      this.addFilm();
+    });
+
   }
 
 
@@ -221,4 +231,4 @@ Films.getDefaultProps = {
   films: []
 }
 
-export default connect(mapStateToProps)(Films)
+export default connect(mapStateToProps)(mouseTrap(Films))
