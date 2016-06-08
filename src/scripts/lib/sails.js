@@ -1,5 +1,5 @@
-import axios from 'axios'
-var _url = getURL();
+import axios from 'axios';
+const _url = getURL();
 
   function getURL (){
 
@@ -16,10 +16,10 @@ var _url = getURL();
   function getPromise(path){
     return new Promise(function(resolve, reject) {
       axios.get(_url + path).then(response => {
-        resolve(response)
+        resolve(response);
       }).catch(error => {
-        return reject(error)
-      })
+        return reject(error);
+      });
     });
   }
 
@@ -27,14 +27,14 @@ var _url = getURL();
 
       try {
 
-        var response = await getPromise(path);
-        return response.data
+        const response = await getPromise(path);
+        return response.data;
 
       } catch(error) {
 
         return error;
 
-      }
+    } 
 
   }
 
@@ -42,8 +42,8 @@ var _url = getURL();
 
     try {
 
-      var response = await getPromise(path);
-      return response.data
+      const response = await getPromise(path);
+      return response.data;
 
     } catch(error) {
 
@@ -57,8 +57,8 @@ var _url = getURL();
 
     try {
 
-      var response = await getPromise(path + "/" + id);
-      return response.data
+      const response = await getPromise(path + "/" + id);
+      return response.data;
 
     } catch(error) {
 
@@ -80,6 +80,6 @@ var _url = getURL();
  }
 
 export async  function deleteData(path, id){
-   const response = await axios.delete(_url + path + "/" + id)
+   const response = await axios.delete(_url + path + "/" + id);
    return response.data;
  }

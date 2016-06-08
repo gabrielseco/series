@@ -1,50 +1,47 @@
 /**
  * Mocking client-server processing
  */
-import { get, add, getOne, update, deleteData, findWhere } from '../../lib/sails'
-import { _apiendpoint, _api_key, _image_path } from '../shared'
-import axios from 'axios'
+import { get, add, getOne, update, deleteData } from '../../lib/sails';
+import { _apiendpoint, _api_key, _image_path } from '../shared';
+import axios from 'axios';
 
 
-const TIMEOUT = 300
+const TIMEOUT = 300;
 
 export default {
    async getData(obj){
-     var api = await axios.get(_apiendpoint + 'tv/'+obj.idSerie+'/season/'+obj.temporada+'?api_key='+_api_key + "");
-     var episodes = api.data.episodes;
-     var data = [];
+     const api = await axios.get(_apiendpoint + 'tv/'+obj.idSerie+'/season/'+obj.temporada+'?api_key='+_api_key + "");
+     let episodes = api.data.episodes;
+     let data = [];
 
-     console.log(episodes)
+    for(let i = 0; i < episodes.length; i++ ){
 
-    for(var i = 0; i < episodes.length; i++ ){
-
-      var episode = {
-        serie: obj.id,
-        nombre: episodes[i].name,
-        overview: episodes[i].overview,
-        numero: episodes[i].episode_number,
-        airdate: episodes[i].air_date
-      };
-
-      data.push(episode);
+      if(episodes[i].name !== ''){
+        const episode = {
+          serie: obj.id,
+          nombre: episodes[i].name,
+          overview: episodes[i].overview,
+          numero: episodes[i].episode_number,
+          airdate: episodes[i].air_date
+        };
+        data.push(episode);
+      }
 
     }
     return data;
   },
   generate(obj, cb, timeout){
     this.getData(obj).then(data => {
-      console.log('data', data);
-      for(var i = 0; i < data.length; i++){
-        var results = add('episodes', data[i]).then(res => {
-          console.log('res',i);
+      for(let i = 0; i < data.length; i++){
+        const results = add('episodes', data[i]).then(res => {
         });
         setTimeout(()=> {
-          cb(true)
-        },2000)
+          cb(true);
+        },2000);
       }
 
 
-    })
+    });
 
-  },
+  }
 }

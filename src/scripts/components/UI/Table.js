@@ -1,27 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { orderBy } from 'lodash'
-var Table = require('reactabular').Table;
-var Search = require('reactabular').Search;
-var Paginator = require('react-pagify');
-var sortColumn = require('reactabular').sortColumn;
-var ColumnNames = require('reactabular').ColumnNames;
+import { orderBy } from 'lodash';
+const Table = require('reactabular').Table;
+const Search = require('reactabular').Search;
+const Paginator = require('react-pagify');
+const sortColumn = require('reactabular').sortColumn;
+const ColumnNames = require('reactabular').ColumnNames;
 
-var cx = require('classnames');
+const cx = require('classnames');
 
 
 
 
 class UITable extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
     this.state = { columns: this.props.columns,
                    data: this.props.data,
                    pagination: this.props.pagination,
                    search:this.props.search,
                    header: {
                     onClick: (column) => {
-                      console.log(column)
                         sortColumn(
                             this.props.columns,
                             column,
@@ -31,7 +30,7 @@ class UITable extends React.Component {
                     className: cx(['header-table'])
 
                 },
-                sortingColumn: null, // reference to sorting column
+                sortingColumn: null // reference to sorting column
 
   }
  }

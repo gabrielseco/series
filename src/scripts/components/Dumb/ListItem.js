@@ -3,7 +3,8 @@
 import React from 'react';
 import {VelocityComponent} from 'velocity-react'
 
-
+require('velocity-animate');
+require('velocity-animate/velocity.ui');
 
 export default class ListItem extends React.Component {
     constructor(props) {

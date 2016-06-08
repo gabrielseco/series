@@ -1,47 +1,47 @@
 'use strict';
 
-import React, { PropTypes } from 'react'
-var classNames = require('classnames');
+import React, { PropTypes } from 'react';
+const classNames = require('classnames');
 
 
 
-export default class MessageInfo extends React.Component{
+class MessageInfo extends React.Component{
 
   constructor(props){
-    super(props)
-    var active = this.props.statusCode === 0 ? true : false;
-    this.state = {active : active}
+    super(props);
+    const active = this.props.statusCode === 0 ? true : false;
+    this.state = {active : active};
     this.interval = null;
   }
 
   componentDidMount(){
     this.interval = setInterval(()=> {
       this.setState({active: !this.state.active})
-    },this.props.time)
+    },this.props.time);
   }
 
   componentWillUnmount(){
-    clearInterval(this.interval)
+    clearInterval(this.interval);
   }
 
   handleActive(){
     this.setState({
       active: false
-    })
+    });
   }
 
   clear(){
-    clearInterval(this.interval)
-    this.handleActive()
+    clearInterval(this.interval);
+    this.handleActive();
   }
 
 
 
   renderMessage(){
-    var active = classNames({
+    const active = classNames({
       'message-info': true
     });
-    var status = this.props.statusCode === 0
+    const status = this.props.statusCode === 0
                  ?
                  "No se puede establecer una conexión con el servidor" : null;
 
@@ -54,10 +54,10 @@ export default class MessageInfo extends React.Component{
           </div>
           <span className="button-close" onClick={this.handleActive.bind(this)}></span>
         </div>
-      )
+      );
     }
 
-    return null
+    return null;
 
 
   }
@@ -67,7 +67,7 @@ export default class MessageInfo extends React.Component{
     <div>
       {this.renderMessage()}
     </div>
-    )
+  );
   }
 
 }
@@ -75,11 +75,11 @@ export default class MessageInfo extends React.Component{
 MessageInfo.propTypes = {
   statusCode: PropTypes.number.isRequired,
   time: PropTypes.number
-}
+};
 
 MessageInfo.defaultProps  = {
   time: 1000
-}
+};
 
 
-export default MessageInfo
+export default MessageInfo;

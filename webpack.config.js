@@ -5,14 +5,23 @@
  * the subfolder /webpack-dev-server/ is visited. Visiting the root will not automatically reload.
  */
 'use strict';
-var webpack = require('webpack');
+const webpack = require('webpack');
+const path = require('path');
+
+const join    = path.join;
+const resolve = path.resolve;
+
+const root    = resolve(__dirname);
+const src     = join(root, 'src');
+
+
 
 module.exports = {
   context:__dirname,
   output: {
+    path: path.join(__dirname, 'dist'),
     filename: 'main.js',
-    publicPath: './assets/',
-    path:'/src/assets'
+    publicPath: '/assets/'
   },
 
   cache: true,
@@ -21,65 +30,46 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8000', // WebpackDevServer host and port
       'webpack/hot/only-dev-server',
-      './src/scripts/components/main.jsx'
+      './src/scripts/components/main.js'
   ],
 
-  stats: {
-    colors: true,
-    reasons: true
-  },
+  resolve:{
+    root: root,
+    extensions: ['', '.js', '.jsx'],
+    alias:{
+      'actions'   : join(root, './src/actions'),
+      'constants' : join(root, './src/constants'),
+      'components': join(root, './src/components'),
+      'containers': join(root, './src/containers'),
+      'reducers'  : join(root, './src/reducers')
 
-  resolve: {
-    extensions: ['', '.js','.jsx'],
-    alias: {
-      'styles': './src/scripts/styles',
-      'components': './src/scripts/components/'
     }
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"development"'
+      }
+    }),
+  ],
   module: {
-    preLoaders: [
-      {
-        test: /\.jsx?$/,
-        loaders: ['eslint'],
-        include: './src/scripts'
-      },
-      {
-        test: /\.js?$/,
-        loaders: ['eslint'],
-        include: './src/scripts'
-      },
-    ],
     loaders: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: ['react-hot'],
-        query:{}
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015','react','stage-0'],
-          plugins: ["transform-runtime"],
-          cacheDirectory: true
-        }
+      test: /\.js$/,
+      loaders: ['react-hot', 'babel','eslint'],
+      include: path.join(__dirname, 'src')
       },
     {
       test: /\.scss/,
       loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
     },
     {
-      test: /\.(png|jpg)$/,
-      loader: 'url-loader?limit=8192'
+        test: /\.css/,
+        loader: "style-loader!css-loader"
     }
-  ]
-  },
-
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ]
+   ]
+  }
 
 };

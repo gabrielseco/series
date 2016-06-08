@@ -1,12 +1,12 @@
 /**
  * Mocking client-server processing
  */
-import { get, add, getOne, update, deleteData } from '../../lib/sails'
-import { _apiendpoint, _api_key, _image_path } from '../shared'
-import axios from 'axios'
+import { get, add, getOne, update, deleteData } from '../../lib/sails';
+import { _apiendpoint, _api_key, _image_path } from '../shared';
+import axios from 'axios';
 
 
-const TIMEOUT = 300
+const TIMEOUT = 300;
 
 export default {
   getDataFilm(obj, cb){
@@ -55,10 +55,10 @@ export default {
 
   } else {
 
-    var results = add('films', obj).then(res => {
+    const results = add('films', obj).then(res => {
       setTimeout(() => cb(res), timeout || TIMEOUT)
-    })
+    });
   }
 
-  },
+  }
 }
