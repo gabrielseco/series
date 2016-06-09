@@ -1,13 +1,13 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
-import {getAllBooks, deleteBook} from '../../actions'
+import DocumentTitle from 'react-document-title';
+import {getAllBooks, deleteBook} from '../../actions';
 import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
-import Modal from 'react-modal'
+import Modal from 'react-modal';
 import SearchInput from 'react-search-input';
-import MessageInfo from '../UI/MessageInfo'
-import Loading from '../UI/Loading'
-import { add } from '../../lib/sails'
+import MessageInfo from '../UI/MessageInfo';
+import Loading from '../UI/Loading';
+import { add } from '../../lib/sails';
 import axios from 'axios';
 
 
@@ -17,14 +17,14 @@ const modalStyle = {
   content : {
     height: '20%'
   }
-}
+};
 
 
 class Books extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {modalIsOpen: false, book: '', searchTerm: '', books: null}
+    this.state = {modalIsOpen: false, book: '', searchTerm: '', books: null};
   }
   componentDidMount(){
     const {dispatch } = this.props;
@@ -32,14 +32,12 @@ class Books extends React.Component {
       this.setState({
         books: books
       })
-      //this.refs.search.refs.search.focus();
     }))
 
   }
 
   syncData(){
     axios.get('http://192.168.1.130:5412/web/libros').then(res => {
-      console.log('res sync',res.data)
       res = res.data;
       res.map((value, i) => {
           var data = {
@@ -68,23 +66,20 @@ class Books extends React.Component {
   }
 
   modifyBook(data){
-    console.log('modifyBook',data)
-    this.props.history.pushState(null,'/modifyBook/'+data.id)
+    this.props.history.pushState(null,'/modifyBook/'+data.id);
   }
 
   remove(){
-    console.log('remove',this.state.film);
     const { dispatch } = this.props;
 
     dispatch(deleteBook(this.state.book.id , res => {
-      console.log('res DELETE BOOK',res);
-      location.reload()
+      location.reload();
     }));
 
   }
 
   diccionarios(id){
-    this.props.history.pushState(null,'/diccionarios_libros/'+id)
+    this.props.history.pushState(null,'/diccionarios_libros/'+id);
   }
   searchUpdated(term) {
     this.setState({searchTerm: term});
@@ -101,7 +96,7 @@ class Books extends React.Component {
   renderModal(){
 
     if(this.state.book === ''){
-      return null
+      return null;
     }
 
     return (
@@ -121,23 +116,23 @@ class Books extends React.Component {
 
 
   render() {
-    var list = null;
-    var message = null;
-    var _books = this.state.books
+    let list = null;
+    let message = null;
+    let _books = this.state.books
 
 
     if(this.state.books !== null) {
       message = this.renderMessage(this.state.books)
 
       if (this.state.searchTerm.length > 0) {
-        var filters = ['nombre'];
+        const filters = ['nombre'];
         _books = this.state.books.filter(this.refs.search.filter(filters));
       }
 
       if(_books.length > 0){
 
-        var list = _books.map((book, i) => {
-          var palabras = (
+        list = _books.map((book, i) => {
+          const palabras = (
             <div className="diccionarios">
                 <button onClick={this.diccionarios.bind(this, book.id)}>PALABRAS</button>
             </div>
@@ -168,7 +163,7 @@ class Books extends React.Component {
  }
  renderMessage(books){
     if(books.status == undefined)
-       return null
+       return null;
 
     return <MessageInfo statusCode={books.status}/>
  }

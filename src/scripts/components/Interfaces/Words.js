@@ -1,22 +1,22 @@
 import React from 'react';
-import {getAllWords, deleteWord, makeBackup} from '../../actions'
+import {getAllWords, deleteWord} from '../../actions';
 import { connect } from 'react-redux';
-import UITable from '../UI/Table'
-import UILoading from '../UI/Loading'
+import UITable from '../UI/Table';
+import UILoading from '../UI/Loading';
 
 
 
 var style = {
   paddingLeft:'100px'
-}
+};
 
 class Words extends React.Component {
   static contextTypes = {
     store: React.PropTypes.object
-  }
+  };
 
   constructor(props, context){
-    super(props)
+    super(props);
     this.context = context;
     this.state = {data: ''}
   }
@@ -133,6 +133,6 @@ class Words extends React.Component {
 
 }
 function mapStateToProps(state) {
-  return { words: state.words }
+  return { words: state.words };
 }
 export default connect(mapStateToProps)(Words)

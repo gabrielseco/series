@@ -1,9 +1,11 @@
+require("babel-core/register");
+require("babel-polyfill");
 import React from 'react';
-import { render } from 'react-dom'
-import { Router, Route, IndexRoute, useRouterHistory} from 'react-router'
-import { createHashHistory } from 'history'
-import { Provider } from 'react-redux'
-import configureStore from '../store/configureStore'
+import { render } from 'react-dom';
+import { Router, Route, IndexRoute, useRouterHistory} from 'react-router';
+import { createHashHistory } from 'history';
+import { Provider } from 'react-redux';
+import configureStore from '../store/configureStore';
 
 import D3 from './Interfaces/D3';
 
@@ -26,20 +28,20 @@ import AddEpisode from './Interfaces/AddEpisode';
 import ModifyEpisode from './Interfaces/ModifyEpisode';
 
 
-import Words                     from './Interfaces/Words'
+import Words                     from './Interfaces/Words';
 import DiccionarioPeliculas from './Interfaces/DiccionarioPeliculas';
-import DiccionarioEpisodios      from './Interfaces/DiccionarioEpisodios'
-import DiccionarioLibros         from './Interfaces/DiccionariosLibros'
+import DiccionarioEpisodios      from './Interfaces/DiccionarioEpisodios';
+import DiccionarioLibros         from './Interfaces/DiccionariosLibros';
 
-import AddWords   from './Interfaces/AddWords'
+import AddWords   from './Interfaces/AddWords';
 import ModifyWord from './Interfaces/ModifyWord';
 
 
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })
+const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 
 
 
-const store = configureStore()
+const store = configureStore();
 
 try {
 
@@ -150,9 +152,9 @@ try {
           />
         </Route>
       </Router>
-    </Provider>), document.getElementById('app'))
+    </Provider>), document.getElementById('app'));
 } catch(e) {
-  ReactDOM.render(
+  render(
     <div>
     <h2>Error: application could not load</h2>
     <pre>

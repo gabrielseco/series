@@ -1,14 +1,13 @@
-import React, { Component, PropTypes } from 'react'
-import DocumentTitle from 'react-document-title'
+import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router';
-import UINavBar from '../UI/NavBar';
+import UINavBar from '../UI/Navbar';
 
 
  class App extends React.Component {
 
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -17,7 +16,7 @@ import UINavBar from '../UI/NavBar';
       <div>
         <UINavBar/>
         <DocumentTitle title="LEARN WORDS"/>
-        <div className='main'>
+        <div className="main">
           {this.props.children}
         </div>
       </div>
@@ -26,7 +25,4 @@ import UINavBar from '../UI/NavBar';
 }
 
 
-
-
-
-export default App
+export default App;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
-import DocumentTitle from 'react-document-title'
-import {getAllEpisodes, deleteEpisode, generateEpisodes} from '../../actions'
+import DocumentTitle from 'react-document-title';
+import {getAllEpisodes, deleteEpisode, generateEpisodes} from '../../actions';
 import { connect } from 'react-redux';
-import UITable from '../UI/Table'
-import BreadCrumb from '../UI/BreadCrumb'
-import Loading from '../UI/Loading'
+import UITable from '../UI/Table';
+import BreadCrumb from '../UI/BreadCrumb';
+import Loading from '../UI/Loading';
 import _ from 'lodash';
 import {mouseTrap} from 'react-mousetrap';
 
@@ -16,10 +16,10 @@ class Episodes extends React.Component {
   static contextTypes = {
     store: React.PropTypes.object,
     router: React.PropTypes.object.isRequired
-  }
+  };
 
   constructor(props, context){
-    super(props)
+    super(props);
     this.context = context;
     this.state = {episodios: null}
   }
@@ -46,8 +46,8 @@ class Episodes extends React.Component {
     dispatch(getAllEpisodes(this.props.params.id, res => {
       this.setState({
         episodios: res
-      })
-    }))
+      });
+    }));
 
   }
   generateEpisodes(){
@@ -67,7 +67,7 @@ class Episodes extends React.Component {
         location.reload();
       }
 
-    }))
+    }));
 
 
   }
@@ -94,10 +94,9 @@ class Episodes extends React.Component {
               property: 'ver',
               header: 'Ver',
               cell: (value, data, rowIndex, property) => {
-                 var ver = () => {
-                   var idEpisodio = data[rowIndex].id;
-                   console.log('id', idEpisodio);
-                   var idSerie    = data[rowIndex].serie.id;
+                 const ver = () => {
+                   const idEpisodio = data[rowIndex].id;
+                   const idSerie    = data[rowIndex].serie.id;
                    this.context.router.push('/diccionarios/'+idSerie+'/episodio/'+idEpisodio);
 
 
@@ -114,9 +113,9 @@ class Episodes extends React.Component {
             property: 'editar',
             header: 'Editar',
             cell: (value, data, rowIndex, property) => {
-               var editar = () => {
-                 var idEpisodio = data[rowIndex].id;
-                 var idSerie = this.props.params.id
+               const editar = () => {
+                 const idEpisodio = data[rowIndex].id;
+                 const idSerie = this.props.params.id
 
                  this.context.router.push('/modifyEpisode/'+idSerie+"/"+idEpisodio);
 
@@ -135,13 +134,12 @@ class Episodes extends React.Component {
              property: 'eliminar',
              header: 'Eliminar',
              cell: (value, data, rowIndex, property) => {
-                var eliminar = () => {
-                  var id = data[rowIndex].id;
-                  var nombre = data[rowIndex].nombre;
-                  var numero = data[rowIndex].numero;
-                  console.log(nombre+" "+id+" "+numero);
+                const eliminar = () => {
+                  const id = data[rowIndex].id;
+                  const nombre = data[rowIndex].nombre;
+                  const numero = data[rowIndex].numero;
 
-                  var del = confirm('Quieres eliminar el episodio número '+numero+ ' con nombre: '+nombre);
+                  const del = confirm('Quieres eliminar el episodio número '+numero+ ' con nombre: '+nombre);
 
                   if(del){
                     const {dispatch } = this.props;
@@ -176,9 +174,9 @@ class Episodes extends React.Component {
     } else {
 
     if(episodios.length > 0){
-      var texto = "Serie > " + this.props.serie.nombre + " > Season " +this.props.serie.temporada;
-      var link  = <Link to="/tv">{texto}</Link>
-      var title = this.props.serie.nombre + " Season "+ this.props.serie.temporada;
+      const texto = "Serie > " + this.props.serie.nombre + " > Season " +this.props.serie.temporada;
+      const link  = <Link to="/tv">{texto}</Link>;
+      const title = this.props.serie.nombre + " Season "+ this.props.serie.temporada;
     return(
       <div>
         <DocumentTitle title={title}/>
@@ -210,6 +208,6 @@ class Episodes extends React.Component {
 
 }
 function mapStateToProps(state, props) {
-  return { serie: _.find(state.TV, {id: Number(props.params.id)}) }
+  return { serie: _.find(state.TV, {id: Number(props.params.id)}) };
 }
-export default connect(mapStateToProps)(mouseTrap(Episodes))
+export default connect(mapStateToProps)(mouseTrap(Episodes));

@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {modifyTV} from '../../actions';
 import {mouseTrap} from 'react-mousetrap';
+import  {find} from 'lodash';
 
+//import Colors from '../UI/Colors.js';
 
-import Colors from '../UI/Colors.js';
-
-var float = {
+const float = {
         float: 'right'
 };
 
@@ -20,7 +20,7 @@ class ModifyTV extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '', data: ''}
+    this.state = {inputName: '', data: ''};
   }
 
   componentWillMount(){
@@ -34,19 +34,19 @@ class ModifyTV extends React.Component {
   handleForm(e){
     e.preventDefault();
 
-    var obj = {
+    const obj = {
       id: this.props.params.id,
       nombre: this.refs.name.value,
       overview: this.refs.overview.value,
       imagen: this.refs.imagen.value,
       temporada: this.refs.temporada.value,
       color: this.refs.color.value
-    }
+    };
 
     const { dispatch } = this.props;
 
     dispatch(modifyTV(obj, res => {
-      this.props.history.goBack()
+      this.props.history.goBack();
     }));
 
 
@@ -65,7 +65,7 @@ class ModifyTV extends React.Component {
       <div style={float}>
       <Colors data={this.props.data.imagen} changeColor={this.changeColor.bind(this)}/>
       </div>*/}
-        <img className='img' src={this.props.data.imagen} width="230" height="345"/>
+        <img className="img" src={this.props.data.imagen} width="230" height="345"/>
           <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                   <label className="is-required">Nombre</label>
                   <input ref="name" className={this.state.inputName} defaultValue={this.props.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
@@ -77,9 +77,9 @@ class ModifyTV extends React.Component {
                   <input type="submit" value="Enviar"></input>
           </form>
         </div>
-    )
+    );
   } else {
-    return (<div></div>)
+    return (<div></div>);
   }
  }
 }
@@ -87,9 +87,9 @@ class ModifyTV extends React.Component {
 function mapStateToProps(state, props) {
 
     return {
-      data: _.find(state.TV, {id: Number(props.params.id)})
-  }
+      data: find(state.TV, {id: Number(props.params.id)})
+  };
 }
 
 
-export default connect(mapStateToProps)(mouseTrap(ModifyTV))
+export default connect(mapStateToProps)(mouseTrap(ModifyTV));

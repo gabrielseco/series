@@ -1,10 +1,10 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
-import {getOneFilm, getDiccionariosPalabras, deleteWord} from '../../actions'
+import DocumentTitle from 'react-document-title';
+import {getOneFilm, getDiccionariosPalabras, deleteWord} from '../../actions';
 import { connect } from 'react-redux';
-import UITable from '../UI/Table'
-import BreadCrumb from '../UI/BreadCrumb'
-import Loading from '../UI/Loading'
+import UITable from '../UI/Table';
+import BreadCrumb from '../UI/BreadCrumb';
+import Loading from '../UI/Loading';
 import _ from 'lodash';
 import {mouseTrap} from 'react-mousetrap';
 
@@ -13,12 +13,12 @@ class DiccionarioPeliculas extends React.Component {
   static contextTypes = {
     store: React.PropTypes.object,
     router: React.PropTypes.object.isRequired
-  }
+  };
 
   constructor(props, context){
-    super(props)
+    super(props);
     this.context = context;
-    this.state = {words: null}
+    this.state = {words: null};
   }
 
   componentWillMount(){
@@ -73,8 +73,8 @@ class DiccionarioPeliculas extends React.Component {
             property: 'editar',
             header: 'Editar',
             cell: (value, data, rowIndex, property) => {
-               var editar = () => {
-                 var id = data[rowIndex].id;
+               const editar = () => {
+                 const id = data[rowIndex].id;
 
                  this.context.router.push(null, 'modifyWord/'+id);
 
@@ -93,10 +93,10 @@ class DiccionarioPeliculas extends React.Component {
              property: 'eliminar',
              header: 'Eliminar',
              cell: (value, data, rowIndex, property) => {
-                var eliminar = () => {
-                  var id = data[rowIndex].id;
-                  var english = data[rowIndex].english
-                  var del = confirm('Quieres eliminar la palabra: '+english);
+                const eliminar = () => {
+                  const id = data[rowIndex].id;
+                  const english = data[rowIndex].english
+                  const del = confirm('Quieres eliminar la palabra: '+english);
 
                   if(del){
                     const {dispatch } = this.props;
@@ -131,7 +131,7 @@ class DiccionarioPeliculas extends React.Component {
       return <Loading/>
     } else {
     if(words.length > 0){
-      var texto = "Película > " + this.props.film.nombre
+      const texto = "Película > " + this.props.film.nombre;
     return(
       <div>
         <DocumentTitle title={this.props.film.nombre + " | Words"}/>
@@ -145,7 +145,7 @@ class DiccionarioPeliculas extends React.Component {
       </div>
     );
   } else {
-    var texto = "Película > " + this.props.film.nombre
+    const texto = "Película > " + this.props.film.nombre;
     return (
       <div>
         <BreadCrumb data={this.props.film} texto={texto} goTo={this.modifyFilm.bind(this)}/>
@@ -157,7 +157,7 @@ class DiccionarioPeliculas extends React.Component {
             No hay palabras en esta película
           </div>
         </div>
-    </div>)
+    </div>);
   }
 }
 }
@@ -166,4 +166,4 @@ class DiccionarioPeliculas extends React.Component {
 function mapStateToProps(state, props) {
   return { film: _.find(state.films, {id: Number(props.params.id)}) }
 }
-export default connect(mapStateToProps)(mouseTrap(DiccionarioPeliculas))
+export default connect(mapStateToProps)(mouseTrap(DiccionarioPeliculas));

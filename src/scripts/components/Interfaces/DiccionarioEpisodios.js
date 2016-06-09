@@ -1,11 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router';
-import DocumentTitle from 'react-document-title'
-import {getOneTV, getDiccionariosEpisodios, deleteWord} from '../../actions'
+import DocumentTitle from 'react-document-title';
+import {getOneTV, getDiccionariosEpisodios, deleteWord} from '../../actions';
 import { connect } from 'react-redux';
-import UITable from '../UI/Table'
-import BreadCrumb from '../UI/BreadCrumb'
-import Loading from '../UI/Loading'
+import UITable from '../UI/Table';
+import BreadCrumb from '../UI/BreadCrumb';
+import Loading from '../UI/Loading';
 import _ from 'lodash';
 import {mouseTrap} from 'react-mousetrap';
 
@@ -18,9 +18,9 @@ class DiccionarioEpisodios extends React.Component {
   }
 
   constructor(props, context){
-    super(props)
+    super(props);
     this.context = context;
-    this.state = {words: null}
+    this.state = {words: null};
   }
 
   componentWillMount(){
@@ -34,7 +34,6 @@ class DiccionarioEpisodios extends React.Component {
     });
     this.props.bindShortcut('esc', (e) => {
       e.preventDefault();
-      console.log(this.context.router)
       this.context.router.goBack();
     });
   }
@@ -44,7 +43,7 @@ class DiccionarioEpisodios extends React.Component {
     dispatch(getDiccionariosEpisodios(this.props.params.idEpisodio, words => {
       this.setState({
         words: words
-      })
+      });
     }));
 
   }
@@ -54,15 +53,15 @@ class DiccionarioEpisodios extends React.Component {
     if (number < 10 && typeof number !== 'string') {
       number = "0" + number;
     }
-    return number
+    return number;
   }
 
   getEpisode(idEpisodio){
-    const { episodes } = this.props
+    const { episodes } = this.props;
 
-    for( var i = 0; i < episodes.length; i++ ){
+    for( let i = 0; i < episodes.length; i++ ){
       if (episodes[i].id === idEpisodio) {
-        episodes[i].numero = this.checkNumber(episodes[i].numero)
+        episodes[i].numero = this.checkNumber(episodes[i].numero);
         return episodes[i];
       }
     }
@@ -91,8 +90,8 @@ class DiccionarioEpisodios extends React.Component {
             property: 'editar',
             header: 'Editar',
             cell: (value, data, rowIndex, property) => {
-               var editar = () => {
-                 var id = data[rowIndex].id;
+               const editar = () => {
+                 const id = data[rowIndex].id;
 
                  this.context.router.push('/modifyWord/'+id);
 
@@ -111,16 +110,16 @@ class DiccionarioEpisodios extends React.Component {
              property: 'eliminar',
              header: 'Eliminar',
              cell: (value, data, rowIndex, property) => {
-                var eliminar = () => {
-                  var id = data[rowIndex].id;
-                  var english = data[rowIndex].english
-                  var del = confirm('Quieres eliminar la palabra: '+english);
+                const eliminar = () => {
+                  const id = data[rowIndex].id;
+                  const english = data[rowIndex].english;
+                  const del = confirm('Quieres eliminar la palabra: '+english);
 
                   if(del){
                     const {dispatch } = this.props;
                     dispatch(deleteWord(id, res => {
-                      location.reload()
-                    }))
+                      location.reload();
+                    }));
                   }
                 };
 
@@ -145,14 +144,17 @@ class DiccionarioEpisodios extends React.Component {
     };
 
     const words = this.state.words;
+
+    let numero, url, texto, link,episodio = null;
+
     if(this.state.words === null){
-      return <Loading/>
+      return <Loading/>;
     } else {
     if(words.length > 0){
-      var numero = this.checkNumber(words[0].episodios.numero)
-      var url = "/episodes/"+this.props.params.idSerie
-      var texto = "Serie > " + this.props.serie.nombre + " > " +this.props.serie.temporada + "x" + numero + " > " + words[0].episodios.nombre;
-      var link = <Link to={url}>{texto}</Link>
+       numero = this.checkNumber(words[0].episodios.numero);
+       url = "/episodes/"+this.props.params.idSerie;
+       texto = "Serie > " + this.props.serie.nombre + " > " +this.props.serie.temporada + "x" + numero + " > " + words[0].episodios.nombre;
+       link = <Link to={url}>{texto}</Link>;
 
     return(
       <div>
@@ -168,10 +170,10 @@ class DiccionarioEpisodios extends React.Component {
     );
   } else {
     if(this.props.serie > ''){
-      var url = "/episodes/"+this.props.params.idSerie
-      var episodio = this.getEpisode(+this.props.params.idEpisodio)
-      var texto = "Serie > " + this.props.serie.nombre + " > " +this.props.serie.temporada + "x" + episodio.numero + " > " + episodio.nombre
-      var link = <Link to={url}>{texto}</Link>
+       url = "/episodes/"+this.props.params.idSerie;
+       episodio = this.getEpisode(+this.props.params.idEpisodio);
+       texto = "Serie > " + this.props.serie.nombre + " > " +this.props.serie.temporada + "x" + episodio.numero + " > " + episodio.nombre;
+       link = <Link to={url}>{texto}</Link>;
 
     }
     return (
@@ -185,18 +187,17 @@ class DiccionarioEpisodios extends React.Component {
             No hay palabras en este episodio
           </div>
         </div>
-    </div>)
+    </div>);
   }
 }
 }
 
 }
 function mapStateToProps(state, props) {
-  console.log(state.episodes);
   return {
     words: state.words,
     serie: _.find(state.TV, {id: Number(props.params.idSerie)}),
     episodes: state.episodes
-  }
+  };
 }
-export default connect(mapStateToProps)(mouseTrap(DiccionarioEpisodios))
+export default connect(mapStateToProps)(mouseTrap(DiccionarioEpisodios));

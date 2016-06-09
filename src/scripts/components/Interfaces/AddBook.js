@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {addOneBook} from '../../actions'
+import {addOneBook} from '../../actions';
 
 
 
@@ -8,13 +8,13 @@ class AddBook extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '', }
+    this.state = {inputName: '' }
   }
 
   handleForm(e){
     e.preventDefault();
 
-    var obj = {
+    const obj = {
       nombre: this.refs.name.value,
       youtube: this.refs.youtube.value,
       imagen: this.refs.imagen.value,
@@ -23,7 +23,6 @@ class AddBook extends React.Component {
       color: this.refs.color.value
     }
 
-    console.log('obj addBook',obj)
 
     const { dispatch } = this.props;
 
@@ -60,4 +59,4 @@ class AddBook extends React.Component {
  }
 }
 
-export default connect()(AddBook)
+export default connect()(AddBook);

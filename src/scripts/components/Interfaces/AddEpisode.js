@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {addOneEpisode} from '../../actions'
+import {addOneEpisode} from '../../actions';
 
 
 
@@ -8,16 +8,16 @@ class AddEpisode extends React.Component {
 
   static contextTypes = {
     store: React.PropTypes.object
-  }
+  };
 
   constructor(props, context) {
     super(props);
-    this.state = {inputName: '', }
+    this.state = {inputName: '' };
     this.context = context;
   }
 
   componentDidMount(){
-    var {episodes} = this.context.store.getState();
+    let {episodes} = this.context.store.getState();
         episodes = episodes.length + 1;
 
     if( !isNaN(episodes)){
@@ -28,7 +28,7 @@ class AddEpisode extends React.Component {
   handleForm(e){
     e.preventDefault();
 
-    var obj = {
+    const obj = {
       nombre: this.refs.name.value,
       numero: this.refs.numero.value,
       serie: this.props.params.id
@@ -37,7 +37,6 @@ class AddEpisode extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(addOneEpisode(obj, res => {
-      console.log('res ADD EPISODE',res);
       this.props.history.push('/episodes/'+this.props.params.id);
     }));
 
@@ -59,4 +58,4 @@ class AddEpisode extends React.Component {
  }
 }
 
-export default connect()(AddEpisode)
+export default connect()(AddEpisode);

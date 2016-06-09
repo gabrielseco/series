@@ -1,7 +1,7 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import {addOneTV} from '../../actions'
+import {addOneTV} from '../../actions';
 
 
 
@@ -9,7 +9,7 @@ class AddTV extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '', }
+    this.state = {inputName: '' }
   }
 
 

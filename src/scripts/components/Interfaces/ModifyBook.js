@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {modifyBook, getOneBook} from '../../actions'
-import Colors from '../UI/Colors.js';
+//import Colors from '../UI/Colors.js';
 
 var fieldValues = {
 }

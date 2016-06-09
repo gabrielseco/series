@@ -1,7 +1,7 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import {modifyWord, getOneWord} from '../../actions'
+import {modifyWord, getOneWord} from '../../actions';
 
 
 
@@ -9,32 +9,31 @@ class ModifyWord extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '', data: ''}
+    this.state = {inputName: '', data: ''};
   }
 
   componentDidMount(){
-    
+
     const { dispatch } = this.props;
 
     dispatch(getOneWord(this.props.params.id, res => {
       this.setState({data: res});
-    }))
+    }));
 
   }
 
   handleForm(e){
     e.preventDefault();
 
-    var obj = {
+    const obj = {
       id: this.props.params.id,
       spanish: this.refs.spanish.value,
-      english: this.refs.english.value,
-    }
+      english: this.refs.english.value
+    };
 
     const { dispatch } = this.props;
 
     dispatch(modifyWord(obj, res => {
-      console.log('res modify WORD',res);
       this.props.history.goBack()
     }));
 
@@ -63,4 +62,4 @@ class ModifyWord extends React.Component {
 }
 
 
-export default connect()(ModifyWord)
+export default connect()(ModifyWord);

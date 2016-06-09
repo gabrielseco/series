@@ -13,4 +13,4 @@ const UILoading = () => (
       );
 
 
-module.exports = UILoading;
+export default UILoading;
