@@ -32,7 +32,7 @@ class UITable extends React.Component {
                 },
                 sortingColumn: null // reference to sorting column
 
-  }
+  };
  }
 
  onSearch(search) {
@@ -41,7 +41,7 @@ class UITable extends React.Component {
    });
  }
  onSelect(page) {
-    var pagination = this.state.pagination || {};
+    let pagination = this.state.pagination || {};
 
     pagination.page = page;
 
@@ -51,7 +51,7 @@ class UITable extends React.Component {
 }
 
 onPerPage(e) {
-    var pagination = this.state.pagination || {};
+    let pagination = this.state.pagination || {};
 
     pagination.perPage = parseInt(event.target.value, 10);
 
@@ -61,21 +61,21 @@ onPerPage(e) {
 }
 
 columnFilters() {
-        var headerConfig = this.state.header;
-        var columns = this.state.columns;
+        const headerConfig = this.state.header;
+        const columns = this.state.columns;
         // if you don't want an header, just return;
         return(
           <thead>
             <ColumnNames config={headerConfig} columns={columns} />
           </thead>
-        )
+        );
  }
 
 
   render(){
-      var dataPagination = this.props.data;
-      var pagination = this.props.pagination;
-      var header = this.state.header;
+      let dataPagination = this.props.data;
+      let pagination = this.props.pagination;
+      let header = this.state.header;
 
 
       if (this.state.search.query) {
@@ -94,31 +94,30 @@ columnFilters() {
       dataPagination = sortColumn.sort(dataPagination, this.state.sortingColumn, orderBy);
 
 
-      var paginated = Paginator.paginate(dataPagination, pagination);
+      let paginated = Paginator.paginate(dataPagination, pagination);
 
-    var headers = this.columnFilters.bind(this);
+    let headers = this.columnFilters.bind(this);
     return (
       <div>
-      <div className='per-page-container'>
-                        Per page <input type='text' defaultValue={pagination.perPage} onChange={this.onPerPage.bind(this)}></input>
+      <div className="per-page-container">
+                        Per page <input type="text" defaultValue={pagination.perPage} onChange={this.onPerPage.bind(this)}/>
       </div>
-        <div className='search-container'>
-                Search <Search ref="search" columns={this.props.columns} data={this.state.data} onChange={this.onSearch.bind(this)}></Search>
+        <div className="search-container">
+                Search <Search ref="search" columns={this.props.columns} data={this.state.data} onChange={this.onSearch.bind(this)}/>
         </div>
-          <Table columnNames={headers} columns={this.props.columns} data={paginated.data} ></Table>
-          <div className='pagination'>
+          <Table columnNames={headers} columns={this.props.columns} data={paginated.data} />
+          <div className="pagination">
               <Paginator
                   page={paginated.page}
                   pages={paginated.amount}
                   beginPages={3}
                   endPages={3}
-                  onSelect={this.onSelect.bind(this)}>
-             </Paginator>
+                  onSelect={this.onSelect.bind(this)}/>
           </div>
       </div>
 
-    )
+    );
   }
 }
 
-export default UITable
+export default UITable;

@@ -34,9 +34,9 @@ export default {
            'idMovieDB': Number(idMovieDB),
            'overview': overview
          };
-         films.push(data)
+         films.push(data);
          if(index === (response.results.length -1) ){
-           cb(films)
+           cb(films);
          }
         });
 
@@ -51,14 +51,14 @@ export default {
 
     this.getDataFilm(obj,function(data){
       cb(data);
-    })
+    });
 
   } else {
 
     const results = add('films', obj).then(res => {
-      setTimeout(() => cb(res), timeout || TIMEOUT)
+      setTimeout(() => cb(res), timeout || TIMEOUT);
     });
   }
 
   }
-}
+};

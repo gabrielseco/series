@@ -8,7 +8,7 @@ class AddBook extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '' }
+    this.state = {inputName: '' };
   }
 
   handleForm(e){
@@ -21,13 +21,13 @@ class AddBook extends React.Component {
       airdate: this.refs.airdate.value,
       overview: this.refs.overview.value,
       color: this.refs.color.value
-    }
+    };
 
 
     const { dispatch } = this.props;
 
     dispatch(addOneBook(obj, res => {
-      this.props.history.push('/books')
+      this.props.history.push('/books');
     }));
 
 
@@ -53,9 +53,9 @@ class AddBook extends React.Component {
         <label className="is-required">Descripción</label>
         <textarea ref="overview" ></textarea>
         <input ref="color" type="text" name="color" placeholder="Color" autoComplete="off"></input>
-        <input type='submit' value='ENVIAR'/>
+        <input type="submit" value="ENVIAR"/>
       </form>
-    )
+    );
  }
 }
 

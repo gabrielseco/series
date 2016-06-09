@@ -34,7 +34,7 @@ class ModifyWord extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(modifyWord(obj, res => {
-      this.props.history.goBack()
+      this.props.history.goBack();
     }));
 
 
@@ -54,9 +54,9 @@ class ModifyWord extends React.Component {
                   <input type="submit" value="Enviar"></input>
           </form>
         </div>
-    )
+    );
   } else {
-    return (<div></div>)
+    return (<div></div>);
   }
  }
 }

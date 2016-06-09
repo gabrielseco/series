@@ -42,8 +42,8 @@ class DiccionarioPeliculas extends React.Component {
     dispatch(getDiccionariosPalabras(this.props.params.id, words => {
       this.setState({
         words: words
-      })
-    }))
+      });
+    }));
 
 
 
@@ -95,14 +95,14 @@ class DiccionarioPeliculas extends React.Component {
              cell: (value, data, rowIndex, property) => {
                 const eliminar = () => {
                   const id = data[rowIndex].id;
-                  const english = data[rowIndex].english
+                  const english = data[rowIndex].english;
                   const del = confirm('Quieres eliminar la palabra: '+english);
 
                   if(del){
                     const {dispatch } = this.props;
                     dispatch(deleteWord(id, res => {
-                      location.reload()
-                    }))
+                      location.reload();
+                    }));
                   }
                 };
 
@@ -119,16 +119,16 @@ class DiccionarioPeliculas extends React.Component {
     const pagination = {
         page: 0,
         perPage: 10
-    }
+    };
 
     const search = {
            column: '',
            query: ''
-    }
+    };
     const words = this.state.words;
 
     if(words === null){
-      return <Loading/>
+      return <Loading/>;
     } else {
     if(words.length > 0){
       const texto = "Película > " + this.props.film.nombre;
@@ -164,6 +164,6 @@ class DiccionarioPeliculas extends React.Component {
 
 }
 function mapStateToProps(state, props) {
-  return { film: _.find(state.films, {id: Number(props.params.id)}) }
+  return { film: _.find(state.films, {id: Number(props.params.id)}) };
 }
 export default connect(mapStateToProps)(mouseTrap(DiccionarioPeliculas));

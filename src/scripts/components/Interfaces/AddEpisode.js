@@ -21,7 +21,7 @@ class AddEpisode extends React.Component {
         episodes = episodes.length + 1;
 
     if( !isNaN(episodes)){
-      this.refs.numero.value = episodes
+      this.refs.numero.value = episodes;
     }
   }
 
@@ -32,7 +32,7 @@ class AddEpisode extends React.Component {
       nombre: this.refs.name.value,
       numero: this.refs.numero.value,
       serie: this.props.params.id
-    }
+    };
 
     const { dispatch } = this.props;
 
@@ -54,7 +54,7 @@ class AddEpisode extends React.Component {
               <input ref="numero" className={this.state.inputName} type="text" name="numero" required placeholder="Número" autoComplete="off"></input>
               <input type="submit" value="Enviar"></input>
       </form>
-    )
+    );
  }
 }
 

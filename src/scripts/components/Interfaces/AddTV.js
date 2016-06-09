@@ -9,23 +9,22 @@ class AddTV extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '' }
+    this.state = {inputName: '' };
   }
 
 
   handleForm(e){
     e.preventDefault();
 
-    var obj = {
+    const obj = {
       nombre: this.refs.name.value,
       temporada: this.refs.temporada.value
-    }
+    };
 
     const { dispatch } = this.props;
 
     dispatch(addOneTV(obj, res => {
-      console.log('res ADD TV',res);
-      this.props.history.push('/tv')
+      this.props.history.push('/tv');
     }));
 
 
@@ -52,4 +51,4 @@ class AddTV extends React.Component {
 }
 }
 
-export default connect()(AddTV)
+export default connect()(AddTV);

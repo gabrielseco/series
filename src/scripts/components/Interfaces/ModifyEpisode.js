@@ -73,7 +73,7 @@ class ModifyEpisode extends React.Component {
                               defaultValue={fieldValues.airdate}></input>
               <label className="is-required">Descripción</label>
               <textarea ref="overview" defaultValue={fieldValues.overview}></textarea>
-              <input type='submit' value='ENVIAR'/>
+              <input type="submit" value="enviar"/>
             </form>
           </div>
       );

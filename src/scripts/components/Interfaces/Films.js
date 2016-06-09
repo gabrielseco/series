@@ -1,14 +1,13 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
-import {getAllFilms, deleteFilm} from '../../actions'
+import DocumentTitle from 'react-document-title';
+import {getAllFilms, deleteFilm} from '../../actions';
 import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
-import Modal from 'react-modal'
-import SearchInput from 'react-search-input'
-import MessageInfo from '../UI/MessageInfo'
-import MySearchInput from '../UI/MessageInfo'
-import Loading from '../UI/Loading'
-import Paginator from 'react-pagify'
+import Modal from 'react-modal';
+import SearchInput from 'react-search-input';
+import MessageInfo from '../UI/MessageInfo';
+import Loading from '../UI/Loading';
+import Paginator from 'react-pagify';
 import {mouseTrap} from 'react-mousetrap';
 
 
@@ -21,14 +20,14 @@ const modalStyle = {
   content : {
     height: '20%'
   }
-}
+};
 
 
 class Films extends React.Component {
 
   constructor(props,context) {
     super(props,context);
-    this.state = {modalIsOpen: false, film: '', searchTerm: '', films: null, pagination:{ page: 0, perPage: 10 }}
+    this.state = {modalIsOpen: false, film: '', searchTerm: '', films: null, pagination:{ page: 0, perPage: 10 }};
   }
 
   componentWillMount(){
@@ -43,13 +42,13 @@ class Films extends React.Component {
   componentDidMount(){
     const { dispatch } = this.props;
     dispatch(getAllFilms(films => {
-        this.setState({films: films})
-      }))
+        this.setState({films: films});
+      }));
 
   }
 
   onSelect(page) {
-     var pagination = this.state.pagination || {};
+     let pagination = this.state.pagination || {};
 
      pagination.page = page;
 
@@ -59,7 +58,7 @@ class Films extends React.Component {
  }
 
  onPerPage(e) {
-     var pagination = this.state.pagination || {};
+     let pagination = this.state.pagination || {};
 
      pagination.perPage = parseInt(event.target.value, 10);
 
@@ -73,20 +72,20 @@ class Films extends React.Component {
   }
 
   modifyFilm(data){
-    this.context.router.push('/modifyFilm/'+data.id)
+    this.context.router.push('/modifyFilm/'+data.id);
   }
 
   remove(){
     const { dispatch } = this.props;
 
     dispatch(deleteFilm(this.state.film.id , res => {
-      location.reload()
+      location.reload();
     }));
 
   }
 
   diccionarios(id){
-    this.context.router.push('/diccionarios_pelicula/'+id)
+    this.context.router.push('/diccionarios_pelicula/'+id);
   }
 
   searchUpdated(term) {
@@ -104,7 +103,7 @@ class Films extends React.Component {
   renderModal(){
 
     if(this.state.film === ''){
-      return null
+      return null;
     }
 
     return (
@@ -118,7 +117,7 @@ class Films extends React.Component {
             <button className="submit" onClick={this.remove.bind(this)}>Eliminar</button>
         </div>
       </Modal>
-    )
+    );
 
   }
 
@@ -128,11 +127,12 @@ class Films extends React.Component {
   render() {
       let message = null;
       let _films = this.state.films;
+      let list   = null;
 
     if(_films !== null) {
-      message = this.renderMessage(_films)
+      message = this.renderMessage(_films);
       if (this.state.searchTerm.length > 0) {
-        var filters = ['nombre'];
+        const filters = ['nombre'];
         _films = _films.filter(this.refs.search.filter(filters));
       }
 
@@ -141,8 +141,8 @@ class Films extends React.Component {
       _films = Paginator.paginate(_films, this.state.pagination);
 
 
-      var list = _films.data.map((film, i) => {
-        var palabras = (
+      list = _films.data.map((film, i) => {
+        const palabras = (
           <div className="diccionarios">
               <button onClick={this.diccionarios.bind(this, film.id)}>PALABRAS</button>
           </div>
@@ -168,34 +168,34 @@ class Films extends React.Component {
             {this.renderList(list, _films)}
             {this.renderModal(this.state.film)}
           </div>
-      )
+      );
 
     } else {
-      return (<Loading/>)
+      return (<Loading/>);
     }
  }
  renderMessage(films){
     if(films.status == undefined)
-       return null
+       return null;
 
-    return <MessageInfo statusCode={films.status}/>
+    return <MessageInfo statusCode={films.status}/>;
  }
 
  renderSearch(){
    return (
-     <div className='search-input'>
-       <div className='search-wrapper'>
+     <div className="search-input">
+       <div className="search-wrapper">
          <span className="search-icon">⚲</span>
-         <SearchInput ref='search' className='search-field' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' autoFocus />
+         <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
        </div>
      </div>
-   )
+   );
  }
 
  renderList(list, films){
    if(films.status !== 0){
      return (
-       <div id='films' className="films">
+       <div id="films" className="films">
           {this.renderSearch()}
          <div className="filmButton">
            <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
@@ -203,24 +203,23 @@ class Films extends React.Component {
 
            {list}
            <br/>
-           <div className='pagination'>
+           <div className="pagination">
                <Paginator
                    page={films.page}
                    pages={films.amount}
                    beginPages={3}
                    endPages={3}
-                   onSelect={this.onSelect.bind(this)}>
-              </Paginator>
+                   onSelect={this.onSelect.bind(this)}/>
            </div>
        </div>
-     )
+     );
    }
  }
 }
 function mapStateToProps(state, props) {
     return {
     films: state.films
-  }
+  };
 }
 
 Films.contextTypes =  {
@@ -229,6 +228,6 @@ Films.contextTypes =  {
 
 Films.getDefaultProps = {
   films: []
-}
+};
 
-export default connect(mapStateToProps)(mouseTrap(Films))
+export default connect(mapStateToProps)(mouseTrap(Films));

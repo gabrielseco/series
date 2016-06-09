@@ -1,9 +1,9 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
-import {getOneBook, getDiccionariosLibros, deleteWord} from '../../actions'
+import DocumentTitle from 'react-document-title';
+import {getOneBook, getDiccionariosLibros, deleteWord} from '../../actions';
 import { connect } from 'react-redux';
-import UITable from '../UI/Table'
-import BreadCrumb from '../UI/BreadCrumb'
+import UITable from '../UI/Table';
+import BreadCrumb from '../UI/BreadCrumb';
 
 
 
@@ -12,21 +12,21 @@ class DiccionarioLibros extends React.Component {
   static contextTypes = {
     store: React.PropTypes.object,
     router: React.PropTypes.object.isRequired
-  }
+  };
 
   constructor(props, context){
-    super(props)
+    super(props);
     this.context = context;
-    this.state = {libro: ''}
+    this.state = {libro: ''};
   }
   componentDidMount(){
     const {dispatch } = this.props;
 
     dispatch(getOneBook(this.props.params.id, res => {
       this.setState({libro: res});
-    }))
+    }));
 
-    dispatch(getDiccionariosLibros(this.props.params.id))
+    dispatch(getDiccionariosLibros(this.props.params.id));
 
 
 
@@ -55,9 +55,8 @@ class DiccionarioLibros extends React.Component {
             property: 'editar',
             header: 'Editar',
             cell: (value, data, rowIndex, property) => {
-               var editar = () => {
-                 var id = data[rowIndex].id;
-                 console.log('id editar',id);
+               const editar = () => {
+                 const id = data[rowIndex].id;
 
                  this.context.router.push(null, 'modifyWord/'+id);
 
@@ -76,16 +75,16 @@ class DiccionarioLibros extends React.Component {
              property: 'eliminar',
              header: 'Eliminar',
              cell: (value, data, rowIndex, property) => {
-                var eliminar = () => {
-                  var id = data[rowIndex].id;
-                  var english = data[rowIndex].english
-                  var del = confirm('Quieres eliminar la palabra: '+english);
+                const eliminar = () => {
+                  const id = data[rowIndex].id;
+                  const english = data[rowIndex].english;
+                  const del = confirm('Quieres eliminar la palabra: '+english);
 
                   if(del){
                     const {dispatch } = this.props;
                     dispatch(deleteWord(id, res => {
-                      location.reload()
-                    }))
+                      location.reload();
+                    }));
                   }
                 };
 
@@ -102,14 +101,14 @@ class DiccionarioLibros extends React.Component {
     const pagination = {
         page: 0,
         perPage: 10
-    }
+    };
 
     const search = {
            column: '',
            query: ''
-    }
+    };
 
-    var texto = "Libros > " + this.state.libro.nombre
+    const texto = "Libros > " + this.state.libro.nombre;
 
 
 
@@ -138,12 +137,12 @@ class DiccionarioLibros extends React.Component {
             No hay palabras en este libro
           </div>
         </div>
-    </div>)
+    </div>);
   }
 }
 
 }
 function mapStateToProps(state) {
-  return { words: state.words }
+  return { words: state.words };
 }
-export default connect(mapStateToProps)(DiccionarioLibros)
+export default connect(mapStateToProps)(DiccionarioLibros);

@@ -1,7 +1,7 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import {addOneFilm} from '../../actions'
+import {addOneFilm} from '../../actions';
 
 
 
@@ -9,24 +9,26 @@ class AddFilm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '', films: [], obj:{}}
+    this.state = {inputName: '', films: [], obj:{}};
   }
 
   handleForm(e){
     e.preventDefault();
-    this.state.obj.nombre = this.refs.name.value
+    let newState = {};
+    newState.obj.nombre = this.refs.name.value;
+    this.setState(newState);
 
     const { dispatch } = this.props;
 
 
     dispatch(addOneFilm(this.state.obj, this.state.films, res => {
       if(res.id !== undefined){
-        this.props.history.push('/')
+        this.props.history.push('/');
       }
       this.setState({
         films: res,
         obj: res[0]
-      })
+      });
 
     }));
 
@@ -35,8 +37,9 @@ class AddFilm extends React.Component {
   }
 
   updateFilm(film){
-    this.refs.name.value = film.nombre
-    this.state.obj = film
+    this.refs.name.value = film.nombre;
+    let newState = {};
+    newState.obj = film;
   }
 
   render() {
@@ -49,16 +52,16 @@ class AddFilm extends React.Component {
                 <input ref="name" className={this.state.inputName} type="text" name="name" autoFocus required placeholder="Nombre" autoComplete="off"></input>
                 <input type="submit" value="Enviar"></input>
         </form>
-        <div className='films-results'>
+        <div className="films-results">
         {this.state.films.map((film, i) => {
           return(
             <img src={film.imagen} key={i} alt={film.nombre} onClick={this.updateFilm.bind(this,film)}/>
-          )
+          );
         })}
         </div>
       </div>
-    )
+    );
  }
 }
 
-export default connect()(AddFilm)
+export default connect()(AddFilm);

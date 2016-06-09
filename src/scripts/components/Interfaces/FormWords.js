@@ -1,19 +1,19 @@
 import React from 'react';
-import { add } from '../../lib/sails'
+import { add } from '../../lib/sails';
 
 
 class FormWords extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
   }
 
   componentDidMount(){
-    this.refs.english.focus()
+    this.refs.english.focus();
   }
 
   checkObject(data){
 
-    var obj = {}
+    let obj = {};
 
     Object.keys(data).map((value) => {
       if(data [value] === ""){
@@ -35,7 +35,7 @@ class FormWords extends React.Component {
   handleForm(e){
     e.preventDefault();
 
-    var data = {
+    let data = {
 
       english: this.fixGrammar(this.refs.english.value),
       spanish: this.fixGrammar(this.refs.spanish.value),
@@ -44,7 +44,7 @@ class FormWords extends React.Component {
       episodios: this.props.fieldValues.idEpisodio,
       libros: this.props.fieldValues.idLibro
 
-    }
+    };
 
     data = this.checkObject(data);
 
@@ -55,7 +55,7 @@ class FormWords extends React.Component {
 
     this.refs.english.value = '';
     this.refs.spanish.value = '';
-    this.refs.english.focus()
+    this.refs.english.focus();
   }
 
   render() {
@@ -66,9 +66,9 @@ class FormWords extends React.Component {
               <input type="submit" value="Siguiente"></input>
               <input type="button" value="Finalizar" onClick={this.props.finalizar.bind(this)}></input>
       </form>
-    )
+    );
   }
 
 }
 
-export default FormWords
+export default FormWords;

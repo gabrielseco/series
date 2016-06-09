@@ -16,7 +16,7 @@ class MessageInfo extends React.Component{
 
   componentDidMount(){
     this.interval = setInterval(()=> {
-      this.setState({active: !this.state.active})
+      this.setState({active: !this.state.active});
     },this.props.time);
   }
 
@@ -49,7 +49,7 @@ class MessageInfo extends React.Component{
     if( this.state.active  ) {
       return(
         <div className={active} onClick={this.clear.bind(this)}>
-          <div className='message-inner'>
+          <div className="message-inner">
             <p>{status}</p>
           </div>
           <span className="button-close" onClick={this.handleActive.bind(this)}></span>

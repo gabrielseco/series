@@ -1,31 +1,31 @@
 'use strict';
 
 import React from 'react';
-import {VelocityComponent} from 'velocity-react'
+import {VelocityComponent} from 'velocity-react';
 
 require('velocity-animate');
 require('velocity-animate/velocity.ui');
 
 export default class ListItem extends React.Component {
     constructor(props) {
-      super(props)
+      super(props);
     }
 
     pulse(){
-      this.refs.velocity.runAnimation()
+      this.refs.velocity.runAnimation();
     }
 
     render() {
 
-      let animation = "callout.pulse"
+      let animation = "callout.pulse";
 
       let alt = this.props.data.temporada === undefined
                 ? this.props.data.nombre
-                : this.props.data.nombre + " Season " + this.props.data.temporada
+                : this.props.data.nombre + " Season " + this.props.data.temporada;
 
 
       return (
-        <VelocityComponent ref='velocity' animation={animation} duration={1000}>
+        <VelocityComponent ref="velocity" animation={animation} duration={1000}>
           <div className="show-image" onMouseOver={this.pulse.bind(this)}>
               <img onClick={this.props.modify.bind(this, this.props.data)}
                    src={this.props.data.imagen}

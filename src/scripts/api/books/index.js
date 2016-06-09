@@ -25,7 +25,7 @@ export default {
         imagen: books.data.items[i].volumeInfo.imageLinks.thumbnail,
         youtube: obj.youtube,
         airdate: books.data.items[i].volumeInfo.publishedDate
-      }
+      };
 
 
       //return data;
@@ -36,8 +36,8 @@ export default {
   addBook(obj, cb, timeout){
     this.getDataBook(obj).then(data => {
       add('books', data).then(res => {
-        setTimeout(() => cb(res), timeout || TIMEOUT)
+        setTimeout(() => cb(res), timeout || TIMEOUT);
       });
     });
   }
-}
+};
