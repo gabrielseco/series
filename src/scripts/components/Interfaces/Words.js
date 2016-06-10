@@ -6,7 +6,7 @@ import UILoading from '../UI/Loading';
 
 
 
-var style = {
+const style = {
   paddingLeft:'100px'
 };
 
@@ -18,7 +18,7 @@ class Words extends React.Component {
   constructor(props, context){
     super(props);
     this.context = context;
-    this.state = {data: ''}
+    this.state = {data: ''};
   }
   componentDidMount(){
     const {dispatch } = this.props;
@@ -60,9 +60,8 @@ class Words extends React.Component {
             property: 'editar',
             header: 'Editar',
             cell: (value, data, rowIndex, property) => {
-               var editar = () => {
-                 var id = data[rowIndex].id;
-                 console.log('id editar',id);
+               const editar = () => {
+                 const id = data[rowIndex].id;
 
                  this.props.history.pushState(null, 'modifyWord/'+id);
 
@@ -81,16 +80,16 @@ class Words extends React.Component {
              property: 'eliminar',
              header: 'Eliminar',
              cell: (value, data, rowIndex, property) => {
-                var eliminar = () => {
-                  var id = data[rowIndex].id;
-                  var english = data[rowIndex].english
-                  var del = confirm('Quieres eliminar la palabra: '+english);
+                const eliminar = () => {
+                  const id = data[rowIndex].id;
+                  const english = data[rowIndex].english;
+                  const del = confirm('Quieres eliminar la palabra: '+english);
 
                   if(del){
                     const {dispatch } = this.props;
                     dispatch(deleteWord(id, res => {
-                      location.reload()
-                    }))
+                      location.reload();
+                    }));
                   }
                 };
 
@@ -107,12 +106,12 @@ class Words extends React.Component {
     const pagination = {
         page: 0,
         perPage: 10
-    }
+    };
 
     const search = {
            column: '',
            query: ''
-    }
+    };
 
 
     if(this.state.data !== ''){
@@ -127,7 +126,7 @@ class Words extends React.Component {
       <div>
           <UILoading/>
     </div>
-  )
+  );
   }
 }
 
@@ -135,4 +134,4 @@ class Words extends React.Component {
 function mapStateToProps(state) {
   return { words: state.words };
 }
-export default connect(mapStateToProps)(Words)
+export default connect(mapStateToProps)(Words);

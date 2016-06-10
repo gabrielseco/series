@@ -1,26 +1,26 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
-import {getAllTV, deleteTV} from '../../actions'
+import DocumentTitle from 'react-document-title';
+import {getAllTV, deleteTV} from '../../actions';
 import { connect } from 'react-redux';
 import ListItem from '../Dumb/ListItem';
 import SearchInput from 'react-search-input';
-import Modal from 'react-modal'
-import MessageInfo from '../UI/MessageInfo'
-import Loading from '../UI/Loading'
-import Paginator from 'react-pagify'
+import Modal from 'react-modal';
+import MessageInfo from '../UI/MessageInfo';
+import Loading from '../UI/Loading';
+import Paginator from 'react-pagify';
 
 const modalStyle = {
   content : {
     height: '20%'
   }
-}
+};
 
 
 class TV extends React.Component {
 
   constructor(props,context) {
     super(props, context);
-    this.state = {modalIsOpen: false, tv: '', searchTerm: '', series: null, pagination:{ page: 0, perPage: 10 }}
+    this.state = {modalIsOpen: false, tv: '', searchTerm: '', series: null, pagination:{ page: 0, perPage: 10 }};
   }
   componentDidMount(){
     const {dispatch } = this.props;
@@ -28,14 +28,14 @@ class TV extends React.Component {
     dispatch(getAllTV(TV => {
       this.setState({
         series: TV
-      })
+      });
     }));
 
 
   }
 
   onSelect(page) {
-     var pagination = this.state.pagination || {};
+     let pagination = this.state.pagination || {};
 
      pagination.page = page;
 
@@ -45,7 +45,7 @@ class TV extends React.Component {
  }
 
  onPerPage(e) {
-     var pagination = this.state.pagination || {};
+     let pagination = this.state.pagination || {};
 
      pagination.perPage = parseInt(event.target.value, 10);
 
@@ -59,21 +59,20 @@ class TV extends React.Component {
 
   }
   modifyTV(data){
-    this.context.router.push('/modifyTV/'+data.id)
+    this.context.router.push('/modifyTV/'+data.id);
   }
 
   remove(){
-    console.log('remove',this.state.tv);
     const { dispatch } = this.props;
 
     dispatch(deleteTV(this.state.tv.id , res => {
-      location.reload()
+      location.reload();
     }));
 
   }
 
   episodios(id){
-    this.context.router.push('/episodes/'+id)
+    this.context.router.push('/episodes/'+id);
   }
 
 
@@ -89,7 +88,7 @@ class TV extends React.Component {
   renderModal(){
 
     if(this.state.tv === ''){
-      return null
+      return null;
     }
 
     return (
@@ -103,7 +102,7 @@ class TV extends React.Component {
             <button className="submit" onClick={this.remove.bind(this)}>Eliminar</button>
         </div>
       </Modal>
-    )
+    );
 
   }
 
@@ -112,27 +111,27 @@ class TV extends React.Component {
   }
 
   render() {
-    var message = null;
+    let message, list = null;
     let _series = this.state.series;
 
 
     if(this.state.series !== null){
-      message = this.renderMessage(this.state.series)
+      message = this.renderMessage(this.state.series);
 
       if (this.state.searchTerm.length > 0) {
-        var filters = ['nombre'];
+        const filters = ['nombre'];
         _series = this.state.series.filter(this.refs.search.filter(filters));
       }
 
       if(_series.length > 0){
         _series = Paginator.paginate(_series, this.state.pagination);
 
-        var list = _series.data.map((TV, i) => {
-          var episodios = (
+        list = _series.data.map((TV, i) => {
+          const episodios = (
             <div className="diccionarios">
                 <button onClick={this.episodios.bind(this, TV.id)}>EPISODIOS</button>
             </div>
-          )
+          );
           return (
             <ListItem key={TV.id} data={TV} palabras={episodios} modify={this.modifyTV.bind(this)} openModal={this.openModal.bind(this,TV)}/>
           );
@@ -147,52 +146,51 @@ class TV extends React.Component {
             {this.renderList(list, _series)}
             {this.renderModal(this.state.TV)}
           </div>
-      )
+      );
 
     } else {
-      return(<Loading/>)
+      return(<Loading/>);
     }
 
  }
  renderMessage(series){
     if(series.status == undefined)
-       return null
+       return null;
 
-    return <MessageInfo statusCode={series.status}/>
+    return <MessageInfo statusCode={series.status}/>;
  }
 
  renderSearch(){
    return (
-     <div className='search-input'>
-       <div className='search-wrapper'>
+     <div className="search-input">
+       <div className="search-wrapper">
          <span className="search-icon">⚲</span>
-         <SearchInput ref='search' className='search-field' onChange={this.searchUpdated.bind(this)} placeholder='Buscar...' autoFocus />
+         <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
        </div>
      </div>
-   )
+   );
  }
 
  renderList(list, series){
    if(series.status !== 0){
      return (
-       <div id='films' className="films">
+       <div id="films" className="films">
         {this.renderSearch()}
          <div className="filmButton">
            <button className="addFilm" onClick={this.addTV.bind(this)}>ADD TV</button>
          </div>
            {list}
            <br/>
-           <div className='pagination'>
+           <div className="pagination">
                <Paginator
                    page={series.page}
                    pages={series.amount}
                    beginPages={3}
                    endPages={3}
-                   onSelect={this.onSelect.bind(this)}>
-              </Paginator>
+                   onSelect={this.onSelect.bind(this)}/>
            </div>
        </div>
-     )
+     );
    }
  }
 }
@@ -201,4 +199,4 @@ TV.contextTypes =  {
   router: React.PropTypes.object.isRequired
 };
 
-export default connect()(TV)
+export default connect()(TV);

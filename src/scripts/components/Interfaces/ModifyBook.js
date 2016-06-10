@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {modifyBook, getOneBook} from '../../actions'
+import {modifyBook, getOneBook} from '../../actions';
 //import Colors from '../UI/Colors.js';
 
-var fieldValues = {
-}
-var float = {
+let fieldValues = {
+};
+const float = {
         float: 'right'
 };
 
@@ -13,7 +13,7 @@ class ModifyBook extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '', data: ''}
+    this.state = {inputName: '', data: ''};
   }
 
   componentDidMount(){
@@ -22,8 +22,8 @@ class ModifyBook extends React.Component {
 
 
     dispatch(getOneBook(this.props.params.id, res => {
-      this.setState({data: res})
-    }))
+      this.setState({data: res});
+    }));
 
 
   }
@@ -31,7 +31,7 @@ class ModifyBook extends React.Component {
   handleForm(e){
     e.preventDefault();
 
-    var obj = {
+    let obj = {
       id: this.props.params.id,
       nombre: this.refs.name.value,
       overview: this.refs.overview.value,
@@ -39,31 +39,29 @@ class ModifyBook extends React.Component {
       airdate: this.refs.airdate.value,
       imagen: this.refs.imagen.value,
       color: this.refs.color.value
-    }
+    };
 
     const { dispatch } = this.props;
 
     dispatch(modifyBook(obj, res => {
-      console.log('res modify BOOK',res);
-      this.props.history.goBack()
+      this.props.history.goBack();
     }));
 
   }
 
   changeColor(value){
-    console.log('value changed',value)
     this.refs.color.value = value.target.firstChild.data.slice(1);
   }
 
   render() {
     if(this.state.data !== ''){
-      fieldValues = this.state.data
+      fieldValues = this.state.data;
 
       return(
         <div>
-          <img ref='imagen' className='img' src={fieldValues.imagen} width="230" height="345"/>
+          <img ref="imagen" className="img" src={fieldValues.imagen} width="230" height="345"/>
           <div style={float}>
-            <Colors data={fieldValues.imagen} changeColor={this.changeColor.bind(this)}/>
+            {/*<Colors data={fieldValues.imagen} changeColor={this.changeColor.bind(this)}/>*/}
           </div>
             <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
               <label className="is-required">Nombre</label>
@@ -81,18 +79,18 @@ class ModifyBook extends React.Component {
               <label className="is-required">Descripción</label>
               <textarea ref="overview" defaultValue={fieldValues.overview}></textarea>
               <input ref="color" defaultValue={fieldValues.color} type="text" name="color" placeholder="Color" autoComplete="off"></input>
-              <input type='submit' value='ENVIAR'/>
+              <input type="submit" value="ENVIAR"/>
             </form>
           </div>
-      )
+      );
     } else {
-    return (<div></div>)
+    return (<div></div>);
    }
 
   }
 }
 
 function mapStateToProps(state) {
-  return { books: state.books }
+  return { books: state.books };
 }
-export default connect(mapStateToProps)(ModifyBook)
+export default connect(mapStateToProps)(ModifyBook);

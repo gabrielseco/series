@@ -21,7 +21,7 @@ class Episodes extends React.Component {
   constructor(props, context){
     super(props);
     this.context = context;
-    this.state = {episodios: null}
+    this.state = {episodios: null};
   }
 
   componentWillMount(){
@@ -54,15 +54,14 @@ class Episodes extends React.Component {
     const {dispatch} = this.props;
     const episodios = this.state.episodios;
 
-    var data = {
+    const data = {
       idSerie: this.props.serie.idSerie,
       temporada: this.props.serie.temporada,
       id:this.props.params.id
-    }
+    };
 
 
     dispatch(generateEpisodes(data, episodios,  res => {
-      console.log('res episodes',res);
       if(res === true){
         location.reload();
       }
@@ -115,7 +114,7 @@ class Episodes extends React.Component {
             cell: (value, data, rowIndex, property) => {
                const editar = () => {
                  const idEpisodio = data[rowIndex].id;
-                 const idSerie = this.props.params.id
+                 const idSerie = this.props.params.id;
 
                  this.context.router.push('/modifyEpisode/'+idSerie+"/"+idEpisodio);
 
@@ -144,8 +143,8 @@ class Episodes extends React.Component {
                   if(del){
                     const {dispatch } = this.props;
                     dispatch(deleteEpisode(id, res => {
-                      location.reload()
-                    }))
+                      location.reload();
+                    }));
                   }
                 };
 
@@ -162,15 +161,15 @@ class Episodes extends React.Component {
     const pagination = {
         page: 0,
         perPage: 10
-    }
+    };
 
     const search = {
            column: '',
            query: ''
-    }
+    };
 
     if(episodios === null){
-      return <Loading/>
+      return <Loading/>;
     } else {
 
     if(episodios.length > 0){
@@ -191,7 +190,7 @@ class Episodes extends React.Component {
       </div>
     );
   } else {
-    var texto = "Serie > " + this.props.serie.nombre + " > Season " +this.props.serie.temporada;
+    let texto = "Serie > " + this.props.serie.nombre + " > Season " +this.props.serie.temporada;
     return (
       <div>
         <BreadCrumb data={this.props.serie} texto={texto}  goTo={this.modifyTV.bind(this)}/>
@@ -201,7 +200,7 @@ class Episodes extends React.Component {
                 <button onClick={this.generateEpisodes.bind(this)}>GENERATE</button>
           </div>
         </div>
-    </div>)
+    </div>);
   }
 }
 }
