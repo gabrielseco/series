@@ -30,7 +30,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8000', // WebpackDevServer host and port
       'webpack/hot/only-dev-server',
-      './src/scripts/components/main.js'
+      './src/scripts/main.js'
   ],
 
   resolve:{

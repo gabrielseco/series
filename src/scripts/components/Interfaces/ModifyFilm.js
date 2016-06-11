@@ -1,7 +1,7 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
+import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import {modifyFilm} from '../../actions'
+import {modifyFilm} from '../../actions';
 import Colors from '../UI/Colors.js';
 import _ from 'lodash';
 import {mouseTrap} from 'react-mousetrap';
@@ -9,7 +9,7 @@ import {mouseTrap} from 'react-mousetrap';
 
 
 
-var fieldValues = {
+let fieldValues = {
   nombre: null,
   youtube: null,
   description: null,
@@ -18,17 +18,17 @@ var fieldValues = {
   id: null
 };
 
-var float = {
+const float = {
         float: 'right'
 };
 
 class ModifyFilm extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
-  }
+  };
   constructor(props) {
     super(props);
-    this.state = {inputName: '', data: ''}
+    this.state = {inputName: '', data: ''};
   }
 
   componentWillMount(){
@@ -43,13 +43,13 @@ class ModifyFilm extends React.Component {
   handleForm(e){
     e.preventDefault();
 
-    var obj = {
+    const obj = {
       id: this.props.params.id,
       nombre: this.refs.name.value,
       overview: this.refs.overview.value,
       imagen: this.refs.imagen.value,
       color: this.refs.color.value
-    }
+    };
 
     const { dispatch } = this.props;
 
@@ -70,7 +70,7 @@ class ModifyFilm extends React.Component {
     return(
       <div>
       <DocumentTitle title="Modify Film"/>
-        <img className='img' src={this.props.data.imagen} width="230" height="345"/>
+        <img className="img" src={this.props.data.imagen} width="230" height="345"/>
         {/*
         <div style={float}>
           <Colors data={this.state.data.imagen} changeColor={this.changeColor.bind(this)}/>
@@ -85,19 +85,18 @@ class ModifyFilm extends React.Component {
                   <input type="submit" value="Enviar"></input>
           </form>
         </div>
-    )
+    );
   } else {
-    return (<div></div>)
+    return (<div></div>);
   }
  }
 }
 
 function mapStateToProps(state, props) {
-
-    return {
+  return {
     data: _.find(state.films, {id: Number(props.params.id)})
-  }
+  };
 }
 
 
-export default connect(mapStateToProps)(mouseTrap(ModifyFilm))
+export default connect(mapStateToProps)(mouseTrap(ModifyFilm));

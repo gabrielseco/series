@@ -41,6 +41,7 @@ class Films extends React.Component {
 
   componentDidMount(){
     const { dispatch } = this.props;
+    console.log('FILMS')
     dispatch(getAllFilms(films => {
         this.setState({films: films});
       }));
@@ -217,7 +218,7 @@ class Films extends React.Component {
  }
 }
 function mapStateToProps(state, props) {
-    return {
+  return {
     films: state.films
   };
 }
