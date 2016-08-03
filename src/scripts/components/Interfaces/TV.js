@@ -8,6 +8,8 @@ import Modal from 'react-modal';
 import MessageInfo from '../UI/MessageInfo';
 import Loading from '../UI/Loading';
 import Paginator from 'react-pagify';
+import uniq from '../../lib';
+
 
 const modalStyle = {
   content : {
@@ -26,8 +28,11 @@ class TV extends React.Component {
     const {dispatch } = this.props;
 
     dispatch(getAllTV(TV => {
+      let series = uniq(TV, 'nombre');
+
+      console.log('series',series)
       this.setState({
-        series: TV
+        series: series
       });
     }));
 

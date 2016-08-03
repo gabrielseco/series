@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {modifyBook, getOneBook} from '../../actions';
 //import Colors from '../UI/Colors.js';
+import find from 'lodash/find';
+import {mouseTrap} from 'react-mousetrap';
 
 let fieldValues = {
 };
@@ -54,8 +56,8 @@ class ModifyBook extends React.Component {
   }
 
   render() {
-    if(this.state.data !== ''){
-      fieldValues = this.state.data;
+    if(this.props.boook !== ''){
+      fieldValues = this.props.book;
 
       return(
         <div>
@@ -90,7 +92,7 @@ class ModifyBook extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { books: state.books };
+function mapStateToProps(state, props) {
+  return { book: find(state.books, {id: Number(props.params.id)}) };
 }
 export default connect(mapStateToProps)(ModifyBook);

@@ -4,6 +4,10 @@ import {getOneBook, getDiccionariosLibros, deleteWord} from '../../actions';
 import { connect } from 'react-redux';
 import UITable from '../UI/Table';
 import BreadCrumb from '../UI/BreadCrumb';
+import find from 'lodash/find';
+import Loading from '../UI/Loading';
+import {mouseTrap} from 'react-mousetrap';
+
 
 
 
@@ -17,20 +21,32 @@ class DiccionarioLibros extends React.Component {
   constructor(props, context){
     super(props);
     this.context = context;
-    this.state = {libro: ''};
+    this.state = {words: null};
   }
-  componentDidMount(){
+
+  componentWillMount(){
+    this.props.bindShortcut(['ctrl+e','command+e'], (e) => {
+      e.preventDefault();
+      this.addWords();
+    });
+    this.props.bindShortcut(['ctrl+m','command+m'], (e) => {
+      e.preventDefault();
+      this.modifyBook();
+    });
+    this.props.bindShortcut('esc', (e) => {
+      e.preventDefault();
+      this.context.router.goBack();
+    });
+
     const {dispatch } = this.props;
 
-    dispatch(getOneBook(this.props.params.id, res => {
-      this.setState({libro: res});
+    dispatch(getDiccionariosLibros(this.props.params.id, words => {
+      this.setState({
+        words: words
+      });
     }));
-
-    dispatch(getDiccionariosLibros(this.props.params.id));
-
-
-
   }
+
 
   addWords(){
     this.context.router.push('/addWords/0/0/0/'+this.props.params.id);
@@ -97,7 +113,7 @@ class DiccionarioLibros extends React.Component {
             }
 
         ];
-    const { words } = this.props;
+    const { words } = this.state;
     const pagination = {
         page: 0,
         perPage: 10
@@ -108,15 +124,17 @@ class DiccionarioLibros extends React.Component {
            query: ''
     };
 
-    const texto = "Libros > " + this.state.libro.nombre;
+    const texto = "Libros > " + this.props.book.nombre;
 
-
+    if(words === null){
+      return <Loading/>;
+    } else {
 
     if(words.length > 0){
     return(
       <div>
-        <DocumentTitle title={this.state.libro.nombre + " | Words"}/>
-        <BreadCrumb data={this.state.libro} texto={texto} goTo={this.modifyBook.bind(this)}/>
+        <DocumentTitle title={this.props.book.nombre + " | Words"}/>
+        <BreadCrumb data={this.props.book} texto={texto} goTo={this.modifyBook.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
@@ -128,7 +146,7 @@ class DiccionarioLibros extends React.Component {
   } else {
     return (
       <div>
-        <BreadCrumb data={this.state.libro} texto={texto} goTo={this.modifyBook.bind(this)}/>
+        <BreadCrumb data={this.props.book} texto={texto} goTo={this.modifyBook.bind(this)}/>
         <div className="table-react">
           <div className="dictionaryButton">
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
@@ -139,10 +157,14 @@ class DiccionarioLibros extends React.Component {
         </div>
     </div>);
   }
+ }
 }
 
 }
-function mapStateToProps(state) {
-  return { words: state.words };
+
+
+function mapStateToProps(state, props) {
+  return { book: find(state.books, {id: Number(props.params.id)}) };
 }
-export default connect(mapStateToProps)(DiccionarioLibros);
+
+export default connect(mapStateToProps)(mouseTrap(DiccionarioLibros));

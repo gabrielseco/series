@@ -4,6 +4,8 @@ import FormWords from './FormWords';
 import { connect } from 'react-redux';
 import {modifyFilm, getOneFilm, getOneBook, getOneTV} from '../../actions';
 import {mouseTrap} from 'react-mousetrap';
+import Loading from '../UI/Loading';
+
 
 
 
@@ -114,7 +116,9 @@ class AddWords extends React.Component {
         break;
     }
 
-
+    if(this.state.data === null){
+      return <Loading/>
+    } else {
     return (
       <div>
         <DocumentTitle title="Add Words"/>
@@ -122,6 +126,7 @@ class AddWords extends React.Component {
         {form}
       </div>
     );
+   }
   }
 
 }

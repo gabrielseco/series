@@ -61,11 +61,12 @@ class Books extends React.Component {
   }
 
   addBook(){
-    this.props.history.push('/addBook');
+    this.context.router.push('/addBook');
+
   }
 
   modifyBook(data){
-    this.props.history.pushState(null,'/modifyBook/'+data.id);
+    this.context.router.push('/modifyBook/'+data.id);
   }
 
   remove(){
@@ -78,7 +79,8 @@ class Books extends React.Component {
   }
 
   diccionarios(id){
-    this.props.history.pushState(null,'/diccionarios_libros/'+id);
+    this.context.router.push('/diccionarios_libros/'+id);
+
   }
   searchUpdated(term) {
     this.setState({searchTerm: term});
@@ -192,5 +194,9 @@ class Books extends React.Component {
    }
  }
 }
+
+Books.contextTypes =  {
+  router: React.PropTypes.object.isRequired
+};
 
 export default connect()(Books);

@@ -52,7 +52,7 @@ export async function getOne(path, id) {
 
     try {
       const response = await getPromise(path + "/" + id);
-      return response;
+      return response.data;
 
     } catch (error) {
       return error;

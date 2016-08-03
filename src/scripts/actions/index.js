@@ -270,7 +270,7 @@ export function getDiccionariosPalabras(id, cb) {
 
 }
 
-export function getDiccionariosLibros(id){
+export function getDiccionariosLibros(id, cb){
   const $query = {
     libros: id
   };
@@ -281,7 +281,7 @@ export function getDiccionariosLibros(id){
 
   return dispatch => {
     shared.findWhere('dictionary', $where,  words => {
-      dispatch(receiveWords(words));
+      cb(words);
     });
 
   };

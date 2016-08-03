@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import UITable from '../UI/Table';
 import BreadCrumb from '../UI/BreadCrumb';
 import Loading from '../UI/Loading';
-import _ from 'lodash';
+import find from 'lodash/find';
 import {mouseTrap} from 'react-mousetrap';
 
 
@@ -164,6 +164,6 @@ class DiccionarioPeliculas extends React.Component {
 
 }
 function mapStateToProps(state, props) {
-  return { film: _.find(state.films, {id: Number(props.params.id)}) };
+  return { film: find(state.films, {id: Number(props.params.id)}) };
 }
 export default connect(mapStateToProps)(mouseTrap(DiccionarioPeliculas));
