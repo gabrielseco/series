@@ -27,7 +27,7 @@ class Colors extends React.Component {
     this.state = {colors: ''};
   }
 
-  componentDidMount(){
+  componentWillMount(){
     getTypes(this.props.data, res => {
       this.setState({colors: res});
     });
@@ -50,4 +50,4 @@ class Colors extends React.Component {
   }
 
 }
-export default Colors;  
+export default Colors;

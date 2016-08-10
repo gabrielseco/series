@@ -34,9 +34,7 @@ class DiccionarioPeliculas extends React.Component {
       e.preventDefault();
       this.context.router.goBack();
     });
-  }
 
-  componentDidMount(){
     const {dispatch } = this.props;
 
     dispatch(getDiccionariosPalabras(this.props.params.id, words => {
@@ -44,8 +42,6 @@ class DiccionarioPeliculas extends React.Component {
         words: words
       });
     }));
-
-
 
   }
 

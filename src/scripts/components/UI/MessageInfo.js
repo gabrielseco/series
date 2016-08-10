@@ -14,7 +14,7 @@ class MessageInfo extends React.Component{
     this.interval = null;
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.interval = setInterval(()=> {
       this.setState({active: !this.state.active});
     },this.props.time);

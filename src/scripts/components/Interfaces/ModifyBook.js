@@ -18,7 +18,7 @@ class ModifyBook extends React.Component {
     this.state = {inputName: '', data: ''};
   }
 
-  componentDidMount(){
+  componentWillMount(){
 
     const { dispatch } = this.props;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { add } from '../../lib/sails';
+import shared from '../../api/shared';
 
 
 class FormWords extends React.Component {
@@ -50,6 +51,31 @@ class FormWords extends React.Component {
 
 
     add('dictionary', data, response => {
+      console.log('response',response);
+
+
+    }).catch(error => {
+      if(error){
+        const $query = {
+          english: data.english,
+          spanish: data.spanish
+        };
+
+
+        let $where = "?where="+JSON.stringify($query);
+
+
+
+        shared.findWhere('dictionary', $where,  words => {
+          console.log('words',words);
+          const errorData = {
+            word: words[0].id
+          };
+          add('repeatedwords', errorData, repeatedWord => {
+
+          });
+        });
+      }
     });
 
 

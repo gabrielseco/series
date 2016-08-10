@@ -24,15 +24,14 @@ class TV extends React.Component {
     super(props, context);
     this.state = {modalIsOpen: false, tv: '', searchTerm: '', series: null, pagination:{ page: 0, perPage: 10 }};
   }
-  componentDidMount(){
+  componentWillMount(){
     const {dispatch } = this.props;
 
     dispatch(getAllTV(TV => {
-      let series = uniq(TV, 'nombre');
+      //let series = uniq(TV, 'nombre');
 
-      console.log('series',series)
       this.setState({
-        series: series
+        series: TV
       });
     }));
 
@@ -115,6 +114,47 @@ class TV extends React.Component {
     this.setState({searchTerm: term});
   }
 
+  renderMessage(series){
+     if(series.status == undefined)
+        return null;
+
+     return <MessageInfo statusCode={series.status}/>;
+  }
+
+  renderSearch(){
+    return (
+      <div className="search-input">
+        <div className="search-wrapper">
+          <span className="search-icon">⚲</span>
+          <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
+        </div>
+      </div>
+    );
+  }
+
+  renderList(list, series){
+    if(series.status !== 0){
+      return (
+        <div id="films" className="films">
+         {this.renderSearch()}
+          <div className="filmButton">
+            <button className="addFilm" onClick={this.addTV.bind(this)}>ADD TV</button>
+          </div>
+            {list}
+            <br/>
+            <div className="pagination">
+                <Paginator
+                    page={series.page}
+                    pages={series.amount}
+                    beginPages={3}
+                    endPages={3}
+                    onSelect={this.onSelect.bind(this)}/>
+            </div>
+        </div>
+      );
+    }
+  }
+
   render() {
     let message, list = null;
     let _series = this.state.series;
@@ -158,46 +198,7 @@ class TV extends React.Component {
     }
 
  }
- renderMessage(series){
-    if(series.status == undefined)
-       return null;
 
-    return <MessageInfo statusCode={series.status}/>;
- }
-
- renderSearch(){
-   return (
-     <div className="search-input">
-       <div className="search-wrapper">
-         <span className="search-icon">⚲</span>
-         <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
-       </div>
-     </div>
-   );
- }
-
- renderList(list, series){
-   if(series.status !== 0){
-     return (
-       <div id="films" className="films">
-        {this.renderSearch()}
-         <div className="filmButton">
-           <button className="addFilm" onClick={this.addTV.bind(this)}>ADD TV</button>
-         </div>
-           {list}
-           <br/>
-           <div className="pagination">
-               <Paginator
-                   page={series.page}
-                   pages={series.amount}
-                   beginPages={3}
-                   endPages={3}
-                   onSelect={this.onSelect.bind(this)}/>
-           </div>
-       </div>
-     );
-   }
- }
 }
 
 TV.contextTypes =  {

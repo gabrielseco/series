@@ -14,7 +14,7 @@ class D3 extends React.Component {
     this.state = {data: []};
   }
 
-  componentDidMount(){
+  componentWillMount(){
     const {dispatch } = this.props;
     dispatch(getWordsBetweenMonths( data => {
       this.setState({

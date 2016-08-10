@@ -26,7 +26,7 @@ class Books extends React.Component {
     super(props);
     this.state = {modalIsOpen: false, book: '', searchTerm: '', books: null};
   }
-  componentDidMount(){
+  componentWillMount(){
     const {dispatch } = this.props;
     dispatch(getAllBooks( books => {
       this.setState({
@@ -115,6 +115,38 @@ class Books extends React.Component {
 
   }
 
+  renderMessage(books){
+     if(books.status == undefined)
+        return null;
+
+     return <MessageInfo statusCode={books.status}/>;
+  }
+
+  renderSearch(){
+    return (
+      <div className="search-input">
+        <div className="search-wrapper">
+          <span className="search-icon">⚲</span>
+          <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
+        </div>
+      </div>
+    );
+  }
+
+  renderList(list, books){
+    if(books.status !== 0){
+      return (
+        <div id="films" className="films">
+        {this.renderSearch()}
+          <div className="filmButton">
+            <button className="addFilm" onClick={this.addBook.bind(this)}>ADD BOOK</button>
+          </div>
+            {list}
+        </div>
+      );
+    }
+  }
+
 
   render() {
     let list = null;
@@ -162,37 +194,7 @@ class Books extends React.Component {
    }
 
  }
- renderMessage(books){
-    if(books.status == undefined)
-       return null;
 
-    return <MessageInfo statusCode={books.status}/>;
- }
-
- renderSearch(){
-   return (
-     <div className="search-input">
-       <div className="search-wrapper">
-         <span className="search-icon">⚲</span>
-         <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
-       </div>
-     </div>
-   );
- }
-
- renderList(list, books){
-   if(books.status !== 0){
-     return (
-       <div id="films" className="films">
-       {this.renderSearch()}
-         <div className="filmButton">
-           <button className="addFilm" onClick={this.addBook.bind(this)}>ADD BOOK</button>
-         </div>
-           {list}
-       </div>
-     );
-   }
- }
 }
 
 Books.contextTypes =  {

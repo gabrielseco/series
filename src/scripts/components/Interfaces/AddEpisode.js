@@ -16,7 +16,7 @@ class AddEpisode extends React.Component {
     this.context = context;
   }
 
-  componentDidMount(){
+  componentWillMount(){
     let {episodes} = this.context.store.getState();
         episodes = episodes.length + 1;
 

@@ -37,10 +37,7 @@ class Episodes extends React.Component {
       e.preventDefault();
       this.context.router.goBack();
     });
-  }
 
-
-  componentDidMount(){
     const {dispatch } = this.props;
 
     dispatch(getAllEpisodes(this.props.params.id, res => {
@@ -48,8 +45,8 @@ class Episodes extends React.Component {
         episodios: res
       });
     }));
-
   }
+
   generateEpisodes(){
     const {dispatch} = this.props;
     const episodios = this.state.episodios;

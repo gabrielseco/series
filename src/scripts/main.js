@@ -7,7 +7,7 @@ let configureStore, store = null;
 if(process.env.NODE_ENV === 'development'){
   configureStore  = require('./store/configureStore.dev').default;
   store = configureStore();
-  
+
 } else {
   configureStore = require('./store/configureStore.prod').default;
   store = configureStore();
@@ -16,8 +16,6 @@ if(process.env.NODE_ENV === 'development'){
 try {
 
   require('./styles/main.scss');
-
-  console.log('store',store);
 
 
   render(<Root store={store}/>, document.getElementById('app'));

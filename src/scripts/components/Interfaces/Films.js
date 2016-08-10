@@ -36,17 +36,13 @@ class Films extends React.Component {
       this.addFilm();
     });
 
-  }
-
-
-  componentDidMount(){
     const { dispatch } = this.props;
-    console.log('FILMS')
     dispatch(getAllFilms(films => {
         this.setState({films: films});
       }));
 
   }
+
 
   onSelect(page) {
      let pagination = this.state.pagination || {};
@@ -122,6 +118,48 @@ class Films extends React.Component {
 
   }
 
+  renderList(list, films){
+    if(films.status !== 0){
+      return (
+        <div id="films" className="films">
+           {this.renderSearch()}
+          <div className="filmButton">
+            <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
+          </div>
+
+            {list}
+            <br/>
+            <div className="pagination">
+                <Paginator
+                    page={films.page}
+                    pages={films.amount}
+                    beginPages={3}
+                    endPages={3}
+                    onSelect={this.onSelect.bind(this)}/>
+            </div>
+        </div>
+      );
+    }
+  }
+
+  renderSearch(){
+    return (
+      <div className="search-input">
+        <div className="search-wrapper">
+          <span className="search-icon">⚲</span>
+          <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
+        </div>
+      </div>
+    );
+  }
+
+  renderMessage(films){
+     if(films.status == undefined)
+        return null;
+
+     return <MessageInfo statusCode={films.status}/>;
+  }
+
   //redux is sends the objects readonly, you have to do an action to modify the object
   //to avoid this I pass it to the component state
   //and then I can use the search component
@@ -175,47 +213,11 @@ class Films extends React.Component {
       return (<Loading/>);
     }
  }
- renderMessage(films){
-    if(films.status == undefined)
-       return null;
 
-    return <MessageInfo statusCode={films.status}/>;
- }
 
- renderSearch(){
-   return (
-     <div className="search-input">
-       <div className="search-wrapper">
-         <span className="search-icon">⚲</span>
-         <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
-       </div>
-     </div>
-   );
- }
 
- renderList(list, films){
-   if(films.status !== 0){
-     return (
-       <div id="films" className="films">
-          {this.renderSearch()}
-         <div className="filmButton">
-           <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
-         </div>
 
-           {list}
-           <br/>
-           <div className="pagination">
-               <Paginator
-                   page={films.page}
-                   pages={films.amount}
-                   beginPages={3}
-                   endPages={3}
-                   onSelect={this.onSelect.bind(this)}/>
-           </div>
-       </div>
-     );
-   }
- }
+
 }
 function mapStateToProps(state, props) {
   return {

@@ -36,8 +36,7 @@ class DiccionarioEpisodios extends React.Component {
       e.preventDefault();
       this.context.router.goBack();
     });
-  }
-  componentDidMount(){
+
     const {dispatch } = this.props;
 
     dispatch(getDiccionariosEpisodios(this.props.params.idEpisodio, words => {
@@ -45,7 +44,6 @@ class DiccionarioEpisodios extends React.Component {
         words: words
       });
     }));
-
   }
 
   checkNumber(number){

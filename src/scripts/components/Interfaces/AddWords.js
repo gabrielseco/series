@@ -117,7 +117,7 @@ class AddWords extends React.Component {
     }
 
     if(this.state.data === null){
-      return <Loading/>
+      return <Loading/>;
     } else {
     return (
       <div>

@@ -20,7 +20,7 @@ class Words extends React.Component {
     this.context = context;
     this.state = {data: ''};
   }
-  componentDidMount(){
+  componentWillMount(){
     const {dispatch } = this.props;
 
     dispatch(getAllWords(res => {
