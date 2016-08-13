@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 import UITable from '../UI/Table';
 import BreadCrumb from '../UI/BreadCrumb';
 import Loading from '../UI/Loading';
-import _ from 'lodash';
+import find from 'lodash/find';
 import {mouseTrap} from 'react-mousetrap';
-
+import tableStyles from 'styles/_reactabular.scss';
+import utils from 'styles/_utils.scss';
+import dictionary from 'styles/_diccionarios.scss';
+import classNames from 'classnames';
 
 
 
@@ -100,7 +103,7 @@ class Episodes extends React.Component {
 
                  return {
                      value: <span>
-                         <a onClick={ver} className="edit-btn">ver</a>
+                         <a onClick={ver} className={tableStyles.edit__btn}>ver</a>
                      </span>
                  };
                }
@@ -121,7 +124,7 @@ class Episodes extends React.Component {
 
                return {
                    value: <span>
-                       <a onClick={editar} className="edit-btn">Editar</a>
+                       <a onClick={editar} className={tableStyles.edit__btn}>Editar</a>
                    </span>
                };
              }
@@ -147,7 +150,7 @@ class Episodes extends React.Component {
 
                 return {
                     value: <span>
-                        <a onClick={eliminar} className="delete-btn">Eliminar</a>
+                        <a onClick={eliminar} className={tableStyles.delete__btn}>Eliminar</a>
                     </span>
                 };
               }
@@ -165,6 +168,11 @@ class Episodes extends React.Component {
            query: ''
     };
 
+    const composedStyles = classNames({
+      [dictionary.dictionaryButton]: true,
+      [utils.align__right]:true
+    });
+
     if(episodios === null){
       return <Loading/>;
     } else {
@@ -177,8 +185,8 @@ class Episodes extends React.Component {
       <div>
         <DocumentTitle title={title}/>
         <BreadCrumb data={this.props.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
-        <div className="table-react">
-          <div className="dictionaryButton">
+        <div className={tableStyles.table__react}>
+          <div className={composedStyles}>
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>
                 <button onClick={this.generateEpisodes.bind(this)}>GENERATE</button>
           </div>
@@ -191,8 +199,8 @@ class Episodes extends React.Component {
     return (
       <div>
         <BreadCrumb data={this.props.serie} texto={texto}  goTo={this.modifyTV.bind(this)}/>
-        <div className="table-react">
-          <div className="dictionaryButton">
+        <div className={tableStyles.table__react}>
+          <div className={composedStyles}>
                 <button onClick={this.addEpisodes.bind(this)}>ADD EPISODES</button>
                 <button onClick={this.generateEpisodes.bind(this)}>GENERATE</button>
           </div>
@@ -204,6 +212,6 @@ class Episodes extends React.Component {
 
 }
 function mapStateToProps(state, props) {
-  return { serie: _.find(state.TV, {id: Number(props.params.id)}) };
+  return { serie: find(state.TV, {id: Number(props.params.id)}) };
 }
 export default connect(mapStateToProps)(mouseTrap(Episodes));

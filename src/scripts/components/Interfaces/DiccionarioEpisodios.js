@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 import UITable from '../UI/Table';
 import BreadCrumb from '../UI/BreadCrumb';
 import Loading from '../UI/Loading';
-import _ from 'lodash';
+import find from 'lodash/find';
 import {mouseTrap} from 'react-mousetrap';
-
+import tableStyles from 'styles/_reactabular.scss';
+import utils from 'styles/_utils.scss';
+import dictionary from 'styles/_diccionarios.scss';
+import classNames from 'classnames';
 
 
 
@@ -99,7 +102,7 @@ class DiccionarioEpisodios extends React.Component {
 
                return {
                    value: <span>
-                       <a onClick={editar} className="edit-btn">Editar</a>
+                       <a onClick={editar} className={tableStyles.edit__btn}>Editar</a>
                    </span>
                };
              }
@@ -123,7 +126,7 @@ class DiccionarioEpisodios extends React.Component {
 
                 return {
                     value: <span>
-                        <a onClick={eliminar} className="delete-btn">Eliminar</a>
+                        <a onClick={eliminar} className={tableStyles.delete__btn}>Eliminar</a>
                     </span>
                 };
               }
@@ -145,6 +148,11 @@ class DiccionarioEpisodios extends React.Component {
 
     let numero, url, texto, link,episodio = null;
 
+    const composedStyles = classNames({
+      [dictionary.dictionaryButton]: true,
+      [utils.align__right]:true
+    })
+
     if(this.state.words === null){
       return <Loading/>;
     } else {
@@ -158,8 +166,8 @@ class DiccionarioEpisodios extends React.Component {
       <div>
         <DocumentTitle title={this.props.serie.nombre + " Words"}/>
         <BreadCrumb data={this.props.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
-        <div className="table-react">
-          <div className="dictionaryButton">
+        <div className={tableStyles.table__react}>
+          <div className={composedStyles}>
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <UITable data={words} columns={columns} pagination={pagination} search={search}/>
@@ -177,8 +185,8 @@ class DiccionarioEpisodios extends React.Component {
     return (
       <div>
       <BreadCrumb data={this.props.serie} texto={link} goTo={this.modifyTV.bind(this)}/>
-        <div className="table-react">
-          <div className="dictionaryButton">
+        <div className={tableStyles.table__react}>
+          <div className={composedStyles}>
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <div>
@@ -194,7 +202,7 @@ class DiccionarioEpisodios extends React.Component {
 function mapStateToProps(state, props) {
   return {
     words: state.words,
-    serie: _.find(state.TV, {id: Number(props.params.idSerie)}),
+    serie: find(state.TV, {id: Number(props.params.idSerie)}),
     episodes: state.episodes
   };
 }

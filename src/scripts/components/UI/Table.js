@@ -9,6 +9,9 @@ const ColumnNames = require('reactabular').ColumnNames;
 
 const cx = require('classnames');
 
+import tableStyles from 'styles/_reactabular.scss';
+import paginationStyles from 'styles/_pagination.scss';
+import classNames from 'classnames';
 
 
 
@@ -73,6 +76,10 @@ columnFilters() {
 
 
   render(){
+      const composedStyles = classNames({
+        [paginationStyles.pagify__pagination]:true,
+        [paginationStyles.pagination]:true
+      });
       let dataPagination = this.props.data;
       let pagination = this.props.pagination;
       let header = this.state.header;
@@ -99,15 +106,16 @@ columnFilters() {
     let headers = this.columnFilters.bind(this);
     return (
       <div>
-      <div className="per-page-container">
+      <div className={tableStyles.per__page__container}>
                         Per page <input type="text" defaultValue={pagination.perPage} onChange={this.onPerPage.bind(this)}/>
       </div>
-        <div className="search-container">
+        <div className={tableStyles.search__container}>
                 Search <Search ref="search" columns={this.props.columns} data={this.state.data} onChange={this.onSearch.bind(this)}/>
         </div>
           <Table columnNames={headers} columns={this.props.columns} data={paginated.data} />
-          <div className="pagination">
+          <div className={composedStyles}>
               <Paginator
+                  activeClassName={paginationStyles.selected}
                   page={paginated.page}
                   pages={paginated.amount}
                   beginPages={3}

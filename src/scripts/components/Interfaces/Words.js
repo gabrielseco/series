@@ -3,7 +3,7 @@ import {getAllWords, deleteWord} from '../../actions';
 import { connect } from 'react-redux';
 import UITable from '../UI/Table';
 import UILoading from '../UI/Loading';
-
+import tableStyles from 'styles/_reactabular.scss';
 
 
 const style = {
@@ -71,7 +71,7 @@ class Words extends React.Component {
 
                return {
                    value: <span>
-                       <a onClick={editar} className="edit-btn">Editar</a>
+                       <a onClick={editar} className={tableStyles.edit__btn}>Editar</a>
                    </span>
                };
              }
@@ -95,7 +95,7 @@ class Words extends React.Component {
 
                 return {
                     value: <span>
-                        <a onClick={eliminar} className="delete-btn">Eliminar</a>
+                        <a onClick={eliminar} className={tableStyles.delete__btn}>Eliminar</a>
                     </span>
                 };
               }

@@ -2,6 +2,9 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import {modifyEpisode, getOneEpisode} from '../../actions';
+import utils from 'styles/_utils.scss';
+import dictionary from 'styles/_diccionarios.scss';
+import classNames from 'classnames';
 
 let fieldValues = {};
 
@@ -52,15 +55,20 @@ class ModifyEpisode extends React.Component {
 
   render() {
     const  { episodes } = this.props;
+    const composedStyles = classNames({
+      [dictionary.dictionaryButton]: true,
+      [utils.pull__right] : true
+    });
+    
     if(episodes.nombre !== undefined){
       fieldValues = episodes;
       return(
         <div>
         <DocumentTitle title={fieldValues.nombre}/>
-        <div className="dictionaryButton" style={float}>
-           <button className="addWords" onClick={this.addWords.bind(this)}>ADD WORDS</button>
+        <div className={composedStyles}>
+           <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
          </div>
-          <img className="img" src={fieldValues.serie.imagen} width="230" height="345"/>
+          <img className={utils.pull__left} src={fieldValues.serie.imagen} width="230" height="345"/>
             <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
               <label className="is-required">Nombre</label>
               <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre"

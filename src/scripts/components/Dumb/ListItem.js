@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {VelocityComponent} from 'velocity-react';
+import styles from 'styles/_films.scss';
 
 require('velocity-animate');
 require('velocity-animate/velocity.ui');
@@ -26,7 +27,7 @@ export default class ListItem extends React.Component {
 
       return (
         <VelocityComponent ref="velocity" animation={animation} duration={1000}>
-          <div className="show-image" onMouseOver={this.pulse.bind(this)}>
+          <div className={styles.show__image} onMouseOver={this.pulse.bind(this)}>
               <img onClick={this.props.modify.bind(this, this.props.data)}
                    src={this.props.data.imagen}
                    title={alt}
@@ -34,7 +35,7 @@ export default class ListItem extends React.Component {
                    width="230"
                    height="345"/>
               <input type="button"
-                     className="delete"
+                     className={styles.delete}
                      value="BORRAR"
                      onClick={this.props.openModal.bind(this, this.props.data)}>
               </input>

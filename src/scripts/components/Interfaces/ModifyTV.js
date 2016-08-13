@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {modifyTV} from '../../actions';
 import {mouseTrap} from 'react-mousetrap';
-import  {find} from 'lodash';
+import find from 'lodash/find';
+import utils from 'styles/_utils.scss';
+
 
 //import Colors from '../UI/Colors.js';
 
@@ -65,7 +67,7 @@ class ModifyTV extends React.Component {
       <div style={float}>
       <Colors data={this.props.data.imagen} changeColor={this.changeColor.bind(this)}/>
       </div>*/}
-        <img className="img" src={this.props.data.imagen} width="230" height="345"/>
+        <img className={utils.pull__left} src={this.props.data.imagen} width="230" height="345"/>
           <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                   <label className="is-required">Nombre</label>
                   <input ref="name" className={this.state.inputName} defaultValue={this.props.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>

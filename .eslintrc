@@ -6,7 +6,9 @@
     "plugin:import/warnings"
   ],
   "settings": {
-    "import/resolver": "webpack"
+    "import/resolver": "webpack",
+    "import/ignore":[node_modules,\.(scss|less|css)$]
+
   },
   "plugins": [
     "react"

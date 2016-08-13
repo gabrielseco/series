@@ -14,6 +14,9 @@ const resolve = path.resolve;
 const root    = resolve(__dirname);
 const src     = join(root, 'src');
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+
 
 
 module.exports = {
@@ -37,12 +40,12 @@ module.exports = {
     root: root,
     extensions: ['', '.js', '.jsx'],
     alias:{
-      'actions'   : join(root, './src/actions'),
-      'constants' : join(root, './src/constants'),
-      'components': join(root, './src/components'),
-      'containers': join(root, './src/containers'),
-      'reducers'  : join(root, './src/reducers')
-
+      'actions'   : join(root, './src/scripts/actions'),
+      'constants' : join(root, './src/scripts/constants'),
+      'components': join(root, './src/scripts/components'),
+      'containers': join(root, './src/scripts/containers'),
+      'reducers'  : join(root, './src/scripts/reducers'),
+      'styles'    : join(root, './src/scripts/styles')
     }
   },
   plugins: [
@@ -53,6 +56,8 @@ module.exports = {
         NODE_ENV: '"development"'
       }
     }),
+    new ExtractTextPlugin("styles.css")
+
   ],
   module: {
     loaders: [
@@ -63,7 +68,9 @@ module.exports = {
       },
     {
       test: /\.scss/,
-      loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+      //loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+      loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass?sourceMap')
+
     },
     {
         test: /\.css/,

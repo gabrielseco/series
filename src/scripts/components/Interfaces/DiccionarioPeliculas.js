@@ -7,7 +7,10 @@ import BreadCrumb from '../UI/BreadCrumb';
 import Loading from '../UI/Loading';
 import find from 'lodash/find';
 import {mouseTrap} from 'react-mousetrap';
-
+import tableStyles from 'styles/_reactabular.scss';
+import utils from 'styles/_utils.scss';
+import dictionary from 'styles/_diccionarios.scss';
+import classNames from 'classnames';
 
 class DiccionarioPeliculas extends React.Component {
   static contextTypes = {
@@ -80,7 +83,7 @@ class DiccionarioPeliculas extends React.Component {
 
                return {
                    value: <span>
-                       <a onClick={editar} className="edit-btn">Editar</a>
+                       <a onClick={editar} className={tableStyles.edit__btn}>Editar</a>
                    </span>
                };
              }
@@ -104,7 +107,7 @@ class DiccionarioPeliculas extends React.Component {
 
                 return {
                     value: <span>
-                        <a onClick={eliminar} className="delete-btn">Eliminar</a>
+                        <a onClick={eliminar} className={tableStyles.delete__btn}>Eliminar</a>
                     </span>
                 };
               }
@@ -123,6 +126,11 @@ class DiccionarioPeliculas extends React.Component {
     };
     const words = this.state.words;
 
+    const composedStyles = classNames({
+      [dictionary.dictionaryButton]: true,
+      [utils.align__right]:true
+    });
+
     if(words === null){
       return <Loading/>;
     } else {
@@ -132,8 +140,8 @@ class DiccionarioPeliculas extends React.Component {
       <div>
         <DocumentTitle title={this.props.film.nombre + " | Words"}/>
         <BreadCrumb data={this.props.film} texto={texto} goTo={this.modifyFilm.bind(this)}/>
-        <div className="table-react">
-          <div className="dictionaryButton">
+        <div className={tableStyles.table__react}>
+          <div className={composedStyles}>
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <UITable data={this.state.words} columns={columns} pagination={pagination} search={search}/>
@@ -145,8 +153,8 @@ class DiccionarioPeliculas extends React.Component {
     return (
       <div>
         <BreadCrumb data={this.props.film} texto={texto} goTo={this.modifyFilm.bind(this)}/>
-        <div className="table-react">
-          <div className="dictionaryButton">
+        <div className={tableStyles.table__react}>
+          <div className={composedStyles}>
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <div>

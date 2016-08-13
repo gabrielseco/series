@@ -1,13 +1,15 @@
+@import "mixins";
+
 table {
   width:100%;
 }
 
-.table-react{
+.table__react{
   padding-left:50px;
   padding-right:50px;
 }
 
-.edit-btn{
+.edit__btn{
   border: 10px;
   background: none;
   box-sizing: border-box;
@@ -32,7 +34,7 @@ table {
   margin: 0;
   transform: translate3d(0, 0, 0);
 }
-.delete-btn{
+.delete__btn{
   border: 10px;
   background: none;
   box-sizing: border-box;
@@ -58,7 +60,7 @@ table {
   transform: translate3d(0, 0, 0);
 }
 
-.per-page-container{
+.per__page__container{
   input{
     @include input__reset($display:inline-block,$width:80%);
   }
@@ -67,7 +69,7 @@ table {
 
 }
 
-.search-container{
+.search__container{
   input{
     @include input__reset($display:inline-block,$width:40%);
     margin-left:10px;
@@ -79,30 +81,4 @@ table {
 
   margin:1em;
   float: right;
-}
-
-.pagination{
-  float:right;
-  padding-right:20px;
-  li {
-    position: relative;
-    float: left;
-    padding: 6px 12px;
-    margin-left: -1px;
-    line-height: 1.42857143;
-    color: #337ab7;
-    text-decoration: none;
-    background-color: #fff;
-    border: 1px solid #ddd;
-  }
-  .selected{
-  z-index: 2;
-  color: #fff !important;
-  cursor: default !important;
-  background-color: #337ab7;
-  border-color: #337ab7;
-  a{
-    color:#fff;
-  }
-  }
 }

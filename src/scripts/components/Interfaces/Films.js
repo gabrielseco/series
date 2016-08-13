@@ -9,10 +9,10 @@ import MessageInfo from '../UI/MessageInfo';
 import Loading from '../UI/Loading';
 import Paginator from 'react-pagify';
 import {mouseTrap} from 'react-mousetrap';
-
-
-
-
+import styles from 'styles/_films.scss';
+import searchStyles from 'styles/_search.scss';
+import paginationStyles from 'styles/_pagination.scss';
+import classNames from 'classnames';
 
 
 
@@ -119,18 +119,23 @@ class Films extends React.Component {
   }
 
   renderList(list, films){
+    const composedStyles = classNames({
+      [paginationStyles.pagify__pagination]:true,
+      [paginationStyles.pagination]:true
+    });
     if(films.status !== 0){
       return (
-        <div id="films" className="films">
+        <div>
            {this.renderSearch()}
-          <div className="filmButton">
-            <button className="addFilm" onClick={this.addFilm.bind(this)}>ADD FILM</button>
+          <div className={styles.filmButton}>
+            <button className={styles.addFilm} onClick={this.addFilm.bind(this)}>ADD FILM</button>
           </div>
 
             {list}
             <br/>
-            <div className="pagination">
+            <div className={composedStyles}>
                 <Paginator
+                    activeClassName={paginationStyles.selected}
                     page={films.page}
                     pages={films.amount}
                     beginPages={3}
@@ -144,10 +149,10 @@ class Films extends React.Component {
 
   renderSearch(){
     return (
-      <div className="search-input">
-        <div className="search-wrapper">
-          <span className="search-icon">⚲</span>
-          <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
+      <div className={searchStyles.search__input}>
+        <div className={searchStyles.search__wrapper}>
+          <span className={searchStyles.search__icon}>⚲</span>
+          <SearchInput ref="search" className={styles.search__field} onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
         </div>
       </div>
     );
@@ -182,7 +187,7 @@ class Films extends React.Component {
 
       list = _films.data.map((film, i) => {
         const palabras = (
-          <div className="diccionarios">
+          <div className={styles.diccionarios}>
               <button onClick={this.diccionarios.bind(this, film.id)}>PALABRAS</button>
           </div>
         );

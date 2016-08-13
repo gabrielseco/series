@@ -1,20 +1,23 @@
+@import "mixins";
+
 .main {
   margin-top: 75px;
 }
 
-div.show-image {
+.show__image {
     position: relative;
     display: inline-block;
     margin:5px;
 }
-div.show-image:hover img{
+.show__image:hover img{
     opacity:0.5;
     border:1px solid #000;
 }
-div.show-image:hover input {
+
+.show__image:hover input {
     display: block;
 }
-div.show-image input {
+.show__image input {
     position:absolute;
     display:none;
     background: #000;
@@ -32,12 +35,12 @@ div.show-image input {
     transition: all 300ms ease;
 }
 
-div.show-image input.delete {
+.show__image input.delete {
     top:37%;
     left:20%;
 }
 
-div.show-image h3 {
+.show__image h3 {
   position: absolute;
   top: 10%;
   left: 28%;
@@ -46,7 +49,7 @@ div.show-image h3 {
 
 }
 
-div.show-image:hover h3{
+.show__image:hover h3{
   visibility: visible;
   transition: visibility 0.3s;
 }

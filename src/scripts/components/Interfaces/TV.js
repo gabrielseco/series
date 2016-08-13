@@ -9,7 +9,10 @@ import MessageInfo from '../UI/MessageInfo';
 import Loading from '../UI/Loading';
 import Paginator from 'react-pagify';
 import uniq from '../../lib';
-
+import styles from 'styles/_films.scss';
+import searchStyles from 'styles/_search.scss';
+import paginationStyles from 'styles/_pagination.scss';
+import classNames from 'classnames';
 
 const modalStyle = {
   content : {
@@ -123,27 +126,33 @@ class TV extends React.Component {
 
   renderSearch(){
     return (
-      <div className="search-input">
-        <div className="search-wrapper">
-          <span className="search-icon">⚲</span>
-          <SearchInput ref="search" className="search-field" onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
+      <div className={searchStyles.search__input}>
+        <div className={searchStyles.search__wrapper}>
+          <span className={searchStyles.search__icon}>⚲</span>
+          <SearchInput ref="search" className={styles.search__field} onChange={this.searchUpdated.bind(this)} placeholder="Buscar..." autoFocus />
         </div>
       </div>
     );
   }
 
   renderList(list, series){
+    const composedStyles = classNames({
+      [paginationStyles.pagify__pagination]:true,
+      [paginationStyles.pagination]:true
+    });
+
     if(series.status !== 0){
       return (
-        <div id="films" className="films">
+        <div>
          {this.renderSearch()}
-          <div className="filmButton">
-            <button className="addFilm" onClick={this.addTV.bind(this)}>ADD TV</button>
+          <div className={styles.filmButton}>
+            <button className={styles.addFilm} onClick={this.addTV.bind(this)}>ADD TV</button>
           </div>
             {list}
             <br/>
-            <div className="pagination">
+            <div className={composedStyles}>
                 <Paginator
+                    activeClassName={paginationStyles.selected}
                     page={series.page}
                     pages={series.amount}
                     beginPages={3}
@@ -173,7 +182,7 @@ class TV extends React.Component {
 
         list = _series.data.map((TV, i) => {
           const episodios = (
-            <div className="diccionarios">
+            <div className={styles.diccionarios}>
                 <button onClick={this.episodios.bind(this, TV.id)}>EPISODIOS</button>
             </div>
           );

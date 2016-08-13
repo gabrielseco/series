@@ -1,6 +1,5 @@
 @charset 'utf-8';
-@import "spinkit/wave";
-@import "normalize";
+/*@import "spinkit/wave";
 @import "breakpoints";
 @import "mixins";
 @import "modals";
@@ -16,5 +15,8 @@
 @import "diccionarios";
 @import "books";
 @import "media";
-@import "utils";
-@import "d3";
+@import "utils";*/
+
+@import "normalize";
+@import "mixins";
+@import "forms";

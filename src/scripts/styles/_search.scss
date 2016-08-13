@@ -1,15 +1,15 @@
-.search-input {
+.search__input {
   padding: 10px 10px;
   height: 52px;
 }
 
-.search-input .search-wrapper {
+.search__input .search__wrapper {
   position: relative;
   margin-right: 50px;
   margin-left: 10px;
 }
 
-.search-input .search-icon {
+.search__input .search__icon {
   display: block;
   position: absolute;
   width: 15px;
@@ -22,7 +22,7 @@
   line-height: 32px;
 }
 
-.search-input input {
+.search__input input {
   width: 100%;
   font-size: 18px;
   border: none;
@@ -31,12 +31,4 @@
   height: 32px;
   position: relative;
   border: 1px solid black;
-}
-
-.search-input .search-field:focus {
-
-}
-
-.hide-pagination{
-  visibility:hidden;
 }

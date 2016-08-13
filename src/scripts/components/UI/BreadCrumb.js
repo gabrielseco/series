@@ -1,6 +1,8 @@
 'use strict';
 
 import React from 'react';
+import styles from 'styles/_breadcrumb.scss';
+import classNames from 'classnames';
 
 
 export default class BreadCrumb extends React.Component {
@@ -8,7 +10,10 @@ export default class BreadCrumb extends React.Component {
       super(props);
     }
     render() {
-
+      const breadcrumb = classNames({
+        [styles.text__breadcrumb]:true,
+        [styles.inline] : true
+      });
       const style = {
         verticalAlign: 'middle'
       };
@@ -29,9 +34,9 @@ export default class BreadCrumb extends React.Component {
 
 
         return (
-          <div className="breadcrumb" style={background()}>
+          <div className={styles.breadcrumb} style={background()}>
               <img style={style} onClick={this.props.goTo} src={this.props.data.imagen} alt={this.props.data.nombre} title={this.props.data.nombre} width="245" height="345"/>
-              <div className="inline text__breadcrumb">
+              <div className={breadcrumb}>
                 {this.props.texto}
               </div>
 

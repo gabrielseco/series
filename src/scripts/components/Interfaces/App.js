@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import {Link} from 'react-router';
 import UINavBar from '../UI/Navbar';
-
+import styles from 'styles/_films.scss';
 
  class App extends React.Component {
 
@@ -16,7 +16,7 @@ import UINavBar from '../UI/Navbar';
       <div>
         <UINavBar/>
         <DocumentTitle title="LEARN WORDS"/>
-        <div className="main">
+        <div className={styles.main}>
           {this.props.children}
         </div>
       </div>
