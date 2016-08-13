@@ -1,8 +1,8 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
-const classNames = require('classnames');
-
+import classNames from 'classnames';
+import styles from 'styles/_message.scss';
 
 
 class MessageInfo extends React.Component{
@@ -39,7 +39,7 @@ class MessageInfo extends React.Component{
 
   renderMessage(){
     const active = classNames({
-      'message-info': true
+      [styles.message__info]: true
     });
     const status = this.props.statusCode === 0
                  ?
@@ -49,10 +49,10 @@ class MessageInfo extends React.Component{
     if( this.state.active  ) {
       return(
         <div className={active} onClick={this.clear.bind(this)}>
-          <div className="message-inner">
+          <div className={styles.message__inner}>
             <p>{status}</p>
           </div>
-          <span className="button-close" onClick={this.handleActive.bind(this)}></span>
+          <span className={styles.button__close} onClick={this.handleActive.bind(this)}></span>
         </div>
       );
     }

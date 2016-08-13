@@ -1,4 +1,4 @@
-.message-info {
+.message__info {
   position: relative;
   background: rgba(42,45,50,0.85);
   padding: 22px;
@@ -12,7 +12,7 @@
   top:30;
   left:0;
 
-  .message-inner{
+  .message__inner{
     position: relative;
 
     p{
@@ -20,7 +20,7 @@
     }
   }
 
-  .button-close {
+  .button__close {
     background: transparent;
     top: 50%;
     right: 5%;
@@ -36,7 +36,7 @@
     backface-visibility: hidden;
   }
 
-  .button-close::before, .button-close::after {
+  .button__close::before, .button__close::after {
     -webkit-transform: translate(-50%,-50%) rotate(45deg);
     transform: translate(-50%,-50%) rotate(45deg);
     background: #b7b5b3;
@@ -50,11 +50,11 @@
 
   }
 
-  .button-close::before {
+  .button__close::before {
     -webkit-transform: translate(-50%,-50%) rotate(45deg);
      transform: translate(-50%,-50%) rotate(45deg);
   }
-  .button-close::after {
+  .button__close::after {
     -webkit-transform: translate(-50%,-50%) rotate(-45deg);
      transform: translate(-50%,-50%) rotate(-45deg);
   }
@@ -64,7 +64,7 @@
 }
 
 
-.message-hide{
+.message__hide{
 	-webkit-animation-direction: reverse;
 	animation-direction: reverse;
 }
