@@ -7,6 +7,10 @@ import BreadCrumb from '../UI/BreadCrumb';
 import find from 'lodash/find';
 import Loading from '../UI/Loading';
 import {mouseTrap} from 'react-mousetrap';
+import tableStyles from 'styles/_reactabular.scss';
+import utils from 'styles/_utils.scss';
+import dictionary from 'styles/_diccionarios.scss';
+import classNames from 'classnames';
 
 
 
@@ -82,7 +86,7 @@ class DiccionarioLibros extends React.Component {
 
                return {
                    value: <span>
-                       <a onClick={editar} className="edit-btn">Editar</a>
+                       <a onClick={editar} className={tableStyles.edit__btn}>Editar</a>
                    </span>
                };
              }
@@ -106,7 +110,7 @@ class DiccionarioLibros extends React.Component {
 
                 return {
                     value: <span>
-                        <a onClick={eliminar} className="delete-btn">Eliminar</a>
+                        <a onClick={eliminar} className={tableStyles.delete__btn}>Eliminar</a>
                     </span>
                 };
               }
@@ -126,6 +130,11 @@ class DiccionarioLibros extends React.Component {
 
     const texto = "Libros > " + this.props.book.nombre;
 
+    const composedStyles = classNames({
+      [dictionary.dictionaryButton]: true,
+      [utils.align__right]:true
+    });
+
     if(words === null){
       return <Loading/>;
     } else {
@@ -135,8 +144,8 @@ class DiccionarioLibros extends React.Component {
       <div>
         <DocumentTitle title={this.props.book.nombre + " | Words"}/>
         <BreadCrumb data={this.props.book} texto={texto} goTo={this.modifyBook.bind(this)}/>
-        <div className="table-react">
-          <div className="dictionaryButton">
+        <div className={tableStyles.table__react}>
+          <div className={composedStyles}>
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <UITable data={words} columns={columns} pagination={pagination} search={search}/>
@@ -147,8 +156,8 @@ class DiccionarioLibros extends React.Component {
     return (
       <div>
         <BreadCrumb data={this.props.book} texto={texto} goTo={this.modifyBook.bind(this)}/>
-        <div className="table-react">
-          <div className="dictionaryButton">
+        <div className={tableStyles.table__react}>
+          <div className={composedStyles}>
                 <button onClick={this.addWords.bind(this)}>ADD WORDS</button>
           </div>
           <div>

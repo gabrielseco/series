@@ -4,6 +4,7 @@ import {modifyBook, getOneBook} from '../../actions';
 //import Colors from '../UI/Colors.js';
 import find from 'lodash/find';
 import {mouseTrap} from 'react-mousetrap';
+import utils from 'styles/_utils.scss';
 
 let fieldValues = {
 };
@@ -61,7 +62,7 @@ class ModifyBook extends React.Component {
 
       return(
         <div>
-          <img ref="imagen" className="img" src={fieldValues.imagen} width="230" height="345"/>
+          <img ref="imagen" className={utils.pull__left} src={fieldValues.imagen} width="230" height="345"/>
           <div style={float}>
             {/*<Colors data={fieldValues.imagen} changeColor={this.changeColor.bind(this)}/>*/}
           </div>

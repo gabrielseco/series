@@ -19,7 +19,7 @@
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: $br2) and (max-width: $br3) {
-  .table-react{
+  .table__react{
     padding-left:0px;
     padding-right:0px;
   }
@@ -40,12 +40,7 @@
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: $br1) {
-
-  .bar-button{
-    float:none;
-  }
-
-  .table-react{
+  .table__react{
     padding-left:0px;
     padding-right:0px;
   }
