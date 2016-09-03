@@ -6,18 +6,23 @@
 
 'use strict';
 
-var webpack = require('webpack');
+const webpack = require('webpack');
+const  path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const join    = path.join;
+const resolve = path.resolve;
+
+const root    = resolve(__dirname);
+const src     = join(root, 'src');
 
 module.exports = {
-
-  output: {
-    publicPath: '/assets/',
-    path: 'dist/assets/',
-    filename: 'main.js'
-  },
-
-  debug: false,
   devtool: false,
+  output: {
+    path: path.join(__dirname, '/dist/'),
+    filename: 'main.js',
+    publicPath: '/assets'
+  },
   entry: './src/scripts/main.js',
 
   stats: {
@@ -26,38 +31,56 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+          compressor: {
+            screw_ie8: true,
+            warnings: false
+          },
+          mangle: {
+            screw_ie8: true
+          },
+          output: {
+            comments: false,
+            screw_ie8: true
+          }
+    }),
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new ExtractTextPlugin("styles.css")
+
   ],
 
-  resolve: {
-    extensions: ['', '.js','.jsx'],
-    alias: {
-      'styles': '../../../src/styles',
-      'components': '../../../src/scripts/components/'
+  resolve:{
+    root: root,
+    extensions: ['', '.js', '.jsx'],
+    alias:{
+      'actions'   : join(root, './src/scripts/actions'),
+      'constants' : join(root, './src/scripts/constants'),
+      'components': join(root, './src/scripts/components'),
+      'containers': join(root, './src/scripts/containers'),
+      'reducers'  : join(root, './src/scripts/reducers'),
+      'styles'    : join(root, './src/scripts/styles')
     }
   },
 
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015','react','stage-0'],
-          plugins: ["transform-runtime"],
-          cacheDirectory: true
-        }
+      test: /\.js$/,
+      loaders: ['react-hot', 'babel','eslint'],
+      include: path.join(__dirname, 'src')
       },
       {
       test: /\.css$/,
       loader: 'style-loader!css-loader'
     }, {
       test: /\.scss/,
-      loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+      //loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+      loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass?sourceMap')
+
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url-loader?limit=8192'

@@ -6,7 +6,7 @@ import persistState from 'redux-localstorage';
 import DevTools from '../containers/DevTools';
 
 export default function configureStore(initialState) {
-  const middleware = [ thunk ]
+  const middleware = [ thunk ];
 
 
 const createPersistentStore = compose(
