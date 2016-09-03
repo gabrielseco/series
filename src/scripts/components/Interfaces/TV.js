@@ -12,6 +12,7 @@ import uniq from '../../lib';
 import styles from 'styles/_films.scss';
 import searchStyles from 'styles/_search.scss';
 import paginationStyles from 'styles/_pagination.scss';
+import modalStyles from 'styles/_modals.scss';
 import classNames from 'classnames';
 
 const modalStyle = {
@@ -104,9 +105,9 @@ class TV extends React.Component {
       onRequestClose={this.closeModal.bind(this)}
       style={modalStyle}>
         <h2>Desea eliminar la serie {this.state.tv.nombre} Season {this.state.tv.temporada}?</h2>
-        <div className="buttons">
-            <button className="cancel" onClick={this.closeModal.bind(this)}>Cancelar</button>
-            <button className="submit" onClick={this.remove.bind(this)}>Eliminar</button>
+        <div className={modalStyles.buttons}>
+            <button className={modalStyles.cancel} onClick={this.closeModal.bind(this)}>Cancelar</button>
+            <button className={modalStyles.submit} onClick={this.remove.bind(this)}>Eliminar</button>
         </div>
       </Modal>
     );

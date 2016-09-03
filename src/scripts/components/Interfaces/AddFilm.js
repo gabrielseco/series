@@ -14,14 +14,17 @@ class AddFilm extends React.Component {
 
   handleForm(e){
     e.preventDefault();
-    let newState = {};
+    let newState = {
+      obj: this.state.obj
+    };
+
     newState.obj.nombre = this.refs.name.value;
     this.setState(newState);
 
     const { dispatch } = this.props;
 
 
-    dispatch(addOneFilm(this.state.obj, this.state.films, res => {
+    dispatch(addOneFilm(newState.obj, this.state.films, res => {
       if(res.id !== undefined){
         this.props.history.push('/');
       }

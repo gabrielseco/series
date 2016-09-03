@@ -5,6 +5,7 @@ import {modifyFilm} from '../../actions';
 import Colors from '../UI/Colors.js';
 import _ from 'lodash';
 import {mouseTrap} from 'react-mousetrap';
+import utils from 'styles/_utils.scss';
 
 
 
@@ -70,7 +71,7 @@ class ModifyFilm extends React.Component {
     return(
       <div>
       <DocumentTitle title="Modify Film"/>
-        <img className="img" src={this.props.data.imagen} width="230" height="345"/>
+        <img className={utils.pull__left} src={this.props.data.imagen} width="230" height="345"/>
         {/*
         <div style={float}>
           <Colors data={this.state.data.imagen} changeColor={this.changeColor.bind(this)}/>
