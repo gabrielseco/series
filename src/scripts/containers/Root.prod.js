@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { Router, browserHistory} from 'react-router';
+
 import routes from '../routes';
 
 
@@ -8,9 +10,9 @@ export default class Root extends Component {
     const { store } = this.props;
     return (
       <Provider store={store}>
-        <div>
+        <Router history={browserHistory}>
           {routes}
-        </div>
+        </Router>
       </Provider>
     );
   }
