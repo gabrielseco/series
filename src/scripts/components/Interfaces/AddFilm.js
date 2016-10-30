@@ -13,15 +13,19 @@ class AddFilm extends React.Component {
   }
 
   handleForm(e){
+
     e.preventDefault();
-    let newState = {};
-    newState.obj.nombre = this.refs.name.value;
-    this.setState(newState);
+
+    let obj  = this.state.obj;
+
+    if(this.state.films.length === 0){
+      obj.nombre = this.refs.name.value;
+    }
 
     const { dispatch } = this.props;
 
 
-    dispatch(addOneFilm(this.state.obj, this.state.films, res => {
+    dispatch(addOneFilm(obj, this.state.films, res => {
       if(res.id !== undefined){
         this.props.history.push('/');
       }
@@ -38,8 +42,9 @@ class AddFilm extends React.Component {
 
   updateFilm(film){
     this.refs.name.value = film.nombre;
-    let newState = {};
-    newState.obj = film;
+    this.setState({
+      obj: film
+    });
   }
 
   render() {
