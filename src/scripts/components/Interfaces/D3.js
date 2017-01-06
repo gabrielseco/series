@@ -7,34 +7,52 @@ import {ResponsiveContainer, ComposedChart, Line, Area,
 import {getWordsBetweenMonths} from '../../actions';
 import {repeatedWords} from '../../actions/repeated';
 import UITable from '../UI/Table';
+import utils from 'styles/_utils.scss';
+import dictionary from 'styles/_diccionarios.scss';
+import classNames from 'classnames';
+
 
 
 class D3 extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {data: [], words:[]};
+    this.state = {data: [], words:[], year: new Date().getFullYear()};
   }
 
   componentWillMount(){
+    const {year} = this.state;
+
+    this.getStats(year);
+
+  }
+
+  getStats(year){
     const {dispatch } = this.props;
-    dispatch(getWordsBetweenMonths( data => {
-      this.setState({
+    const that = this;
+
+    dispatch(getWordsBetweenMonths(year, function(data){
+      that.setState({
         data: data
       });
     }));
 
-    dispatch(repeatedWords( data => {
-      this.setState({
-        words: data
-      });
-    }));
+
+  }
+
+  onYear(e){
+
+    this.setState({
+      year: e.target.value
+    });
+    console.log('e.target',e.target.value)
+    this.getStats(e.target.value)
   }
 
 
 
   render() {
-    const columns = [
+    /*const columns = [
           {
               property: 'english',
               header: 'English'
@@ -58,17 +76,26 @@ class D3 extends React.Component {
         const search = {
                column: '',
                query: ''
-        };
+        };*/
+
+        const composedStyles = classNames({
+          [dictionary.dictionaryButton]: true,
+          [utils.align__right]:true
+        });
 
 
     return(
       <div>
           <DocumentTitle title="D3"/>
-          <h3>Repeated words</h3>
+          {/* <h3>Repeated words</h3>
           <UITable data={this.state.words} columns={columns} pagination={pagination} search={search}/>
-
+          */}
           <h3>ESTADÍSTICAS DE PALABRAS INSERTADAS POR MES</h3>
-            <ResponsiveContainer height={400}>
+            <div className={composedStyles}>
+              <input type="number" onBlur={this.onYear.bind(this)} defaultValue={this.state.year} />
+
+            </div>
+          <ResponsiveContainer height={400}>
               <ComposedChart data={this.state.data} height={200} width={600}>
                 <XAxis dataKey="month"/>
                 <YAxis />
@@ -77,6 +104,7 @@ class D3 extends React.Component {
                 <Bar dataKey="words" barSize={60} fill="#413ea0"/>
            </ComposedChart>
          </ResponsiveContainer>
+
 
       </div>
     );
