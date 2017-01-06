@@ -11,16 +11,34 @@ class D3 extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {data: []};
+    this.state = {data: [], year: new Date().getFullYear()};
   }
 
   componentWillMount(){
+    const {year} = this.state;
+
+    this.getStats(year);
+
+
+  }
+
+  getStats(year){
     const {dispatch } = this.props;
-    dispatch(getWordsBetweenMonths( data => {
-      this.setState({
+    const that = this;
+
+    dispatch(getWordsBetweenMonths(year, function(data){
+      that.setState({
         data: data
       });
     }));
+  }
+
+  onYear(e){
+    this.setState({
+      year: e.target.value
+    });
+
+    this.getStats(e.target.value)
   }
 
 
@@ -31,6 +49,10 @@ class D3 extends React.Component {
       <div>
           <DocumentTitle title="D3"/>
           <h3>ESTADÍSTICAS DE PALABRAS INSERTADAS POR MES</h3>
+          <div>
+            <input onBlur={this.onYear.bind(this)} defaultValue={this.state.year} />
+
+          </div>
           <ResponsiveContainer height={400}>
           <ComposedChart data={this.state.data}>
           <XAxis dataKey="month"/>

@@ -341,9 +341,12 @@ function mapWords(words) {
   return newWords;
 }
 
-export function getWordsBetweenMonths(cb){
+export function getWordsBetweenMonths(year, cb){
+  //const year = new Date().getFullYear();
+  console.log('arguments', arguments)
+
   return dispatch => {
-    shared.get('dictionary/getWordsMonth', words => {
+    shared.get('dictionary/getWordsMonth?year='+year, words => {
       cb (mapWords(words));
     });
   };
