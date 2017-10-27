@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {addOneEpisode} from '../../actions';
 
-
-
 class AddEpisode extends React.Component {
 
   static contextTypes = {
@@ -12,11 +10,10 @@ class AddEpisode extends React.Component {
 
   constructor(props, context) {
     super(props);
-    this.state = {inputName: '' };
     this.context = context;
   }
 
-  componentWillMount(){
+  componentDidMount(){
     let {episodes} = this.context.store.getState();
         episodes = episodes.length + 1;
 
@@ -49,9 +46,9 @@ class AddEpisode extends React.Component {
     return(
       <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
               <label className="is-required">Nombre</label>
-              <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
+              <input ref="name" type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
               <label className="is-required">Número</label>
-              <input ref="numero" className={this.state.inputName} type="text" name="numero" required placeholder="Número" autoComplete="off"></input>
+              <input ref="numero" type="text" name="numero" required placeholder="Número" autoComplete="off"></input>
               <input type="submit" value="Enviar"></input>
       </form>
     );

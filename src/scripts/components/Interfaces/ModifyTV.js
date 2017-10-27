@@ -1,18 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {modifyTV} from '../../actions';
-import {mouseTrap} from 'react-mousetrap';
+import { modifyTV } from '../../actions';
+import { mouseTrap } from 'react-mousetrap';
 import find from 'lodash/find';
 import utils from 'styles/_utils.scss';
 
-
-//import Colors from '../UI/Colors.js';
-
 const float = {
-        float: 'right'
+  float: 'right'
 };
-
-
 
 class ModifyTV extends React.Component {
 
@@ -50,9 +45,6 @@ class ModifyTV extends React.Component {
     dispatch(modifyTV(obj, res => {
       this.props.history.goBack();
     }));
-
-
-
   }
 
   changeColor(value){
@@ -63,10 +55,6 @@ class ModifyTV extends React.Component {
     if(this.props.data !== ''){
     return(
       <div>
-      {/*
-      <div style={float}>
-      <Colors data={this.props.data.imagen} changeColor={this.changeColor.bind(this)}/>
-      </div>*/}
         <img className={utils.pull__left} src={this.props.data.imagen} width="230" height="345"/>
           <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
                   <label className="is-required">Nombre</label>
