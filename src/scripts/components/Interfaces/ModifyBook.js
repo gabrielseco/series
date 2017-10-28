@@ -1,44 +1,57 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {modifyBook, getOneBook} from '../../actions';
-import find from 'lodash/find';
-import {mouseTrap} from 'react-mousetrap';
+import { modifyBook, getOneBook } from '../../actions';
+import { mouseTrap } from 'react-mousetrap';
 import utils from 'styles/_utils.scss';
+import type { Book } from './../../types/App';
 
-let fieldValues = {
-};
+type State = {
+  data: Book
+}
 
-class ModifyBook extends React.Component {
+type DefaultProps = {
+  data: ?Book
+}
+
+class ModifyBook extends React.Component<DefaultProps, void, State > {
+  state: State;
+
+  static defaultProps = {
+    data: undefined
+  }
 
   constructor(props) {
     super(props);
-    this.state = {inputName: '', data: ''};
+    this.state = {
+      data: {
+        airdate: '',
+        color: '',
+        imagen: '',  
+        nombre: '',
+        overview: '',
+        youtube: ''
+      }
+    };
   }
 
-  componentWillMount(){
-
-    const { dispatch } = this.props;
-
-
-    dispatch(getOneBook(this.props.params.id, res => {
-      this.setState({data: res});
-    }));
-
-
+  componentDidMount(){
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        data: {
+          ...prevState.data,
+          ...this.props.book
+        }
+      };
+    });
   }
 
   handleForm(e){
     e.preventDefault();
 
-    let obj = {
-      id: this.props.params.id,
-      nombre: this.refs.name.value,
-      overview: this.refs.overview.value,
-      youtube: this.refs.youtube.value,
-      airdate: this.refs.airdate.value,
-      imagen: this.refs.imagen.value,
-      color: this.refs.color.value
-    };
+    let obj: Book = Object.assign({}, this.state.data, {
+      id: this.props.params.id  
+    });
 
     const { dispatch } = this.props;
 
@@ -48,33 +61,40 @@ class ModifyBook extends React.Component {
 
   }
 
-  changeColor(value){
-    this.refs.color.value = value.target.firstChild.data.slice(1);
+  onChange(evt){
+    const { name, value } = evt.target;
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        data: {
+          ...prevState.data,          
+          [name]: value          
+        }
+      };
+    });
   }
 
   render() {
-    if(this.props.boook !== ''){
-      fieldValues = this.props.book;
-
+    if(this.state.data !== undefined){
       return(
         <div>
-          <img ref="imagen" className={utils.pull__left} src={fieldValues.imagen} width="230" height="345"/>
+          <img ref="imagen" className={utils.pull__left} src={this.state.data.imagen} width="230" height="345"/>
             <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
               <label className="is-required">Nombre</label>
-              <input ref="name" className={this.state.inputName} type="text" name="name" required placeholder="Nombre"
-                     defaultValue={fieldValues.nombre}></input>
+              <input type="text" name="nombre" required placeholder="Nombre"
+                     value={this.state.data.nombre} onChange={(evt) => this.onChange(evt)}></input>
               <label>Youtube</label>
-              <input ref="youtube" className={this.state.inputName} type="text" name="youtube" placeholder="Youtube"
-                     defaultValue={fieldValues.youtube}></input>
+              <input type="text" name="youtube" placeholder="Youtube"
+                     value={this.state.data.youtube} onChange={(evt) => this.onChange(evt)}></input>
               <label className="is-required">Imagen</label>
-              <input ref="imagen" className={this.state.inputName} type="text" name="photo" required placeholder="Imagen"
-                      defaultValue={fieldValues.imagen}></input>
+              <input type="text" name="imagen" required placeholder="Imagen"
+                      value={this.state.data.imagen} onChange={(evt) => this.onChange(evt)}></input>
               <label className="is-required">Fecha</label>
-              <input ref="airdate" className={this.state.inputName} type="text" name="airdate" required placeholder="Fecha"
-                              defaultValue={fieldValues.airdate}></input>
+              <input type="text" name="airdate" required placeholder="Fecha"
+                              value={this.state.data.airdate} onChange={(evt) => this.onChange(evt)}></input>
               <label className="is-required">Descripción</label>
-              <textarea ref="overview" defaultValue={fieldValues.overview}></textarea>
-              <input ref="color" defaultValue={fieldValues.color} type="text" name="color" placeholder="Color" autoComplete="off"></input>
+              <textarea name="overview" value={this.state.data.overview} onChange={(evt) => this.onChange(evt)}></textarea>
+              <input value={this.state.data.color} type="text" name="color" placeholder="Color" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
               <input type="submit" value="ENVIAR"/>
             </form>
           </div>
@@ -87,6 +107,8 @@ class ModifyBook extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-  return { book: find(state.books, {id: Number(props.params.id)}) };
+  const id = parseInt(props.params.id, 10);
+  return { book: state.books.find(book => book.id === id) };
 }
+
 export default connect(mapStateToProps)(ModifyBook);

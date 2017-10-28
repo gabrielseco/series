@@ -3,15 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addOneBook } from '../../actions';
 import type { DispatchProps, HistoryProps } from './../../types';
+import type { Book } from './../../types/App';
 
-type State = {
-  airdate: string,
-  color: string,
-  imagen: string,  
-  nombre: string,
-  overview: string,
-  youtube: string,
-}
+type State = Book
 
 type Props = DispatchProps & HistoryProps;
 
