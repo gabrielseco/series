@@ -3,14 +3,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { modifyTV } from '../../actions';
 import { mouseTrap } from 'react-mousetrap';
-import find from 'lodash/find';
 import utils from 'styles/_utils.scss';
 
 type TV = {
+  id: number,
   nombre: string,
   overview: string,
   imagen: string,
-  temporada: ?number,
+  temporada: number,
   color: string
 };
 
@@ -47,6 +47,7 @@ class ModifyTV extends React.Component<DefaultProps, Props, State> {
     super(props);
     this.state = {
       data: {
+        id: this.props.params.id,
         nombre: this.props.data.nombre,
         color: this.props.data.color,
         imagen: this.props.data.imagen,
@@ -66,7 +67,7 @@ class ModifyTV extends React.Component<DefaultProps, Props, State> {
   handleForm(e){
     e.preventDefault();
 
-    const obj = {
+    const obj: TV = {
       id: this.props.params.id,
       nombre: this.state.data.nombre,
       overview: this.state.data.overview,
@@ -119,8 +120,9 @@ class ModifyTV extends React.Component<DefaultProps, Props, State> {
 }
 
 function mapStateToProps(state, props) {
+  const id: number = parseInt(props.params.id, 10);
   return {
-    data: find(state.TV, {id: Number(props.params.id)})
+    data: state.TV.find((TV: TV) => TV.id === id )
   };
 }
 
