@@ -1,25 +1,37 @@
+// @flow
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import {addOneFilm} from '../../actions';
+import { addOneFilm } from '../../actions';
+import type { DispatchProps, HistoryProps } from './../../types';
 
+type State = {
+  name: string,
+  films: any[],
+  obj: any
+}
 
+type Props = DispatchProps & HistoryProps;
 
-class AddFilm extends React.Component {
-
-  constructor(props) {
+class AddFilm extends React.Component<void, Props, State> {
+  state: State;
+  constructor(props: Props) {
     super(props);
-    this.state = {inputName: '', films: [], obj:{}};
+    this.state = {
+      films: [], 
+      obj:{},
+      name: ''
+    };
   }
 
   handleForm(e){
 
     e.preventDefault();
 
-    let obj  = this.state.obj;
+    let obj = this.state.obj;
 
     if(this.state.films.length === 0){
-      obj.nombre = this.refs.name.value;
+      obj.nombre = this.state.name;
     }
 
     const { dispatch } = this.props;
@@ -36,14 +48,25 @@ class AddFilm extends React.Component {
 
     }));
 
-
-
   }
 
   updateFilm(film){
-    this.refs.name.value = film.nombre;
-    this.setState({
-      obj: film
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        obj: film,
+        name: film.nombre        
+      };
+    });
+  }
+
+  onChange(evt) {
+    const { name, value } = evt.target;
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        [name]: value
+      };
     });
   }
 
@@ -52,10 +75,10 @@ class AddFilm extends React.Component {
     return(
       <div>
         <DocumentTitle title="ADD FILM"/>
-        <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
-                <label className="is-required">Nombre</label>
-                <input ref="name" className={this.state.inputName} type="text" name="name" autoFocus required placeholder="Nombre" autoComplete="off"></input>
-                <input type="submit" value="Enviar"></input>
+        <form onSubmit={this.handleForm.bind(this)} role="form">
+          <label className="is-required">Nombre</label>
+          <input value={this.state.name} type="text" name="name" autoFocus required placeholder="Nombre" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+          <input type="submit" value="Enviar"></input>
         </form>
         <div className="films-results">
         {this.state.films.map((film, i) => {

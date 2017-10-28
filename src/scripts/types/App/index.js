@@ -1,8 +1,13 @@
-export type Book = {
+type CommonFields = {
+  nombre: string;
+  overview: string;
+  imagen: string; 
+  color: string;
+}
+
+export type Book = CommonFields & {
   airdate: string,
-  color: string,
-  imagen: string,  
-  nombre: string,
-  overview: string,
   youtube: string,
 }
+
+export type Film = CommonFields

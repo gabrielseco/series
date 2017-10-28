@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import {VelocityComponent} from 'velocity-react';
 import styles from 'styles/_films.scss';
@@ -46,7 +44,3 @@ export default class ListItem extends React.Component {
       );
     }
 }
-
-ListItem.contextTypes =  {
-  router: React.PropTypes.object.isRequired
-};

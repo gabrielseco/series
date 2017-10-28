@@ -32,10 +32,6 @@ type DefaultProps = {
 
 class ModifyTV extends React.Component<DefaultProps, Props, State> {
 
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
-  }
-
   static defaultProps = {
     data: undefined
   }
@@ -59,7 +55,7 @@ class ModifyTV extends React.Component<DefaultProps, Props, State> {
   componentWillMount(){
     this.props.bindShortcut('esc', (e) => {
       e.preventDefault();
-      this.context.router.goBack();
+      this.props.history.goBack();
     });
   }
 

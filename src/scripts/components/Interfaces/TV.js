@@ -63,11 +63,11 @@ class TV extends React.Component {
  }
 
   addTV(){
-    this.context.router.push('/addTV');
+    this.props.history.push('/addTV');
 
   }
   modifyTV(data){
-    this.context.router.push('/modifyTV/'+data.id);
+    this.props.history.push('/modifyTV/' + data.id);
   }
 
   remove(){
@@ -80,7 +80,7 @@ class TV extends React.Component {
   }
 
   episodios(id){
-    this.context.router.push('/episodes/'+id);
+    this.props.history.push('/episodes/'+id);
   }
 
 
@@ -210,9 +210,5 @@ class TV extends React.Component {
  }
 
 }
-
-TV.contextTypes =  {
-  router: React.PropTypes.object.isRequired
-};
 
 export default connect()(TV);

@@ -67,11 +67,11 @@ class Films extends React.Component {
  }
 
   addFilm(){
-    this.context.router.push('/addFilm');
+    this.props.history.push('/addFilm');
   }
 
   modifyFilm(data){
-    this.context.router.push('/modifyFilm/'+data.id);
+    this.props.history.push('/modifyFilm/'+data.id);
   }
 
   remove(){
@@ -84,7 +84,7 @@ class Films extends React.Component {
   }
 
   diccionarios(id){
-    this.context.router.push('/diccionarios_pelicula/'+id);
+    this.props.history.push('/diccionarios_pelicula/'+id);
   }
 
   searchUpdated(term) {
@@ -220,21 +220,12 @@ class Films extends React.Component {
       return (<Loading/>);
     }
  }
-
-
-
-
-
 }
 function mapStateToProps(state, props) {
   return {
     films: state.films
   };
 }
-
-Films.contextTypes =  {
-  router: React.PropTypes.object.isRequired
-};
 
 Films.getDefaultProps = {
   films: []

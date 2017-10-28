@@ -19,11 +19,6 @@ let fieldValues = {
 
 class AddWords extends React.Component {
 
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
-  }
-
-
   constructor(props,context){
     super(props,context);
     this.state = {form: '', data: ''};
@@ -87,15 +82,14 @@ class AddWords extends React.Component {
 
   }
   finalizarPelicula(){
-    this.context.router.push('/diccionarios_pelicula/'+this.props.params.pelicula);
+    this.props.history.push('/diccionarios_pelicula/'+this.props.params.pelicula);
   }
   finalizarLibro(){
-    this.context.router.push('/diccionarios_libros/'+this.props.params.libro);
+    this.props.history.push('/diccionarios_libros/'+this.props.params.libro);
   }
 
   finalizarSerie(){
-    this.context.router.push('/diccionarios/'+this.props.params.serie+'/episodio/'+this.props.params.episodio);
-
+    this.props.history.push('/diccionarios/'+this.props.params.serie+'/episodio/'+this.props.params.episodio);
   }
 
   render(){

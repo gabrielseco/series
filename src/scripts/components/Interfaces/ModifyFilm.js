@@ -1,40 +1,47 @@
+// @flow
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
-import {modifyFilm} from '../../actions';
-import _ from 'lodash';
-import {mouseTrap} from 'react-mousetrap';
+import { modifyFilm } from '../../actions';
+import { mouseTrap } from 'react-mousetrap';
 import utils from 'styles/_utils.scss';
+import type { Film } from './../../types/App';
+import type { BindShortcutProps, DispatchProps, HistoryProps, RouterParamsProps } from './../../types';
 
-let fieldValues = {
-  nombre: null,
-  youtube: null,
-  description: null,
-  airdate: null,
-  imagen: null,
-  id: null
-};
+type DefaultProps = {
+  data: ?Film
+}
 
-const float = {
-        float: 'right'
-};
+type Props = BindShortcutProps & DispatchProps & HistoryProps & RouterParamsProps;
 
-class ModifyFilm extends React.Component {
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
-  };
+type State = {
+  data: Film
+}
+
+class ModifyFilm extends React.Component<DefaultProps, Props, State> {
+  state: State
+  
+  static defaultProps = {
+    data: undefined
+  }
+  
   constructor(props) {
     super(props);
-    this.state = {inputName: '', data: ''};
+    this.state = {
+      data: {
+        color: this.props.data.color,
+        imagen: this.props.data.imagen,
+        nombre: this.props.data.nombre,        
+        overview: this.props.data.overview
+      }
+    };
   }
 
   componentWillMount(){
-
     this.props.bindShortcut('esc', (e) => {
       e.preventDefault();
-      this.context.router.goBack();
+      this.props.history.goBack();
     });
-
   }
 
   handleForm(e){
@@ -42,10 +49,10 @@ class ModifyFilm extends React.Component {
 
     const obj = {
       id: this.props.params.id,
-      nombre: this.refs.name.value,
-      overview: this.refs.overview.value,
-      imagen: this.refs.imagen.value,
-      color: this.refs.color.value
+      nombre: this.state.data.nombre,
+      overview: this.state.data.overview,
+      imagen: this.state.data.imagen,
+      color: this.state.data.color
     };
 
     const { dispatch } = this.props;
@@ -53,29 +60,34 @@ class ModifyFilm extends React.Component {
     dispatch(modifyFilm(obj, res => {
       this.props.history.goBack();
     }));
-
-
-
   }
 
-  changeColor(value){
-    this.refs.color.value = value.target.firstChild.data.slice(1);
+  onChange(evt){
+    const { name, value } = evt.target;
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        data: {
+          ...prevState.data,
+          [name]: value
+        }
+      };
+    });
   }
 
   render() {
-    if(this.props.data !== ''){
+    if(this.state.data !== undefined){
     return(
       <div>
       <DocumentTitle title="Modify Film"/>
-        <img className={utils.pull__left} src={this.props.data.imagen} width="230" height="345"/>
+        <img className={utils.pull__left} src={this.state.data.imagen} width="230" height="345"/>
         <form onSubmit={this.handleForm.bind(this)} id="addFilm" role="form">
-                  <label className="is-required">Nombre</label>
-                  <input ref="name" className={this.state.inputName} defaultValue={this.props.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
-                  <textarea ref="overview" className={this.state.inputName} defaultValue={this.props.data.overview}  name="overview" placeholder="Descripcion" autoComplete="off"></textarea>
-                  <input ref="imagen" className={this.state.inputName} defaultValue={this.props.data.imagen} type="text" name="imagen" required placeholder="Imagen" autoComplete="off"></input>
-                  <input ref="color" className={this.state.inputName} defaultValue={this.props.data.color} type="text" name="color" placeholder="Color" autoComplete="off"></input>
-
-                  <input type="submit" value="Enviar"></input>
+          <label className="is-required">Nombre</label>
+          <input value={this.state.data.nombre} type="text" name="nombre" required placeholder="Nombre" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+          <textarea value={this.state.data.overview} name="overview" placeholder="Descripcion" autoComplete="off" onChange={(evt) => this.onChange(evt)}></textarea>
+          <input value={this.state.data.imagen} type="text" name="imagen" required placeholder="Imagen" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+          <input value={this.state.data.color} type="text" name="color" placeholder="Color" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+          <input type="submit" value="Enviar"></input>
           </form>
         </div>
     );
@@ -86,8 +98,10 @@ class ModifyFilm extends React.Component {
 }
 
 function mapStateToProps(state, props) {
+  const films = state.films;
+  const id = parseInt(props.params.id, 10);
   return {
-    data: _.find(state.films, {id: Number(props.params.id)})
+    data: films.find(film => film.id === id)
   };
 }
 

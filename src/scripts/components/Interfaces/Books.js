@@ -14,14 +14,11 @@ import searchStyles from 'styles/_search.scss';
 import modalStyles from 'styles/_modals.scss';
 import classNames from 'classnames';
 
-
-
 const modalStyle = {
   content : {
     height: '20%'
   }
 };
-
 
 class Books extends React.Component {
 
@@ -39,37 +36,12 @@ class Books extends React.Component {
 
   }
 
-  syncData(){
-    axios.get('http://192.168.1.130:5412/web/libros').then(res => {
-      res = res.data;
-      res.map((value, i) => {
-          const data = {
-            id: value.ID,
-            airdate:value.FechaPublicacion,
-            overview: value.Descripcion,
-            youtube:value.Youtube,
-            nombre: value.Nombre,
-            imagen: value.Foto
-          };
-          add('books', data, response => {
-          });
-          setTimeout(() =>{location.reload();},2500);
-
-      });
-
-
-    });
-
-
-  }
-
   addBook(){
-    this.context.router.push('/addBook');
-
+    this.props.history.push('/addBook');
   }
 
   modifyBook(data){
-    this.context.router.push('/modifyBook/'+data.id);
+    this.props.history.push('/modifyBook/'+data.id);
   }
 
   remove(){
@@ -82,7 +54,7 @@ class Books extends React.Component {
   }
 
   diccionarios(id){
-    this.context.router.push('/diccionarios_libros/'+id);
+    this.props.history.push('/diccionarios_libros/'+id);
 
   }
   searchUpdated(term) {
@@ -95,7 +67,6 @@ class Books extends React.Component {
   closeModal() {
     this.setState({modalIsOpen: false, book:''});
   }
-
 
   renderModal(){
 
@@ -199,9 +170,5 @@ class Books extends React.Component {
  }
 
 }
-
-Books.contextTypes =  {
-  router: React.PropTypes.object.isRequired
-};
 
 export default connect()(Books);
