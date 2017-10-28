@@ -7,9 +7,6 @@ import {mouseTrap} from 'react-mousetrap';
 import Loading from '../UI/Loading';
 import styles from 'styles/_utils.scss';
 
-
-
-
 let fieldValues = {
   idPelicula: '',
   idSerie: '',
@@ -35,7 +32,6 @@ class AddWords extends React.Component {
   componentWillMount(){
     let idPelicula = +this.props.params.pelicula;
     let idSerie = +this.props.params.serie;
-    let idEpisodio = +this.props.params.episodio;
     let idLibro = +this.props.params.libro;
     this.props.bindShortcut(['ctrl+e','command+e'], (e) => {
       e.preventDefault();

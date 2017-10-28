@@ -45,8 +45,7 @@ class D3 extends React.Component {
     this.setState({
       year: e.target.value
     });
-    console.log('e.target',e.target.value)
-    this.getStats(e.target.value)
+    this.getStats(e.target.value);
   }
 
 

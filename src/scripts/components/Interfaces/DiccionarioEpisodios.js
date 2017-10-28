@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import UITable from '../UI/Table';
 import BreadCrumb from '../UI/BreadCrumb';
 import Loading from '../UI/Loading';
-import find from 'lodash/find';
 import {mouseTrap} from 'react-mousetrap';
 import tableStyles from 'styles/_reactabular.scss';
 import utils from 'styles/_utils.scss';
@@ -200,9 +199,11 @@ class DiccionarioEpisodios extends React.Component {
 
 }
 function mapStateToProps(state, props) {
+  const idSerie = parseInt(props.params.idSerie);
+  const { series } = state.TV;
   return {
     words: state.words,
-    serie: find(state.TV, {id: Number(props.params.idSerie)}),
+    serie: series.find(serie => serie.id === idSerie),
     episodes: state.episodes
   };
 }

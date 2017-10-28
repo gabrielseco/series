@@ -1,23 +1,47 @@
+// @flow
 import React from 'react';
 import { add } from '../../lib/sails';
 import shared from '../../api/shared';
 
+type State = {
+  english: string;
+  spanish: string;
+}
 
-class FormWords extends React.Component {
-  constructor(props){
+type Props = {
+  fieldValues: {
+    idPelicula: number,
+    idSerie: number,
+    idLibro: number,
+    idEpisodio: number,
+  },
+  finalizar: Function
+}
+
+
+class FormWords extends React.Component<void, Props, State> {
+  state: State;
+  englishInput: HTMLInputElement;
+  EMPTY_STRING: string = '';
+  
+  constructor(props: Props){
     super(props);
+    this.state = {
+      english: '',
+      spanish: ''
+    };
   }
 
   componentDidMount(){
-    this.refs.english.focus();
+    this.englishInput.focus();
   }
 
-  checkObject(data){
+  checkObject(data: any){
 
     let obj = {};
 
     Object.keys(data).map((value) => {
-      if(data [value] === ""){
+      if(data[value] === this.EMPTY_STRING){
         delete data[value];
       }
     });
@@ -26,20 +50,19 @@ class FormWords extends React.Component {
 
   }
 
-  fixGrammar(value){
+  fixGrammar(value: string){
     value = value.trim();
     value = value.charAt(0).toUpperCase() + value.slice(1);
 
     return value;
   }
 
-  handleForm(e){
-    e.preventDefault();
+  handleForm(evt: any){
+    evt.preventDefault();
 
     let data = {
-
-      english: this.fixGrammar(this.refs.english.value),
-      spanish: this.fixGrammar(this.refs.spanish.value),
+      english: this.fixGrammar(this.state.english),
+      spanish: this.fixGrammar(this.state.spanish),
       peliculas: this.props.fieldValues.idPelicula,
       series: this.props.fieldValues.idSerie,
       episodios: this.props.fieldValues.idEpisodio,
@@ -78,19 +101,31 @@ class FormWords extends React.Component {
       }
     });
 
+    this.setState({
+      english: '',
+      spanish: ''
+    });
+    
+    this.englishInput.focus();
+  }
 
-    this.refs.english.value = '';
-    this.refs.spanish.value = '';
-    this.refs.english.focus();
+  onChange(evt: any) {
+    const { name, value } = evt.target;
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        [name]: value
+      };
+    });
   }
 
   render() {
     return (
-      <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
-              <input ref="english" type="text" name="english" required placeholder="English" autoComplete="off"></input>
-              <input ref="spanish" type="text" name="spanish" required placeholder="Español" autoComplete="off"></input>
-              <input type="submit" value="Siguiente"></input>
-              <input type="button" value="Finalizar" onClick={this.props.finalizar.bind(this)}></input>
+      <form onSubmit={this.handleForm.bind(this)} id="addFilm" role="form">
+        <input ref={input => this.englishInput = input} type="text" value={this.state.english} name="english" required placeholder="English" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+        <input type="text" value={this.state.spanish} name="spanish" required placeholder="Español" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+        <input type="submit" value="Siguiente"></input>
+        <input type="button" value="Finalizar" onClick={this.props.finalizar.bind(this)}></input>
       </form>
     );
   }
