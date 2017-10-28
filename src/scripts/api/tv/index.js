@@ -1,24 +1,24 @@
+// @flow
 /**
  * Mocking client-server processing
  */
 import { get, add, getOne, update, deleteData } from '../../lib/sails';
 import { _apiendpoint, _api_key, _image_path } from '../shared';
 import axios from 'axios';
-
-
+import type { AddTVState } from './../../components/Interfaces/AddTV';
 
 const TIMEOUT = 100;
 
 export default {
-  async getDataTV(obj){
+  async getDataTV(obj: AddTVState){
 
       let nombre       = obj.nombre.trim(),
-          temporada  = obj.temporada.trim(),
-          imagen     = _image_path,
-          year       = null,
-          idSerie  = null,
-          idSeason = null,
-          overview   = null;
+          temporada    = obj.temporada.trim(),
+          imagen       = _image_path,
+          year         = null,
+          idSerie      = null,
+          idSeason     = null,
+          overview     = null;
 
       let response = await axios.get(_apiendpoint + 'search/tv?api_key='+ _api_key +'&query='+ nombre);
           response = response.data;
@@ -58,7 +58,7 @@ export default {
       }
 
   },
-  addTV(obj, cb, timeout){
+  addTV(obj: AddTVState, cb: Function, timeout: number) {
     this.getDataTV(obj).then(data => {
       add('series', data).then(res => {
         setTimeout(() => cb(res), timeout || TIMEOUT);
