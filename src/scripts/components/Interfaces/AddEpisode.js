@@ -19,9 +19,6 @@ export type FormAddEpisode = {
 
 class AddEpisode extends React.Component<void, Props, State> {
   state: State
-  static contextTypes = {
-    store: React.PropTypes.object
-  };
 
   constructor(props, context) {
     super(props);
