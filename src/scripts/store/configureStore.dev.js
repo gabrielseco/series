@@ -6,17 +6,13 @@ import persistState from 'redux-localstorage';
 
 export default function configureStore(initialState) {
   const middleware = [ thunk, logger() ];
+  const createPersistentStore = compose(
+    applyMiddleware(...middleware),
+    persistState(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )(createStore);
 
-
-
-const createPersistentStore = compose(
-  applyMiddleware(...middleware),
-  persistState(),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)(createStore);
-
-const store = createPersistentStore(combinedReducer, initialState);
-
+  const store = createPersistentStore(combinedReducer, initialState);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
