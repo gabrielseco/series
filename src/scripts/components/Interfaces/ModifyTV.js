@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import { modifyTV } from '../../actions';
@@ -5,19 +6,54 @@ import { mouseTrap } from 'react-mousetrap';
 import find from 'lodash/find';
 import utils from 'styles/_utils.scss';
 
-const float = {
-  float: 'right'
+type TV = {
+  nombre: string,
+  overview: string,
+  imagen: string,
+  temporada: ?number,
+  color: string
 };
 
-class ModifyTV extends React.Component {
+type State = {
+  data: TV
+};
+
+type Props = {
+  data: TV,
+  bindShortcut: any,
+  params: any,
+  dispatch: any,
+  history: any
+};
+
+type DefaultProps = {
+  data: ?TV
+}
+
+
+class ModifyTV extends React.Component<DefaultProps, Props, State> {
 
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
 
+  static defaultProps = {
+    data: undefined
+  }
+
+  state: State;
+
   constructor(props) {
     super(props);
-    this.state = {inputName: '', data: ''};
+    this.state = {
+      data: {
+        nombre: this.props.data.nombre,
+        color: this.props.data.color,
+        imagen: this.props.data.imagen,
+        overview: this.props.data.overview,
+        temporada: this.props.data.temporada
+      }
+    };
   }
 
   componentWillMount(){
@@ -27,17 +63,16 @@ class ModifyTV extends React.Component {
     });
   }
 
-
   handleForm(e){
     e.preventDefault();
 
     const obj = {
       id: this.props.params.id,
-      nombre: this.refs.name.value,
-      overview: this.refs.overview.value,
-      imagen: this.refs.imagen.value,
-      temporada: this.refs.temporada.value,
-      color: this.refs.color.value
+      nombre: this.state.data.nombre,
+      overview: this.state.data.overview,
+      imagen: this.state.data.imagen,
+      temporada: this.state.data.temporada,
+      color: this.state.data.color
     };
 
     const { dispatch } = this.props;
@@ -47,24 +82,33 @@ class ModifyTV extends React.Component {
     }));
   }
 
-  changeColor(value){
-    this.refs.color.value = value.target.firstChild.data.slice(1);
+  onChange(evt): void {
+    const name: string = evt.target.name;
+    const value: any = evt.target.value;
+    
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        data: {
+          ...prevState.data,
+          [name]: value
+        }
+      };
+    });
   }
 
   render() {
-    if(this.props.data !== ''){
+    if(this.state.data !== undefined){
     return(
       <div>
-        <img className={utils.pull__left} src={this.props.data.imagen} width="230" height="345"/>
+        <img className={utils.pull__left} src={this.state.data.imagen} width="230" height="345"/>
           <form onSubmit={this.handleForm.bind(this)} id="addFilm" method="post" role="form">
-                  <label className="is-required">Nombre</label>
-                  <input ref="name" className={this.state.inputName} defaultValue={this.props.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
-                  <input ref="temporada" className={this.state.inputName} defaultValue={this.props.data.temporada} type="text" name="temporada" required placeholder="Temporada" autoComplete="off"></input>
-                  <textarea ref="overview" className={this.state.inputName} defaultValue={this.props.data.overview}  name="overview" placeholder="Descripcion" autoComplete="off"></textarea>
-                  <input ref="imagen" className={this.state.inputName} defaultValue={this.props.data.imagen} type="text" name="ref" required placeholder="Imagen" autoComplete="off"></input>
-                  <input ref="color" className={this.state.inputName} defaultValue={this.props.data.color} type="text" name="color" placeholder="Color" autoComplete="off"></input>
-
-                  <input type="submit" value="Enviar"></input>
+            <input value={this.state.data.nombre} type="text" name="nombre" required placeholder="Nombre" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+            <input value={this.state.data.temporada} type="text" name="temporada" required placeholder="Temporada" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+            <textarea value={this.state.data.overview}  name="overview" placeholder="Descripcion" autoComplete="off" onChange={(evt) => this.onChange(evt)}></textarea>
+            <input value={this.state.data.imagen} type="text" name="imagen" required placeholder="Imagen" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+            <input value={this.state.data.color} type="text" name="color" placeholder="Color" autoComplete="off" onChange={(evt) => this.onChange(evt)}></input>
+            <input type="submit" value="Enviar"></input>
           </form>
         </div>
     );
@@ -75,11 +119,9 @@ class ModifyTV extends React.Component {
 }
 
 function mapStateToProps(state, props) {
-
-    return {
-      data: find(state.TV, {id: Number(props.params.id)})
+  return {
+    data: find(state.TV, {id: Number(props.params.id)})
   };
 }
-
 
 export default connect(mapStateToProps)(mouseTrap(ModifyTV));
