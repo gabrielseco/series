@@ -1,11 +1,16 @@
-'use strict';
-
-import React, { PropTypes } from 'react';
-import {Link} from 'react-router';
-const classNames = require('classnames');
+// @flow
+import React from 'react';
+import { Link } from 'react-router';
+import classNames from 'classnames';
 import styles from 'styles/_header.scss';
 
-const ItemNav = ( { URL, children, disable }) => {
+type Props = {
+  children: string,
+  disable: boolean,
+  URL: string,
+}
+
+const ItemNav = ( { URL, children, disable }: Props) => {
 
   const hidden = classNames({
     [styles.hidden]: disable
@@ -18,11 +23,6 @@ const ItemNav = ( { URL, children, disable }) => {
             to={URL} > {children} </Link>
     </li>
   );
-};
-
-ItemNav.propTypes = {
-  URL: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired
 };
 
 export default ItemNav;

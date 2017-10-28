@@ -2,13 +2,9 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import {modifyFilm} from '../../actions';
-import Colors from '../UI/Colors.js';
 import _ from 'lodash';
 import {mouseTrap} from 'react-mousetrap';
 import utils from 'styles/_utils.scss';
-
-
-
 
 let fieldValues = {
   nombre: null,
@@ -72,10 +68,6 @@ class ModifyFilm extends React.Component {
       <div>
       <DocumentTitle title="Modify Film"/>
         <img className={utils.pull__left} src={this.props.data.imagen} width="230" height="345"/>
-        {/*
-        <div style={float}>
-          <Colors data={this.state.data.imagen} changeColor={this.changeColor.bind(this)}/>
-        </div>*/}
         <form onSubmit={this.handleForm.bind(this)} id="addFilm" role="form">
                   <label className="is-required">Nombre</label>
                   <input ref="name" className={this.state.inputName} defaultValue={this.props.data.nombre} type="text" name="name" required placeholder="Nombre" autoComplete="off"></input>
