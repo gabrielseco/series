@@ -3,17 +3,15 @@ import React from 'react';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'react-redux';
 import {addOneTV} from '../../actions';
+import type { DispatchProps, HistoryProps } from './../../types';
+
 
 export type AddTVState = {
   nombre: string,
   temporada: string
 }
 
-type Props = {
-  history: any,
-  dispatch: any
-}
-
+type Props = DispatchProps & HistoryProps;
 
 class AddTV extends React.Component<void, Props, AddTVState> {
 

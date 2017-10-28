@@ -1,7 +1,7 @@
 import { RECEIVE_TV } from '../constants/ActionTypes';
 
 const initialState = {
-  TV: []
+  series: []
 };
 
 export default function TV (state = initialState, action) {
@@ -9,7 +9,7 @@ export default function TV (state = initialState, action) {
     case RECEIVE_TV:
       return {
         ...state,
-        TV: action.payload
+        series: action.series
       };
     default:
       return state;

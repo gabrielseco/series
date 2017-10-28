@@ -212,6 +212,7 @@ class Episodes extends React.Component {
 
 }
 function mapStateToProps(state, props) {
-  return { serie: find(state.TV, {id: Number(props.params.id)}) };
+  const { series } = state.TV;
+  return { serie: find(series, {id: Number(props.params.id)}) };
 }
 export default connect(mapStateToProps)(mouseTrap(Episodes));

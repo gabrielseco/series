@@ -18,7 +18,7 @@ function receiveFilms(films) {
 function receiveTV(TV) {
   return {
     type: types.RECEIVE_TV,
-    TV: TV
+    series: TV
   };
 }
 

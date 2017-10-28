@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { modifyTV } from '../../actions';
 import { mouseTrap } from 'react-mousetrap';
 import utils from 'styles/_utils.scss';
+import type { BindShortcutProps, DispatchProps, HistoryProps, RouterParamsProps } from './../../types';
+
 
 type TV = {
   id: number,
@@ -18,12 +20,9 @@ type State = {
   data: TV
 };
 
-type Props = {
+type Props = BindShortcutProps & DispatchProps & HistoryProps & RouterParamsProps & {
   data: TV,
   bindShortcut: any,
-  params: any,
-  dispatch: any,
-  history: any
 };
 
 type DefaultProps = {
@@ -121,8 +120,9 @@ class ModifyTV extends React.Component<DefaultProps, Props, State> {
 
 function mapStateToProps(state, props) {
   const id: number = parseInt(props.params.id, 10);
+  const { series } = state.TV;
   return {
-    data: state.TV.find((TV: TV) => TV.id === id )
+    data: series.find((TV: TV) => TV.id === id )
   };
 }
 

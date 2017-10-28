@@ -151,7 +151,7 @@ class DiccionarioEpisodios extends React.Component {
     const composedStyles = classNames({
       [dictionary.dictionaryButton]: true,
       [utils.align__right]:true
-    })
+    });
 
     if(this.state.words === null){
       return <Loading/>;
