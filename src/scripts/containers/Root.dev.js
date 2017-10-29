@@ -8,7 +8,7 @@ type Props = {
   store: any
 }
 
-export default class Root extends Component<void, Props, void> {
+export default class Root extends Component<Props, void> {
   render() {
     const { store } = this.props;
     return (

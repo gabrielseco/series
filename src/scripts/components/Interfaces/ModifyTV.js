@@ -25,12 +25,8 @@ type Props = BindShortcutProps & DispatchProps & HistoryProps & RouterParamsProp
   bindShortcut: any,
 };
 
-type DefaultProps = {
-  data: ?TV
-}
 
-
-class ModifyTV extends React.Component<DefaultProps, Props, State> {
+class ModifyTV extends React.Component<Props, State> {
 
   static defaultProps = {
     data: undefined

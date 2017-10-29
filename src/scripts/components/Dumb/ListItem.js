@@ -16,7 +16,7 @@ type Props = {
   openModal: Function  
 }
 
-export default class ListItem extends React.Component<void, Props, void> {
+export default class ListItem extends React.Component<Props, void> {
     velocity: any
     height: number = 345;
     width: number = 230
@@ -59,3 +59,4 @@ export default class ListItem extends React.Component<void, Props, void> {
       );
     }
 }
+  

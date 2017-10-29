@@ -13,7 +13,7 @@ export type AddTVState = {
 
 type Props = DispatchProps & HistoryProps;
 
-class AddTV extends React.Component<void, Props, AddTVState> {
+class AddTV extends React.Component<Props, AddTVState> {
 
   state: AddTVState;
 

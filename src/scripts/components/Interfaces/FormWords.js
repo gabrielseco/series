@@ -19,9 +19,9 @@ type Props = {
 }
 
 
-class FormWords extends React.Component<void, Props, State> {
+class FormWords extends React.Component<Props, State> {
   state: State;
-  englishInput: HTMLInputElement;
+  englishInput: any;
   EMPTY_STRING: string = '';
   
   constructor(props: Props){

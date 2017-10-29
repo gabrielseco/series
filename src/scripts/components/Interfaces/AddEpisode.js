@@ -17,7 +17,7 @@ export type FormAddEpisode = {
   serie: number
 }
 
-class AddEpisode extends React.Component<void, Props, State> {
+class AddEpisode extends React.Component<Props, State> {
   state: State
 
   constructor(props, context) {

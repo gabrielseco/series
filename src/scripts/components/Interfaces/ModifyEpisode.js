@@ -8,10 +8,6 @@ import classNames from 'classnames';
 
 let fieldValues = {};
 
-const float = {
-    float: 'right'
-};
-
 class ModifyEpisode extends React.Component {
 
   constructor(props) {

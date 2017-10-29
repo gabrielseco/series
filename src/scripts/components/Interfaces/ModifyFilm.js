@@ -8,17 +8,13 @@ import utils from 'styles/_utils.scss';
 import type { Film } from './../../types/App';
 import type { BindShortcutProps, DispatchProps, HistoryProps, RouterParamsProps } from './../../types';
 
-type DefaultProps = {
-  data: ?Film
-}
-
 type Props = BindShortcutProps & DispatchProps & HistoryProps & RouterParamsProps;
 
 type State = {
   data: Film
 }
 
-class ModifyFilm extends React.Component<DefaultProps, Props, State> {
+class ModifyFilm extends React.Component<Props, State> {
   state: State
   
   static defaultProps = {

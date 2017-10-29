@@ -13,7 +13,7 @@ type State = {
 
 type Props = DispatchProps & HistoryProps;
 
-class AddFilm extends React.Component<void, Props, State> {
+class AddFilm extends React.Component<Props, State> {
   state: State;
   constructor(props: Props) {
     super(props);

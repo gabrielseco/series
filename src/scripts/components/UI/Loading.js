@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import styles from 'styles/spinkit/_wave.scss';
 import classNames from 'classnames';
@@ -16,7 +14,7 @@ Array.apply(null, Array(5)).forEach(function(item,index){
   const temp = classNames({
     [styles.sk__rect]:true,
     [styles[key]]:true
-  })
+  });
   rect.push (<div key={index} className={temp}></div>);
 });
 
@@ -24,7 +22,7 @@ Array.apply(null, Array(5)).forEach(function(item,index){
 const UILoading = () => (
         <div className={spinnerWrapper}>
           {rect.map((item, i) => {
-            return item
+            return item;
           })}
         </div>
       );

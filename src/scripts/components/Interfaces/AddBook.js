@@ -9,7 +9,7 @@ type State = Book
 
 type Props = DispatchProps & HistoryProps;
 
-class AddBook extends React.Component<void, Props, State> {
+class AddBook extends React.Component<Props, State> {
   state: State;
 
   constructor(props) {
